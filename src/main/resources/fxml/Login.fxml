@@ -6,28 +6,34 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="com.luisdbb.tarea3AD2024base.controller.LoginController">
+<AnchorPane stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alba.proyecto.controller.LoginController">
    <children>
-      <Rectangle fill="DODGERBLUE" height="250.0" stroke="#ffffff8b" strokeType="INSIDE" width="400.0" />
-      <Label fx:id="lblLogin" layoutX="97.0" layoutY="46.0" text="Login" textFill="WHITE">
+      <Rectangle fill="#dfe7f2" height="250.0" stroke="#ffffff8b" strokeType="INSIDE" width="400.0" />
+      <Label fx:id="lblLogin" layoutX="98.0" layoutY="46.0" prefHeight="30.0" prefWidth="204.0" text="Inicio de Sesión">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
       <TextField fx:id="username" layoutX="98.0" layoutY="92.0" prefHeight="36.0" prefWidth="204.0" promptText="Username" />
       <PasswordField fx:id="password" layoutX="98.0" layoutY="141.0" onAction="#login" prefHeight="36.0" prefWidth="204.0" promptText="Password" />
-      <Button fx:id="btnLogin" layoutX="215.0" layoutY="193.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Sign In" textFill="WHITE">
+      <Button fx:id="btnLogin" layoutX="215.0" layoutY="193.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #59B5D9;" styleClass="btnGreen" text="Sign In" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
          <effect>
             <DropShadow blurType="ONE_PASS_BOX" />
          </effect></Button>
+      <ImageView fitHeight="95.0" fitWidth="86.0" layoutX="302.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../images/logo_Laboral.png" />
+         </image>
+      </ImageView>
    </children>
    <opaqueInsets>
       <Insets />
