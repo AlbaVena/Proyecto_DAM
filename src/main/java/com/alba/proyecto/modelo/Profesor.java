@@ -1,34 +1,43 @@
 package com.alba.proyecto.modelo;
 
-import java.util.Set;
+import java.io.Serializable;
 
-public class Profesor extends Persona{
-	
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "profesor")
+@PrimaryKeyJoinColumn(name = "id_persona")
+public class Profesor extends Persona implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@OneToOne(mappedBy = "profesor")
 	private Curso curso;
-	private Set<FCT>fctsACargo; //un profesor tiene varias FCTs a cargo, cada FCT solo un profesor
 
 	public Profesor(Long id, String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono, Curso curso, Set<FCT> fctsACargo) {
+			String telefono, Curso curso) {
 		super(id, usuario, contraseña, nombre, apellidos, email, telefono);
 		this.curso = curso;
-		this.fctsACargo = fctsACargo;
+
 	}
-	
-	
+
+	public Profesor(Long id, String usuario, String contraseña, String nombre, String apellidos, String email,
+			String telefono) {
+		super(id, usuario, contraseña, nombre, apellidos, email, telefono);
+	}
+
 	public Curso getCurso() {
 		return curso;
 	}
+
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
-	public Set<FCT> getFctsACargo() {
-		return fctsACargo;
-	}
-	public void setFctsACargo(Set<FCT> fctsACargo) {
-		this.fctsACargo = fctsACargo;
-	}
-	
-	
-	
-	
+
 }

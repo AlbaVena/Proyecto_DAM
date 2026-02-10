@@ -1,5 +1,11 @@
 package com.alba.proyecto.modelo;
 
+import java.util.Set;
+
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+
 public class Curso {
 
 	private final String DAW_DIURNO_CODIGO = "IFC303";
@@ -14,11 +20,20 @@ public class Curso {
 	private int ciclo;
 
 	private TipoCurso tipoCurso;
+	
+	@OneToOne
+	@JoinColumn(name = "FK_profesor", unique = true)
+	private Profesor profesor;
+	
+	@OneToMany(mappedBy = "curso")
+	private Set <Estudiante> estudiantes;
 
-	public Curso(int ciclo, TipoCurso tipoCurso) {
+	public Curso(int ciclo, TipoCurso tipoCurso, Profesor profesor, Set <Estudiante> estudiantes) {
 		this.ciclo = ciclo;
 		this.tipoCurso = tipoCurso;
 		this.codigo = calcularCodigo(ciclo, tipoCurso);
+		this.profesor = profesor;
+		this.estudiantes = estudiantes;
 	}
 
 	private String calcularCodigo(int ciclo, TipoCurso tipoCurso) {
@@ -73,4 +88,22 @@ public class Curso {
 		this.tipoCurso = tipoCurso;
 	}
 
+	public Profesor getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
+
+	public Set<Estudiante> getEstudiantes() {
+		return estudiantes;
+	}
+
+	public void setEstudiantes(Set<Estudiante> estudiantes) {
+		this.estudiantes = estudiantes;
+	}
+	
+
+	
 }
