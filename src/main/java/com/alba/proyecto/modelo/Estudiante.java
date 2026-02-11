@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -30,9 +31,9 @@ public class Estudiante extends Persona implements Serializable{
 	@JoinColumn(name = "FK_curso", nullable = false )
 	private Curso curso; //estudiante tiene un curso, un curso tiene N estudiantes
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "FK_fct", nullable = false)//TODO corregir
-	private FCT fct; //estudiamte tiene 1 FCT, fct tiene muchos estudiantes
+	private FCT fct; //estudiamte tiene 1 FCT, 1 FCT solo pertenece a 1 estudiante
 
 	public Estudiante(Long id, String usuario, String contraseña, String nombre, String apellidos, String email,
 			String telefono, String nSS, Curso curso, FCT fct) {
