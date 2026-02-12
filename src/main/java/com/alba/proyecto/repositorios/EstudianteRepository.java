@@ -7,5 +7,6 @@ import com.alba.proyecto.modelo.Estudiante;
 
 @Repository
 public interface EstudianteRepository extends JpaRepository<Estudiante, Long>{
-
+	
+	Estudiante findByNSS(String nss);
 }

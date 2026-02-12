@@ -39,7 +39,7 @@ public class Persona implements Serializable{
 	@Column(name = "nombre", length = 50, nullable = false)
 	protected String nombre;
 	
-	@Column(name = "nombre", length = 50, nullable = false)
+	@Column(name = "apellidos", length = 50, nullable = false)
 	protected String apellidos;
 	
 	@Column(name = "nombre", length = 50, nullable = false)
@@ -67,9 +67,9 @@ public class Persona implements Serializable{
 	}
 
 	// Constructor para ADMIN
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 	public Persona(Long id, String usuario, String contraseña) {
 		super();

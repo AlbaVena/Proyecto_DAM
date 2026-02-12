@@ -40,15 +40,23 @@
 		</dependency>
 		
 		<dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-controls</artifactId>
-    <version>23</version>
-</dependency>
-<dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-fxml</artifactId>
-    <version>23</version>
-</dependency>
+    		<groupId>org.openjfx</groupId>
+    		<artifactId>javafx-controls</artifactId>
+    		<version>23</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.openjfx</groupId>
+    		<artifactId>javafx-fxml</artifactId>
+    		<version>23</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.mindrot</groupId>
+    		<artifactId>jbcrypt</artifactId>
+    		<version>0.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

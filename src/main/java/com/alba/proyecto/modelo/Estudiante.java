@@ -18,7 +18,6 @@ import jakarta.persistence.UniqueConstraint;
 @PrimaryKeyJoinColumn(name = "id_persona")
 public class Estudiante extends Persona implements Serializable{
 	
-	
 	/**
 	 * 
 	 */
