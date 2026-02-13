@@ -20,37 +20,39 @@ import com.alba.proyecto.repositorios.TutorEmpresaRepository;
 
 @Service
 public class UsuarioService {
-	
+
 	@Autowired
 	private AdministradorRepository administradorRepository;
-	
+
 	@Autowired
 	private ProfesorRepository profesorRepository;
-	
+
 	@Autowired
 	private TutorEmpresaRepository tutorEmpresaRepository;
-	
+
 	@Autowired
 	private EstudianteRepository estudianteRepository;
-	
+
 	public void crearEstudiante(String usuario, String contraseña, String nombre, String apellidos, String email,
 			String telefono, Perfil perfil, String nSS, Curso curso, FCT fct) {
-		Estudiante estudiante = new Estudiante(usuario, contraseña, nombre, apellidos, email, telefono, perfil, nSS, curso, fct);
+		Estudiante estudiante = new Estudiante(usuario, contraseña, nombre, apellidos, email, telefono, perfil, nSS,
+				curso, fct);
 		guardarUsuario(estudiante);
 	}
-	
+
 	public void crearProfesor(String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono,Perfil perfil, Curso curso) {
+			String telefono, Perfil perfil, Curso curso) {
 		Profesor profesor = new Profesor(usuario, contraseña, nombre, apellidos, email, telefono, perfil, curso);
 		guardarUsuario(profesor);
 	}
-	
+
 	public void crearTutorEmpresa(String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono,Perfil perfil, Empresa empresa, Set<FCT> fcts) {
-		TutorEmpresa tutor = new TutorEmpresa(usuario, contraseña, nombre, apellidos, email, telefono, perfil, empresa, fcts);
+			String telefono, Perfil perfil, Empresa empresa, Set<FCT> fcts) {
+		TutorEmpresa tutor = new TutorEmpresa(usuario, contraseña, nombre, apellidos, email, telefono, perfil, empresa,
+				fcts);
 		guardarUsuario(tutor);
 	}
-	
+
 	private void guardarUsuario(Persona nueva) {
 		if (nueva.getPerfil() == Perfil.PROFESOR) {
 			Profesor profesor = (Profesor) nueva;
@@ -63,9 +65,9 @@ public class UsuarioService {
 			tutorEmpresaRepository.save(tutor);
 		}
 	}
-	
+
 	public void modificarUsuario(Persona nueva) {
-		//TODO de momento igual qeu nuevoUsuario
+		// TODO de momento igual qeu nuevoUsuario
 		if (nueva.getPerfil() == Perfil.PROFESOR) {
 			Profesor profesor = (Profesor) nueva;
 			profesorRepository.save(profesor);
@@ -77,8 +79,5 @@ public class UsuarioService {
 			tutorEmpresaRepository.save(tutor);
 		}
 	}
-	
-	
-	
 
 }

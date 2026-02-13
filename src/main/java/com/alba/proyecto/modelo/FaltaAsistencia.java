@@ -2,8 +2,13 @@ package com.alba.proyecto.modelo;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class FaltaAsistencia {
 	
+	@Id
 	private Long id;
 	
 	private LocalDate fecha;

@@ -14,6 +14,6 @@ public interface TutorEmpresaRepository extends JpaRepository<TutorEmpresa, Long
 	
 	TutorEmpresa findByEmpresa(Empresa empresa);
 	
-	List<FCT> findById();
+
 
 }

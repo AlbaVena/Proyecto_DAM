@@ -118,6 +118,10 @@ public class Curso {
 	public void setEstudiantes(Set<Estudiante> estudiantes) {
 		this.estudiantes = estudiantes;
 	}
+	@Override
+	public String toString() {
+	    return this.ciclo + "º " + this.tipoCurso + " (" + this.codigo + ")";
+	}
 	
 
 	
