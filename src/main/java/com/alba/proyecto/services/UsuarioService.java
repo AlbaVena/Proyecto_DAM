@@ -33,24 +33,27 @@ public class UsuarioService {
 	@Autowired
 	private EstudianteRepository estudianteRepository;
 
-	public void crearEstudiante(String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono, Perfil perfil, String nSS, Curso curso, FCT fct) {
+	public Estudiante crearEstudiante(String usuario, String contraseña, String nombre, String apellidos, String email,
+			String telefono, Perfil perfil, String nSS, Curso curso) {
 		Estudiante estudiante = new Estudiante(usuario, contraseña, nombre, apellidos, email, telefono, perfil, nSS,
-				curso, fct);
+				curso);
 		guardarUsuario(estudiante);
+		return estudiante;
 	}
 
-	public void crearProfesor(String usuario, String contraseña, String nombre, String apellidos, String email,
+	public Profesor crearProfesor(String usuario, String contraseña, String nombre, String apellidos, String email,
 			String telefono, Perfil perfil, Curso curso) {
 		Profesor profesor = new Profesor(usuario, contraseña, nombre, apellidos, email, telefono, perfil, curso);
 		guardarUsuario(profesor);
+		return profesor;
 	}
 
-	public void crearTutorEmpresa(String usuario, String contraseña, String nombre, String apellidos, String email,
+	public TutorEmpresa crearTutorEmpresa(String usuario, String contraseña, String nombre, String apellidos, String email,
 			String telefono, Perfil perfil, Empresa empresa, Set<FCT> fcts) {
 		TutorEmpresa tutor = new TutorEmpresa(usuario, contraseña, nombre, apellidos, email, telefono, perfil, empresa,
 				fcts);
 		guardarUsuario(tutor);
+		return tutor;
 	}
 
 	private void guardarUsuario(Persona nueva) {
