@@ -20,16 +20,16 @@ public class Profesor extends Persona implements Serializable {
 	@OneToOne(mappedBy = "profesor")
 	private Curso curso;
 
-	public Profesor(Long id, String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono, Curso curso) {
-		super(id, usuario, contraseña, nombre, apellidos, email, telefono);
+	public Profesor(String usuario, String contraseña, String nombre, String apellidos, String email,
+			String telefono,Perfil perfil, Curso curso) {
+		super(usuario, contraseña, nombre, apellidos, email, telefono, Perfil.PROFESOR);
 		this.curso = curso;
 
 	}
 
-	public Profesor(Long id, String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono) {
-		super(id, usuario, contraseña, nombre, apellidos, email, telefono);
+	public Profesor(String usuario, String contraseña, String nombre, String apellidos, String email,
+			String telefono, Perfil perfil) {
+		super(usuario, contraseña, nombre, apellidos, email, telefono, Perfil.PROFESOR);
 	}
 
 	public Curso getCurso() {

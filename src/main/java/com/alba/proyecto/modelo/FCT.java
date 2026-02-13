@@ -46,6 +46,8 @@ public class FCT implements Serializable {
 
 	@OneToMany(mappedBy = "fct")
 	private Set<FaltaAsistencia> faltas;
+	
+	//TODO añadir periodo (ENUM- ORDINARIO/EXTRAORDINARIO)
 
 	public FCT(Long id, LocalDate fechaInicio, LocalDate fechaFin, Estudiante estudiante, TutorEmpresa tutor,
 			Set<FaltaAsistencia> faltas) {

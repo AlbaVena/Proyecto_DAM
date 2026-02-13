@@ -26,9 +26,9 @@ public class TutorEmpresa extends Persona{
 	@OneToMany(mappedBy = "tutor")
 	private Set<FCT> fct;
 
-	public TutorEmpresa(Long id, String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono, Empresa empresa, Set<FCT> fcts) {
-		super(id, usuario, contraseña, nombre, apellidos, email, telefono);
+	public TutorEmpresa(String usuario, String contraseña, String nombre, String apellidos, String email,
+			String telefono,Perfil perfil, Empresa empresa, Set<FCT> fcts) {
+		super(usuario, contraseña, nombre, apellidos, email, telefono, Perfil.TUTOREMPRESA);
 		this.empresa = empresa;
 		this.fct = fcts;
 	}

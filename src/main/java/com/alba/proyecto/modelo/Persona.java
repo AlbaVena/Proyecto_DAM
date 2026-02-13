@@ -47,19 +47,22 @@ public class Persona implements Serializable{
 	
 	@Column(name = "telefono", length = 9, nullable = true)
 	protected String telefono;
+	
+	@Column(name = "perfil", nullable = false)
+	protected Perfil perfil;
 
 	
 	
-	public Persona(Long id, String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono) {
+	public Persona(String usuario, String contraseña, String nombre, String apellidos, String email,
+			String telefono, Perfil perfil) {
 		super();
-		this.id = id;
 		this.usuario = usuario;
 		this.contraseña = contraseña;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
 		this.telefono = telefono;
+		this.perfil = perfil;
 	}
 
 	public Persona() {
@@ -71,6 +74,12 @@ public class Persona implements Serializable{
 //		this.id = id;
 //	}
 
+	/**
+	 * Constructor para Admin
+	 * @param id
+	 * @param usuario
+	 * @param contraseña
+	 */
 	public Persona(Long id, String usuario, String contraseña) {
 		super();
 		this.id = id;
@@ -128,6 +137,14 @@ public class Persona implements Serializable{
 
 	public Long getId() {
 		return id;
+	}
+
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 
 	@Override

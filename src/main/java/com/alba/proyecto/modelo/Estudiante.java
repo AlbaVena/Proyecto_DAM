@@ -34,18 +34,18 @@ public class Estudiante extends Persona implements Serializable{
 	@JoinColumn(name = "FK_fct", nullable = false)//TODO corregir
 	private FCT fct; //estudiamte tiene 1 FCT, 1 FCT solo pertenece a 1 estudiante
 
-	public Estudiante(Long id, String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono, String nSS, Curso curso, FCT fct) {
-		super(id, usuario, contraseña, nombre, apellidos, email, telefono);
+	public Estudiante(String usuario, String contraseña, String nombre, String apellidos, String email,
+			String telefono, Perfil perfil, String nSS, Curso curso, FCT fct) {
+		super(usuario, contraseña, nombre, apellidos, email, telefono, perfil);
 		this.nSS = nSS;
 		this.curso = curso;
 		this.fct = fct;
 	}
 	
 
-	public Estudiante(Long id, String usuario, String contraseña, String nombre, String apellidos, String email,
-			String telefono) {
-		super(id, usuario, contraseña, nombre, apellidos, email, telefono);
+	public Estudiante(String usuario, String contraseña, String nombre, String apellidos, String email,
+			String telefono, Perfil perfil) {
+		super(usuario, contraseña, nombre, apellidos, email, telefono, Perfil.ESTUDIANTE);
 	}
 
 
