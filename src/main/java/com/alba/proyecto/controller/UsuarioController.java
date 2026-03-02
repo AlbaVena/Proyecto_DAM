@@ -3,6 +3,7 @@ package com.alba.proyecto.controller;
 import com.alba.proyecto.modelo.Curso;
 import com.alba.proyecto.modelo.Estudiante;
 import com.alba.proyecto.modelo.Perfil;
+import com.alba.proyecto.modelo.TipoCurso;
 import com.alba.proyecto.services.UsuarioService;
 
 import javafx.event.ActionEvent;
@@ -36,6 +37,8 @@ public class UsuarioController {
 	private RadioButton perfil; // se necesita para decidir qué metodo crear o modificar se usará
 
 	private ComboBox<Curso> curso;
+	
+	private ComboBox<TipoCurso> modulo;
 
 	private UsuarioService usuarioService;
 
