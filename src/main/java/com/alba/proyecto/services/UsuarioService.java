@@ -90,10 +90,15 @@ public class UsuarioService {
 	public Persona login(String usuario, String contrasena) {
 		Persona persona = null;
 		
-		Optional<Administrador> admin = administradorRepository.findByUsuario(usuario);
-	    if (admin.isPresent()) {
-	        persona = admin.get();
-	    }
+		try {
+		    Optional<Administrador> admin = administradorRepository.findByUsuario(usuario);
+		    if (admin.isPresent()) {
+		        persona = admin.get();
+		    }
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		System.out.println("Persona después de buscar admin: " + persona);
 	 // buscamos profesor
 	    if (persona == null) {
 	        Optional<Profesor> profesor = profesorRepository.findByUsuario(usuario);
@@ -126,6 +131,8 @@ public class UsuarioService {
 	        return persona;
 	    }
 
+	    System.out.println("Persona final: " + persona);
+	    System.out.println("Verificacion password: " + Validador.verificarPassword(contrasena, persona == null ? "null" : persona.getContraseña()));
 	    return null; // contraseña incorrecta
 	}
 

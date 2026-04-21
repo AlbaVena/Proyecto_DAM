@@ -1,75 +1,85 @@
 package com.alba.proyecto.controller;
 
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
-
-import com.alba.proyecto.config.StageManager;
-import com.alba.proyecto.services.UserService;
-import com.alba.proyecto.view.FxmlView;
-
+import com.alba.proyecto.modelo.Persona;
+import com.alba.proyecto.services.UsuarioService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-/**
- * @author Ram Alapure
- * @since 05-04-2017
- */
+import javafx.stage.Stage;
 
 @Controller
-public class LoginController implements Initializable{
-
-	@FXML
-    private Button btnLogin;
-
-    @FXML
-    private PasswordField password;
+public class LoginController {
 
     @FXML
     private TextField username;
 
     @FXML
-    private Label lblLogin;
-    
+    private PasswordField password;
+
+    @FXML
+    private Button btnLogin;
+
     @Autowired
-    private UserService userService;
-    
-    @Lazy
+    private UsuarioService usuarioService;
+
     @Autowired
-    private StageManager stageManager;
-        
-	@FXML
-    private void login(ActionEvent event) throws IOException{
-    	if(userService.authenticate(getUsername(), getPassword())){
-    		    		
-    		stageManager.switchScene(FxmlView.USER);
-    		
-    	}else{
-    		lblLogin.setText("Login Failed.");
-    	}
+    private ConfigurableApplicationContext context;
+
+    @FXML
+    public void initialize() {
+        btnLogin.setOnAction(this::handleLogin);
     }
-	
-	public String getPassword() {
-		return password.getText();
-	}
 
-	public String getUsername() {
-		return username.getText();
-	}
+    private void handleLogin(ActionEvent event) {
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
-	}
+        String usuario = username.getText();
+        String contrasena = password.getText();
 
+        Persona persona = usuarioService.login(usuario, contrasena);
+
+        if (persona != null) {
+            switch (persona.getPerfil()) {
+                case ADMINISTRADOR:
+                    cargarPantalla("/fxml/MenuAdmin2.fxml");
+                    break;
+                case PROFESOR:
+                    cargarPantalla("/fxml/MenuAdmin2.fxml");
+                    break;
+                case ESTUDIANTE:
+                    cargarPantalla("/fxml/MenuAdmin2.fxml");
+                    break;
+                case TUTOREMPRESA:
+                    cargarPantalla("/fxml/MenuAdmin2.fxml");
+                    break;
+                default:
+                    System.out.println("Perfil no reconocido.");
+            }
+        } else {
+            username.setStyle("-fx-border-color: red;");
+            password.setStyle("-fx-border-color: red;");
+        }
+    }
+
+    private void cargarPantalla(String rutaFxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFxml));
+            loader.setControllerFactory(context::getBean);
+            Parent root = loader.load();
+            Stage stage = (Stage) username.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al cargar la vista: " + rutaFxml);
+        }
+    }
 }

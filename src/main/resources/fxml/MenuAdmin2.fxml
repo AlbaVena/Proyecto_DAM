@@ -73,9 +73,9 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="190.0" spacing="5.0">
                      <children>
-                        <Button fx:id="btnCrearEmpresaLateral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="187.0" text="Nueva Empresa asociada" />
-                        <Button fx:id="btnModificarEmpresaLateral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="192.0" text="Modificar datos de Empresa" />
-                        <Button fx:id="btnConsultarEmpresaLateral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="195.0" text="Consultar Empresa" />
+                        <Button fx:id="btnCrearEmpresaLateral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirCrearEmpresa" prefHeight="26.0" prefWidth="187.0" text="Nueva Empresa asociada" />
+                        <Button fx:id="btnModificarEmpresaLateral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirModificarEmpresa" prefHeight="26.0" prefWidth="192.0" text="Modificar datos de Empresa" />
+                        <Button fx:id="btnConsultarEmpresaLateral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirConsultarEmpresa" prefHeight="26.0" prefWidth="195.0" text="Consultar Empresa" />
                      </children>
                   </VBox>
                </content>
@@ -96,7 +96,7 @@
    <center>
       <StackPane fx:id="stackPaneCentral" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="panelCrearEmpresa" prefHeight="200.0" prefWidth="100.0" visible="false">
+            <VBox fx:id="panelCrearEmpresa" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="714.0" text="Nueva Empresa" textAlignment="CENTER">
                      <font>
@@ -123,12 +123,12 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnGuardarEmpresa" mnemonicParsing="false" text="Guardar" />
+                        <Button fx:id="btnGuardarEmpresa" mnemonicParsing="false" onAction="#guardarEmpresa" text="Guardar" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="panelTablaEmpresas" prefHeight="200.0" prefWidth="100.0">
+            <VBox fx:id="panelTablaEmpresas" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
                <children>
                   <Label alignment="CENTER" prefHeight="18.0" prefWidth="779.0" text="Empresas">
                      <font>
@@ -152,7 +152,7 @@
                       <TableColumn fx:id="colNombreEmpresa" prefWidth="75.0" text="Nombre" />
                       <TableColumn fx:id="colTelefonoEmpresa" prefWidth="75.0" text="Telefono" />
                         <TableColumn fx:id="colDireccionEmpresa" prefWidth="75.0" text="Dirección" />
-                        <TableColumn prefWidth="75.0" text="Column X" />
+                        <TableColumn fx:id="colInfoEmpresa" prefWidth="75.0" text="Column X" />
                     </columns>
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" />
@@ -160,7 +160,71 @@
                   </TableView>
                </children>
             </VBox>
-            <VBox fx:id="panelFormModificar" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="panelFormModificar" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <Label fx:id="lblTituloEmpresa" alignment="CENTER" prefHeight="18.0" prefWidth="714.0" text="Empresa">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="TOP_CENTER" prefHeight="101.0" prefWidth="710.0" spacing="30.0">
+                     <children>
+                        <Label text="Nombre" />
+                        <TextField fx:id="tfFormNombreEmpresa" editable="false" prefWidth="250.0" />
+                        <Button fx:id="btnEditarNombreEmpresa" contentDisplay="CENTER" mnemonicParsing="false">
+                        	 <graphic>
+       							 <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+            						<image>
+              						  <Image url="@../images/icono_editar.png" />
+           							</image>
+        						</ImageView>
+    						</graphic>
+                        </Button>
+                        
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="50.0" prefHeight="110.0" prefWidth="710.0" spacing="30.0">
+                     <children>
+                        <Label text="Dirección" />
+                        <TextField fx:id="tfFormDireccionEmpresa" editable="false" prefWidth="250.0" />
+                        <Button fx:id="btnEditarDireccionEmpresa" contentDisplay="CENTER" mnemonicParsing="false">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icono_editar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="150.0" prefHeight="122.0" prefWidth="710.0" spacing="30.0">
+                     <children>
+                        <Label text="Teléfono" />
+                        <TextField fx:id="tfFormTelefonoEmpresa" editable="false" prefWidth="250.0" />
+                        <Button fx:id="btnEditarTelefonoEmpresa" contentDisplay="CENTER" mnemonicParsing="false">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icono_editar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="117.0" prefWidth="710.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="btnVolverTablaEmpresa" mnemonicParsing="false" prefWidth="80.0" text="Volver" />
+                        <Button fx:id="btnCancelarFormEmpresa" mnemonicParsing="false" prefWidth="80.0" text="Cancelar" />
+                        <Button fx:id="btnGuardarFormEmpresa" mnemonicParsing="false" onAction="#guardarFormEmpresa" prefWidth="80.0" text="Guardar" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </StackPane>
    </center>
