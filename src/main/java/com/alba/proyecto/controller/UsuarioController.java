@@ -1,11 +1,14 @@
 package com.alba.proyecto.controller;
 
+import org.springframework.stereotype.Controller;
+
 import com.alba.proyecto.modelo.Curso;
 import com.alba.proyecto.modelo.Perfil;
 import com.alba.proyecto.modelo.TipoCurso;
 import com.alba.proyecto.services.UsuarioService;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
@@ -15,32 +18,36 @@ import javafx.scene.control.Alert.AlertType;
 import utils.Transformador;
 import utils.Validador;
 
+@Controller
 public class UsuarioController {
 
 	// TODO HAY QUE AÑADIR ANOTACIONES
 
+	@FXML
 	private TextField nombre;
 
-	private TextField apellidos;
+	@FXML private TextField apellidos;
 
-	private TextField nombreUsuario;
+	@FXML private TextField nombreUsuario;
 
-	private PasswordField password;
+	@FXML private PasswordField password;
 
-	private TextField email;
+	@FXML private TextField email;
 
-	private TextField telefono;
+	@FXML private TextField telefono;
 
-	private TextField nss;
+	@FXML private TextField nss;
 
-	private RadioButton perfil; // se necesita para decidir qué metodo crear o modificar se usará
+	@FXML private RadioButton perfil; // se necesita para decidir qué metodo crear o modificar se usará
 
-	private ComboBox<Curso> curso;
+	@FXML private ComboBox<Curso> curso;
 	
-	private ComboBox<TipoCurso> modulo;
+	@FXML private ComboBox<TipoCurso> modulo;
 
-	private UsuarioService usuarioService;
+	@FXML private UsuarioService usuarioService;
+	
 
+	@FXML 
 	public void nuevoEstudiante(ActionEvent event) {
 
 		Alert alert = new Alert(AlertType.ERROR);
@@ -123,6 +130,7 @@ public class UsuarioController {
 
 	}
 
+	@FXML 
 	public void nuevoProfesor(ActionEvent event) {
 
 		Alert alert = new Alert(AlertType.ERROR);

@@ -20,25 +20,25 @@ import javafx.scene.layout.VBox;
 @Controller
 public class MenuAdminController {
 
-    // --- Paneles del StackPane ---
+    //StackPane  
     @FXML private VBox panelCrearEmpresa;
     @FXML private VBox panelTablaEmpresas;
     @FXML private VBox panelFormModificar;
 
-    // --- Panel Crear Empresa ---
+    //Panel Crear Empresa  
     @FXML private TextField tfNombreEmpresa;
     @FXML private TextField tfDireccionEmpresa;
     @FXML private TextField tfTelefonoEmpresa;
     @FXML private Button btnGuardarEmpresa;
 
-    // --- Panel Tabla ---
+    // Panel Tabla  
     @FXML private TextField tfBuscarEmpresa;
     @FXML private TableView<Empresa> tablaEmpresas;
     @FXML private TableColumn<Empresa, String> colNombreEmpresa;
     @FXML private TableColumn<Empresa, String> colDireccionEmpresa;
     @FXML private TableColumn<Empresa, String> colTelefonoEmpresa;
 
-    // --- Panel Form Modificar ---
+    // Panel Form Modificar  
     @FXML private Label lblTituloEmpresa;
     @FXML private TextField tfFormNombreEmpresa;
     @FXML private TextField tfFormDireccionEmpresa;
@@ -50,7 +50,7 @@ public class MenuAdminController {
     @FXML private Button btnCancelarFormEmpresa;
     @FXML private Button btnVolverTablaEmpresa;
 
-    // --- Botones laterales ---
+    //Botones menus laterales  
     @FXML private Button btnCrearEmpresaLateral;
     @FXML private Button btnModificarEmpresaLateral;
     @FXML private Button btnConsultarEmpresaLateral;
@@ -58,13 +58,13 @@ public class MenuAdminController {
     @Autowired
     private EmpresaService empresaService;
 
-    // Lista observable para la tabla
+    // lista para la tabla de empresas
     private ObservableList<Empresa> listaEmpresas = FXCollections.observableArrayList();
 
-    // Empresa seleccionada en la tabla para modificar
+    //para modificar
     private Empresa empresaSeleccionada;
 
-    // Modo actual: "modificar" o "consultar"
+    //"modificar" o "consultar"
     private String modoTabla = "";
 
     @FXML
@@ -76,7 +76,6 @@ public class MenuAdminController {
         ocultarTodo();
     }
 
-    // --- Ocultar todos los paneles ---
     private void ocultarTodo() {
         panelCrearEmpresa.setVisible(false);
         panelCrearEmpresa.setManaged(false);
@@ -86,14 +85,14 @@ public class MenuAdminController {
         panelFormModificar.setManaged(false);
     }
 
-    // --- Mostrar un panel ---
+    //Mostrar un panel  
     private void mostrarPanel(VBox panel) {
         ocultarTodo();
         panel.setVisible(true);
         panel.setManaged(true);
     }
 
-    // --- Botones laterales ---
+    // Botones laterales  
     @FXML
     private void abrirCrearEmpresa() {
         limpiarFormCrear();
@@ -116,14 +115,14 @@ public class MenuAdminController {
         mostrarPanel(panelTablaEmpresas);
     }
 
-    // --- Configurar columnas de la tabla ---
+    //   Configurar columnas de la tabla  de empresa
     private void configurarColumnas() {
         colNombreEmpresa.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colDireccionEmpresa.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         colTelefonoEmpresa.setCellValueFactory(new PropertyValueFactory<>("telefono"));
     }
 
-    // --- Cargar datos en la tabla ---
+    //   Cargar datos en la tabla -- primero se limpia todo y luego se añade cadau na
     private void cargarTabla() {
         List<Empresa> empresas = empresaService.findAll();
         listaEmpresas.clear();
@@ -133,7 +132,7 @@ public class MenuAdminController {
         tablaEmpresas.setItems(listaEmpresas);
     }
 
-    // --- Buscador en tiempo real ---
+    //   Buscador en tiempo real  con el textfield
     private void configurarBuscador() {
         tfBuscarEmpresa.setOnKeyReleased(event -> {
             String filtro = tfBuscarEmpresa.getText().toLowerCase();
@@ -154,7 +153,7 @@ public class MenuAdminController {
         });
     }
 
-    // --- Doble click en tabla ---
+    //   Doble click en tabla  para cargar
     private void configurarDobleClick() {
         tablaEmpresas.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
@@ -168,15 +167,16 @@ public class MenuAdminController {
         });
     }
 
-    // --- Rellenar formulario con datos de la empresa seleccionada ---
+    //   Rellenar formulario con datos de la empresa seleccionada  
     private void rellenarFormModificar() {
         tfFormNombreEmpresa.setText(empresaSeleccionada.getNombre());
         tfFormDireccionEmpresa.setText(empresaSeleccionada.getDireccion());
         tfFormTelefonoEmpresa.setText(empresaSeleccionada.getTelefono());
     }
 
-    // --- Configurar el formulario según el modo ---
+    //Configurar el formulario dependiendo de donde viene  
     private void configurarModoForm() {
+    	//si viene de modificar, carga el form editable
         if (modoTabla.equals("modificar")) {
             btnEditarNombreEmpresa.setVisible(true);
             btnEditarDireccionEmpresa.setVisible(true);
@@ -193,7 +193,8 @@ public class MenuAdminController {
         }
     }
 
-    // --- Botones editar campo ---
+    //botones para editar campo  se ponen visibles en modo Editar nada mas
+    
     private void configurarBotonesEditar() {
         btnEditarNombreEmpresa.setOnAction(event -> {
             tfFormNombreEmpresa.setEditable(true);
@@ -209,7 +210,7 @@ public class MenuAdminController {
         });
     }
 
-    // --- Guardar empresa nueva ---
+    //Guardar empresa nueva  
     @FXML
     private void guardarEmpresa() {
         String nombre = tfNombreEmpresa.getText();
@@ -235,7 +236,7 @@ public class MenuAdminController {
         cargarTabla();
     }
 
-    // --- Guardar modificación ---
+    //Guardar modificación  
     @FXML
     private void guardarFormEmpresa() {
         empresaSeleccionada.setNombre(tfFormNombreEmpresa.getText());
@@ -253,7 +254,7 @@ public class MenuAdminController {
         mostrarPanel(panelTablaEmpresas);
     }
 
-    // --- Cancelar modificación ---
+    //Cancelar modificación  
     @FXML
     private void cancelarFormEmpresa() {
         tfFormNombreEmpresa.setEditable(false);
@@ -262,13 +263,13 @@ public class MenuAdminController {
         rellenarFormModificar();
     }
 
-    // --- Volver a la tabla ---
+    // Volver a la tabla  
     @FXML
     private void volverTablaEmpresa() {
         mostrarPanel(panelTablaEmpresas);
     }
 
-    // --- Limpiar formulario crear ---
+    //Limpiar formulario crear  
     private void limpiarFormCrear() {
         tfNombreEmpresa.clear();
         tfDireccionEmpresa.clear();
