@@ -1,10 +1,12 @@
 package com.alba.proyecto.services;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alba.proyecto.modelo.Administrador;
 import com.alba.proyecto.modelo.Curso;
 import com.alba.proyecto.modelo.Empresa;
 import com.alba.proyecto.modelo.Estudiante;
@@ -17,6 +19,8 @@ import com.alba.proyecto.repositorios.AdministradorRepository;
 import com.alba.proyecto.repositorios.EstudianteRepository;
 import com.alba.proyecto.repositorios.ProfesorRepository;
 import com.alba.proyecto.repositorios.TutorEmpresaRepository;
+
+import utils.Validador;
 
 @Service
 public class UsuarioService {
@@ -81,6 +85,48 @@ public class UsuarioService {
 			TutorEmpresa tutor = (TutorEmpresa) nueva;
 			tutorEmpresaRepository.save(tutor);
 		}
+	}
+	
+	public Persona login(String usuario, String contrasena) {
+		Persona persona = null;
+		
+		Optional<Administrador> admin = administradorRepository.findByUsuario(usuario);
+	    if (admin.isPresent()) {
+	        persona = admin.get();
+	    }
+	 // buscamos profesor
+	    if (persona == null) {
+	        Optional<Profesor> profesor = profesorRepository.findByUsuario(usuario);
+	        if (profesor.isPresent()) {
+	            persona = profesor.get();
+	        }
+	    }
+
+	    // buscamos estudiante
+	    if (persona == null) {
+	        Optional<Estudiante> estudiante = estudianteRepository.findByUsuario(usuario);
+	        if (estudiante.isPresent()) {
+	            persona = estudiante.get();
+	        }
+	    }
+
+	    // buscamos tutor
+	    if (persona == null) {
+	        Optional<TutorEmpresa> tutor = tutorEmpresaRepository.findByUsuario(usuario);
+	        if (tutor.isPresent()) {
+	            persona = tutor.get();
+	        }
+	    }
+	    if (persona == null) {
+	        return null; // usuario no existe
+	    }
+
+	    // verificamos contraseña con BCrypt
+	    if (Validador.verificarPassword(contrasena, persona.getContraseña())) {
+	        return persona;
+	    }
+
+	    return null; // contraseña incorrecta
 	}
 
 }

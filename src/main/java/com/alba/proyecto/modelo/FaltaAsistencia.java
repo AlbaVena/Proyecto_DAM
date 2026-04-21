@@ -24,6 +24,9 @@ public class FaltaAsistencia {
 		this.justificado = justificado;
 		this.fct = fct;
 	}
+	public FaltaAsistencia() {
+		super();
+	}
 
 	public Long getId() {
 		return id;

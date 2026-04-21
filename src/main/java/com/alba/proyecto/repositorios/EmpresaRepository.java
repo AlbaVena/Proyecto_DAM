@@ -7,5 +7,7 @@ import com.alba.proyecto.modelo.Empresa;
 
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
+	
+	
 
 }

@@ -1,12 +1,13 @@
 package com.alba.proyecto.modelo;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -29,16 +30,15 @@ public class Estudiante extends Persona implements Serializable {
 	@JoinColumn(name = "FK_curso", nullable = false)
 	private Curso curso; // estudiante tiene un curso, un curso tiene N estudiantes
 
-	@OneToOne
-	@JoinColumn(name = "FK_fct", nullable = false) // TODO corregir
-	private FCT fct; // estudiamte tiene 1 FCT, 1 FCT solo pertenece a 1 estudiante
+	@OneToMany (mappedBy = "estudiante")
+	private Set <FCT> fcts; // estudiamte tiene 1 FCT, 1 FCT solo pertenece a 1 estudiante
 
 	public Estudiante(String usuario, String contraseña, String nombre, String apellidos, String email, String telefono,
-			Perfil perfil, String nSS, Curso curso, FCT fct) {
+			Perfil perfil, String nSS, Curso curso, Set<FCT> fcts) {
 		super(usuario, contraseña, nombre, apellidos, email, telefono, perfil);
 		this.nSS = nSS;
 		this.curso = curso;
-		this.fct = fct;
+		this.fcts = fcts;
 	}
 
 	public Estudiante(String usuario, String contraseña, String nombre, String apellidos, String email, String telefono,
@@ -52,7 +52,10 @@ public class Estudiante extends Persona implements Serializable {
 		this.nSS = nSS;
 		this.curso = curso;
 	}
-
+	public Estudiante(){
+	super();
+	}
+	
 	public String getnSS() {
 		return nSS;
 	}
@@ -69,12 +72,14 @@ public class Estudiante extends Persona implements Serializable {
 		this.curso = curso;
 	}
 
-	public FCT getFct() {
-		return fct;
+	public Set<FCT> getFcts() {
+		return fcts;
 	}
 
-	public void setFct(FCT fct) {
-		this.fct = fct;
+	public void setFcts(Set<FCT> fcts) {
+		this.fcts = fcts;
 	}
+
+		
 
 }

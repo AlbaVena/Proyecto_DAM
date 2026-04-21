@@ -1,7 +1,6 @@
 package com.alba.proyecto.controller;
 
 import com.alba.proyecto.modelo.Curso;
-import com.alba.proyecto.modelo.Estudiante;
 import com.alba.proyecto.modelo.Perfil;
 import com.alba.proyecto.modelo.TipoCurso;
 import com.alba.proyecto.services.UsuarioService;

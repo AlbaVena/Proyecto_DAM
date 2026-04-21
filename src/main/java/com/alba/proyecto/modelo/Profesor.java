@@ -31,6 +31,9 @@ public class Profesor extends Persona implements Serializable {
 			String telefono, Perfil perfil) {
 		super(usuario, contraseña, nombre, apellidos, email, telefono, Perfil.PROFESOR);
 	}
+	public Profesor() {
+		super();
+	}
 
 	public Curso getCurso() {
 		return curso;

@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,7 +34,8 @@ public class FCT implements Serializable {
 	@Column(name = "fechaFin")
 	private LocalDate fechaFin;
 
-	@OneToOne(mappedBy = "fct")//TODO corregir
+	@ManyToOne
+	@JoinColumn(name = "FK_estudiante", nullable = false)
 	private Estudiante estudiante;
 
 	// una FCT solo tiene un estudiante y un tutor

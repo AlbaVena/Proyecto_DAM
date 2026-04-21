@@ -32,6 +32,9 @@ public class TutorEmpresa extends Persona{
 		this.empresa = empresa;
 		this.fct = fcts;
 	}
+	public TutorEmpresa() {
+		super();
+	}
 
 	public Empresa getEmpresa() {
 		return empresa;

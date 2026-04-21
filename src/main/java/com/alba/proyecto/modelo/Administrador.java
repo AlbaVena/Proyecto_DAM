@@ -7,9 +7,18 @@ import jakarta.persistence.Table;
 @Table(name = "administrador")
 public class Administrador extends Persona {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Administrador(Long id, String usuario, String contraseña) {
 		super(id, usuario, contraseña);
 		this.perfil = Perfil.ADMINISTRADOR;
+	}
+	
+	public Administrador() {
+		super();
 	}
 
 

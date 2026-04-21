@@ -50,6 +50,9 @@ public class Curso {
 		this.profesor = profesor;
 		this.estudiantes = estudiantes;
 	}
+	public Curso() {
+		super();
+	}
 
 	private String calcularCodigo(int ciclo, TipoCurso tipoCurso) {
 
