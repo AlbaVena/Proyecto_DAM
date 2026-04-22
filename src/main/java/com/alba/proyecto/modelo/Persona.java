@@ -14,6 +14,15 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
+/**
+ * Clase Persona.
+ * 
+ * Es la clase padre de todos los tipos de usuario.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Entity
 @Table(name = "Persona", uniqueConstraints = {
 		@UniqueConstraint(name = "UK_usuario", columnNames = "usuario"),
@@ -22,9 +31,7 @@ import jakarta.persistence.UniqueConstraint;
 
 public class Persona implements Serializable{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -32,24 +39,37 @@ public class Persona implements Serializable{
 	@Column(name = "id_persona")
 	protected Long id;
 	
+	/**
+	 * Refiere el NOMBRE DE USUARIO.
+	 * Se comprobará que es único.
+	 */
 	@Column(name = "usuario", length = 25, nullable = false)
 	protected String usuario;
 	
 	@Column(nullable = false)
 	protected String contraseña;
 	
+	/**
+	 * Refiere el NOMBRE de la persona.
+	 */
 	@Column(name = "nombre", length = 50, nullable = false)
 	protected String nombre;
 	
 	@Column(name = "apellidos", length = 50, nullable = false)
 	protected String apellidos;
 	
+	/**
+	 * El email debe ser único.
+	 */
 	@Column(name = "email", length = 50, nullable = false)
 	protected String email;
 	
 	@Column(name = "telefono", length = 9, nullable = true)
 	protected String telefono;
 	
+	/**
+	 * {@link Perfil}
+	 */
 	@Enumerated(EnumType.STRING)
 	@Column(name = "perfil", nullable = false)
 	protected Perfil perfil;
@@ -72,13 +92,9 @@ public class Persona implements Serializable{
 		super();
 	}
 
-	// Constructor para ADMIN
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
 
 	/**
-	 * Constructor para Admin
+	 * Constructor para Admin.
 	 * @param id
 	 * @param usuario
 	 * @param contraseña

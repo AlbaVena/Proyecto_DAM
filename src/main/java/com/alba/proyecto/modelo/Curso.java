@@ -14,10 +14,25 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Clase Curso.
+ * 
+ * Este Curso es impartido por un {@link Profesor},
+ * y a este Curso pertenece un {@link Estudiante}.
+ * 
+ * El Curso está formado por un "ciclo" + código que no cambia.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Entity
 @Table(name = "curso")
 public class Curso {
 
+	/**
+	 * Los codigos de cada curso no cambian
+	 */
 	private final String DAW_DIURNO_CODIGO = "IFC303";
 	private final String DAW_VESPERTINO_CODIGO = "VIFC303";
 	private final String DAW_VIRTUAL_CODIGO = "@IFC303";
@@ -30,9 +45,15 @@ public class Curso {
 	@Column(name = "codigo", nullable = false)
 	private String codigo;
 
+	/**
+	 * referencia a 1º o 2º
+	 */
 	@Column(name = "ciclo", nullable = false)
 	private int ciclo;
 
+	/**
+	 * {@link TipoCurso}.
+	 */
 	@Enumerated(EnumType.STRING)
 	private TipoCurso tipoCurso;
 	
@@ -43,6 +64,13 @@ public class Curso {
 	@OneToMany(mappedBy = "curso")
 	private Set <Estudiante> estudiantes;
 
+	/**
+	 * Constructor de curso
+	 * @param ciclo Indica 1º o 2º
+	 * @param tipoCurso Indica el grupo al que pertenece.
+	 * @param profesor Indica el Profesor a cargo del Curso.
+	 * @param estudiantes Set formado por los Estudiantes que pertenecen al Curso.
+	 */
 	public Curso(int ciclo, TipoCurso tipoCurso, Profesor profesor, Set <Estudiante> estudiantes) {
 		this.ciclo = ciclo;
 		this.tipoCurso = tipoCurso;
@@ -54,6 +82,12 @@ public class Curso {
 		super();
 	}
 
+	/**
+	 * Pasados los parametros ciclo y tipoCurso, forma el código completo de un Curso.
+	 * @param ciclo Indica 1º o 2º
+	 * @param tipoCurso Indica el grupo al que pertenece.
+	 * @return String con el código completo del curso.
+	 */
 	private String calcularCodigo(int ciclo, TipoCurso tipoCurso) {
 
 		String resultado = "";
