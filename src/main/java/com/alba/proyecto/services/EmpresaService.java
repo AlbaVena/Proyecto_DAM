@@ -8,6 +8,13 @@ import org.springframework.stereotype.Service;
 import com.alba.proyecto.modelo.Empresa;
 import com.alba.proyecto.repositorios.EmpresaRepository;
 
+/**
+ * 
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Service
 public class EmpresaService {
 
