@@ -9,14 +9,23 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
+/**
+ * Clase TutorEmpresa.
+ * 
+ * Un TutorEmpresa debe pertenecer a una {@link Empresa}.
+ * 
+ * Puede gestionar una o varias {@link FCT}.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Entity
 @Table(name = "tutor_empresa")
 @PrimaryKeyJoinColumn(name = "id_persona")
 public class TutorEmpresa extends Persona{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne

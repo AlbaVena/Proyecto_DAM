@@ -7,14 +7,22 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
+/**
+ * Clase Profesor.
+ * 
+ * Un Profesor coordina un {@link Curso} al que pertenecen estudiantes. 
+ * 
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Entity
 @Table(name = "profesor")
 @PrimaryKeyJoinColumn(name = "id_persona")
 public class Profesor extends Persona implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@OneToOne(mappedBy = "profesor")

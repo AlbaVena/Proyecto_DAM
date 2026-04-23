@@ -11,13 +11,22 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+/**
+ * Clase Empresa.
+ * 
+ * 
+ * {@link TutorEmpresa}
+ * 
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Entity
 @Table(name = "empresa")
 public class Empresa implements Serializable{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,6 +43,9 @@ public class Empresa implements Serializable{
 	@Column(name = "telefono", length = 9, nullable = true)
 	private String telefono;
 	
+	/**
+	 * Set de tutores que pertenecen a la Empresa.
+	 */
 	@OneToMany(mappedBy = "empresa")
 	private Set<TutorEmpresa> tutores;
 

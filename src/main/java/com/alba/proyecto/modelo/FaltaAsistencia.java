@@ -5,8 +5,20 @@ import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+/**
+ * Clase FaltaAsistencia.
+ * 
+ * Una falta de asistencia pertenece a una {@link FCT} concreta, que la
+ * relaciona con un {@link Estudiante} y un {@link TutorEmpresa}.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Entity
 public class FaltaAsistencia {
+	
+	//TODO anotaciones por terminar
 	
 	@Id
 	private Long id;

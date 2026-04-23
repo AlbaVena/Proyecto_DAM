@@ -14,13 +14,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+/**
+ * Clase FCT.
+ * 
+ * Relación entre {@link Estudiante} y {@link Empresa} mediante un 
+ * {@link TutorEmpresa}.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Entity
 @Table(name = "fct")
 public class FCT implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -38,7 +46,6 @@ public class FCT implements Serializable {
 	@JoinColumn(name = "FK_estudiante", nullable = false)
 	private Estudiante estudiante;
 
-	// una FCT solo tiene un estudiante y un tutor
 
 	@ManyToOne
 	@JoinColumn(name = "FK_tutor", nullable = false)
