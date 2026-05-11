@@ -26,6 +26,9 @@ import utils.Validador;
 public class UsuarioService {
 
 	@Autowired
+	private Sesion sesion;
+	
+	@Autowired
 	private AdministradorRepository administradorRepository;
 
 	@Autowired
@@ -128,7 +131,8 @@ public class UsuarioService {
 
 	    // verificamos contraseña con BCrypt
 	    if (Validador.verificarPassword(contrasena, persona.getContraseña())) {
-	        return persona;
+	        sesion.setUsuarioActual(persona);
+	    	return persona;
 	    }
 
 	    System.out.println("Persona final: " + persona);

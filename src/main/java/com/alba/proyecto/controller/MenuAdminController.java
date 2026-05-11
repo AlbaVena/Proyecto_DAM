@@ -1,14 +1,22 @@
 package com.alba.proyecto.controller;
 
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import com.alba.proyecto.modelo.Empresa;
+import com.alba.proyecto.modelo.Persona;
 import com.alba.proyecto.services.EmpresaService;
+import com.alba.proyecto.services.Sesion;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -16,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 @Controller
 public class MenuAdminController {
@@ -54,9 +63,17 @@ public class MenuAdminController {
     @FXML private Button btnCrearEmpresaLateral;
     @FXML private Button btnModificarEmpresaLateral;
     @FXML private Button btnConsultarEmpresaLateral;
+    
+    @FXML private BarraSuperiorController barraSuperior;
 
     @Autowired
     private EmpresaService empresaService;
+    
+    @Autowired
+	private Sesion sesion;
+    
+    @Autowired
+    private ConfigurableApplicationContext context;
 
     // lista para la tabla de empresas
     private ObservableList<Empresa> listaEmpresas = FXCollections.observableArrayList();
@@ -69,6 +86,8 @@ public class MenuAdminController {
 
     @FXML
     public void initialize() {
+    	cargarSesion();
+    	cerrarSesion();
         configurarColumnas();
         configurarBuscador();
         configurarDobleClick();
@@ -83,6 +102,32 @@ public class MenuAdminController {
         panelTablaEmpresas.setManaged(false);
         panelFormModificar.setVisible(false);
         panelFormModificar.setManaged(false);
+    }
+    
+    private void cargarSesion() {
+        
+    	Persona p = sesion.getUsuarioActual();
+        if (p != null) {
+            barraSuperior.setDatosUsuario(
+                p.getPerfil().toString(),
+                p.getNombre() + " " + p.getApellidos()
+            );
+        }
+    }
+    
+    private void cerrarSesion() {
+    	barraSuperior.getBtnLogOut().setOnAction(event -> {
+    	    try {
+    	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+    	        loader.setControllerFactory(context::getBean);
+    	        Parent root = loader.load();
+    	        Stage stage = (Stage) barraSuperior.getScene().getWindow();
+    	        stage.setScene(new Scene(root));
+    	        stage.show();
+    	    } catch (IOException e) {
+    	        e.printStackTrace();
+    	    }
+    	});
     }
 
     //Mostrar un panel  

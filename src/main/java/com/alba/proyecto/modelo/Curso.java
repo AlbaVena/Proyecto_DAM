@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 /**
  * Clase Curso.
@@ -33,9 +34,16 @@ public class Curso {
 	/**
 	 * Los codigos de cada curso no cambian
 	 */
+	@Transient
 	private final String DAW_DIURNO_CODIGO = "IFC303";
+	
+	@Transient
 	private final String DAW_VESPERTINO_CODIGO = "VIFC303";
+	
+	@Transient
 	private final String DAW_VIRTUAL_CODIGO = "@IFC303";
+	
+	@Transient
 	private final String DAM_CODIGO = "VIFC302";
 
 	@Id

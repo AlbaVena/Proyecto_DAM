@@ -21,43 +21,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import com.alba.proyecto.controller.BarraSuperiorController?>
+
 <BorderPane fx:id="PaneAdmin" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alba.proyecto.controller.MenuAdminController">
    <top>
-      <HBox fx:id="hbBarraSuperior" alignment="TOP_CENTER" fillHeight="false" prefHeight="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/LogoGestiona1_redondo.png" />
-               </image>
-            </ImageView>
-            <Region prefHeight="150.0" prefWidth="350.0" />
-            <VBox fx:id="vbUsuario" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-               <children>
-                  <Label fx:id="lblRol" text="Administrador" VBox.vgrow="ALWAYS" />
-                  <Label fx:id="lblNombreUsuario" text="Alba Vena García" />
-               </children>
-            </VBox>
-            <ImageView fx:id="iconUsuario" fitHeight="45.0" fitWidth="45.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets left="20.0" top="50.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../images/icono_usuario.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="btnLogOut" alignment="CENTER" mnemonicParsing="false" text="Cerrar sesión">
-               <HBox.margin>
-                  <Insets left="20.0" top="60.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-         <padding>
-            <Insets left="20.0" right="10.0" />
-         </padding>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </HBox>
+    <BarraSuperiorController fx:id="barraSuperior" />
    </top>
    <left>
       <VBox prefWidth="190.0" BorderPane.alignment="CENTER">
@@ -95,6 +63,9 @@
               </content>
             </TitledPane>
          </children>
+         <BorderPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </BorderPane.margin>
       </VBox>
    </left>
    <center>
@@ -229,7 +200,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="panelCrearUsuario" prefHeight="200.0" prefWidth="100.0" visible="false">
+            <VBox fx:id="panelCrearUsuario" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
                <children>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="727.0" text="Nuevo usuario">
                      <font>
@@ -300,5 +271,11 @@
          </children>
       </StackPane>
    </center>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
    
 </BorderPane>

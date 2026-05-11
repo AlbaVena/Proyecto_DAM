@@ -52,10 +52,10 @@ public class LoginController {
                     cargarPantalla("/fxml/MenuAdmin2.fxml");
                     break;
                 case PROFESOR:
-                    cargarPantalla("/fxml/MenuAdmin2.fxml");
+                    cargarPantalla("/fxml/MenuProfesor.fxml");
                     break;
                 case ESTUDIANTE:
-                    cargarPantalla("/fxml/MenuAdmin2.fxml");
+                    cargarPantalla("/fxml/MenuEstudiante.fxml");
                     break;
                 case TUTOREMPRESA:
                     cargarPantalla("/fxml/MenuAdmin2.fxml");

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import com.alba.proyecto.controller.BarraSuperiorController?>
+
+<BorderPane fx:id="PanelProfesor" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alba.proyecto.controller.MenuProfesorController">
+  
+  <top>
+    <BarraSuperiorController fx:id="barraSuperior" />
+</top>   
+   <left>
+      <VBox prefWidth="190.0" BorderPane.alignment="CENTER">
+         <children>
+            <TitledPane text="Gestión FCT">
+               <content>
+                  <VBox prefHeight="2.0" prefWidth="188.0">
+                     <children>
+                        <Button fx:id="btnNuevaFCT" mnemonicParsing="false" onAction="#abrirNuevaFCT" prefHeight="25.0" prefWidth="216.0" text="Nueva FCT" />
+                        <Button fx:id="btnModificarFCT" mnemonicParsing="false" onAction="#abrirModificarFCT" prefHeight="25.0" prefWidth="277.0" text="Modificar FCT" />
+                        <Button fx:id="btnEliminarFCT" mnemonicParsing="false" onAction="#abrirEliminarFCT" prefHeight="25.0" prefWidth="223.0" text="Eliminar FCT" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane text="Evaluación">
+               <content>
+                  <VBox prefHeight="0.0" prefWidth="188.0">
+                     <children>
+                        <Button fx:id="btnNuevaEvaluacion" mnemonicParsing="false" onAction="#abrirNuevaEvaluacion" prefHeight="25.0" prefWidth="193.0" text="Nueva evaluacion" />
+                        <Button fx:id="btnConsultarEvaluaciones" mnemonicParsing="false" onAction="#abrirConsultaEvaluacion" prefHeight="25.0" prefWidth="255.0" text="Consultar evaluaciones" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="panelNuevaFCT" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Nueva Formación en Centros de Trabajo">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="panelTablaFCT" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Modificar FCT">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="panelEliminarFCT" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Eliminar FCT">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="panelNuevaEvaluacion" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Nueva evaluación">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox fx:id="panelConsultaEvaluacion" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Consultar evaluaciones">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>
