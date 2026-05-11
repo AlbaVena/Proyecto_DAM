@@ -6,6 +6,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import com.alba.proyecto.modelo.Persona;
 import com.alba.proyecto.services.UsuarioService;
+
+import componentes.PasswordFieldValidado;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +25,7 @@ public class LoginController {
     private TextField username;
 
     @FXML
-    private PasswordField password;
+    private PasswordFieldValidado password;
 
     @FXML
     private Button btnLogin;

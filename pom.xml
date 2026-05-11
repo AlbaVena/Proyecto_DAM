@@ -56,6 +56,12 @@
     		<artifactId>jbcrypt</artifactId>
     		<version>0.4</version>
 		</dependency>
+		
+		<dependency>
+    		<groupId>com.alba</groupId>
+    		<artifactId>componentes</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 	</dependencies>
 
