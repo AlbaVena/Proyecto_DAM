@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -32,8 +34,10 @@ public class MenuProfesorController {
     @FXML private VBox panelEliminarFCT;
     @FXML private VBox panelNuevaEvaluacion;
     @FXML private VBox panelConsultaEvaluacion;
-    
-    @FXML private BarraSuperiorController barraSuperior;
+   
+    @FXML private Label lblRol;
+    @FXML private Label lblNombreUsuario;
+    @FXML private Button btnLogOut;
     
     
 
@@ -59,29 +63,26 @@ public class MenuProfesorController {
     }
     
     private void cargarSesion() {
-    
-    	Persona p = sesion.getUsuarioActual();
+        Persona p = sesion.getUsuarioActual();
         if (p != null) {
-            barraSuperior.setDatosUsuario(
-                p.getPerfil().toString(),
-                p.getNombre() + " " + p.getApellidos()
-            );
+            lblRol.setText(p.getPerfil().toString());
+            lblNombreUsuario.setText(p.getNombre() + " " + p.getApellidos());
         }
     }
     
     private void cerrarSesion() {
-    	barraSuperior.getBtnLogOut().setOnAction(event -> {
-    	    try {
-    	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
-    	        loader.setControllerFactory(context::getBean);
-    	        Parent root = loader.load();
-    	        Stage stage = (Stage) barraSuperior.getScene().getWindow();
-    	        stage.setScene(new Scene(root));
-    	        stage.show();
-    	    } catch (IOException e) {
-    	        e.printStackTrace();
-    	    }
-    	});
+    	btnLogOut.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+                loader.setControllerFactory(context::getBean);
+                Parent root = loader.load();
+                Stage stage = (Stage) btnLogOut.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void mostrarPanel(VBox panel) {

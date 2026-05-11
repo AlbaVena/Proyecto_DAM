@@ -64,7 +64,9 @@ public class MenuAdminController {
     @FXML private Button btnModificarEmpresaLateral;
     @FXML private Button btnConsultarEmpresaLateral;
     
-    @FXML private BarraSuperiorController barraSuperior;
+    @FXML private Label lblRol;
+    @FXML private Label lblNombreUsuario;
+    @FXML private Button btnLogOut;
 
     @Autowired
     private EmpresaService empresaService;
@@ -105,29 +107,26 @@ public class MenuAdminController {
     }
     
     private void cargarSesion() {
-        
-    	Persona p = sesion.getUsuarioActual();
+        Persona p = sesion.getUsuarioActual();
         if (p != null) {
-            barraSuperior.setDatosUsuario(
-                p.getPerfil().toString(),
-                p.getNombre() + " " + p.getApellidos()
-            );
+            lblRol.setText(p.getPerfil().toString());
+            lblNombreUsuario.setText(p.getNombre() + " " + p.getApellidos());
         }
     }
     
     private void cerrarSesion() {
-    	barraSuperior.getBtnLogOut().setOnAction(event -> {
-    	    try {
-    	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
-    	        loader.setControllerFactory(context::getBean);
-    	        Parent root = loader.load();
-    	        Stage stage = (Stage) barraSuperior.getScene().getWindow();
-    	        stage.setScene(new Scene(root));
-    	        stage.show();
-    	    } catch (IOException e) {
-    	        e.printStackTrace();
-    	    }
-    	});
+    	btnLogOut.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+                loader.setControllerFactory(context::getBean);
+                Parent root = loader.load();
+                Stage stage = (Stage) btnLogOut.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     //Mostrar un panel  
