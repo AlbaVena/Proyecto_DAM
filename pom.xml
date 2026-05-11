@@ -62,8 +62,15 @@
     		<artifactId>componentes</artifactId>
     		<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+    		<groupId>com.calendarfx</groupId>
+    		<artifactId>view</artifactId>
+    		<version>12.0.1</version>
+		</dependency>
 
 	</dependencies>
+	
 
 	<build>
 		<plugins>
