@@ -5,6 +5,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -49,7 +50,7 @@ public class Estudiante extends Persona implements Serializable {
 	 * Un estudiante puede tener más de una FCT si no la supera la primera vez.
 	 * Pero una FCT concreta solo pertenece a un estudiante.
 	 */
-	@OneToMany (mappedBy = "estudiante")
+	@OneToMany (mappedBy = "estudiante", fetch = FetchType.EAGER)
 	private Set <FCT> fcts; 
 
 	public Estudiante(String usuario, String contraseña, String nombre, String apellidos, String email, String telefono,

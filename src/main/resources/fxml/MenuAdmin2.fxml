@@ -19,283 +19,407 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
+<BorderPane fx:id="PaneAdmin"
+	stylesheets="@../styles/Styles.css" styleClass="fondo-principal"
+	prefHeight="700.0" prefWidth="900.0"
+	xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.alba.proyecto.controller.MenuAdminController">
 
-<BorderPane fx:id="PaneAdmin" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alba.proyecto.controller.MenuAdminController">
-   <top>
-    <HBox fx:id="hbBarraSuperior" alignment="CENTER" fillHeight="false" 
-          prefHeight="98.0" prefWidth="900.0" BorderPane.alignment="CENTER">
-        <children>
-            <ImageView fitHeight="100.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../images/LogoGestiona1_redondo.png" />
-                </image>
-            </ImageView>
-            <Region prefHeight="150.0" prefWidth="350.0" />
-            <VBox fx:id="vbUsuario" alignment="CENTER" prefHeight="150.0" prefWidth="216.0" spacing="20.0">
-                <children>
-                    <Label fx:id="lblRol" text="Rol" />
-                    <Label fx:id="lblNombreUsuario" text="Nombre usuario" />
-                </children>
-            </VBox>
-            <Button fx:id="btnLogOut" mnemonicParsing="false" 
-                    prefHeight="36.0" prefWidth="85.0" text="Cerrar sesión" />
-        </children>
-        <padding>
-            <Insets left="20.0" right="10.0" />
-        </padding>
-    </HBox>
-</top>
-   <left>
-      <VBox prefWidth="190.0" BorderPane.alignment="CENTER">
-         <children>
-            <TitledPane expanded="false" text="Gestión de usuarios">
-               <content>
-                  <VBox prefWidth="190.0" spacing="5.0">
-                     <children>
-                        <Button fx:id="btnNuevoUsuario" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="216.0" text="Nuevo usuario" />
-                        <Button fx:id="btnModificarUsuario" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="175.0" text="Modificar usuario" VBox.vgrow="ALWAYS" />
-                        <Button fx:id="btnConsultarUsuario" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="178.0" text="Consultar usuario" />
-                     </children>
-                  </VBox>
-               </content>
-            </TitledPane>
-            <TitledPane expanded="false" prefHeight="22.0" prefWidth="190.0" text="Gestión de empresas">
-               <content>
-                  <VBox prefHeight="200.0" prefWidth="190.0" spacing="5.0">
-                     <children>
-                        <Button fx:id="btnCrearEmpresaLateral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirCrearEmpresa" prefHeight="26.0" prefWidth="187.0" text="Nueva Empresa asociada" />
-                        <Button fx:id="btnModificarEmpresaLateral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirModificarEmpresa" prefHeight="26.0" prefWidth="192.0" text="Modificar datos de Empresa" />
-                        <Button fx:id="btnConsultarEmpresaLateral" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#abrirConsultarEmpresa" prefHeight="26.0" prefWidth="195.0" text="Consultar Empresa" />
-                     </children>
-                  </VBox>
-               </content>
-            </TitledPane>
-            <TitledPane expanded="false" text="Gestión de FCTs">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </TitledPane>
-            <TitledPane expanded="false" text="Documentación">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </TitledPane>
-         </children>
-         <BorderPane.margin>
-            <Insets left="10.0" right="10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <center>
-      <StackPane fx:id="stackPaneCentral" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox fx:id="panelCrearEmpresa" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="714.0" text="Nueva Empresa" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-                     <children>
-                        <Label text="Nombre" />
-                        <TextField fx:id="tfNombreEmpresa" prefWidth="200.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-                     <children>
-                        <Label text="Dirección" />
-                        <TextField fx:id="tfDireccionEmpresa" prefWidth="200.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-                     <children>
-                        <Label text="Teléfono" />
-                        <TextField fx:id="tfTelefonoEmpresa" prefWidth="200.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="btnGuardarEmpresa" mnemonicParsing="false" onAction="#guardarEmpresa" text="Guardar" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox fx:id="panelTablaEmpresas" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Label alignment="CENTER" prefHeight="18.0" prefWidth="779.0" text="Empresas">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <HBox prefHeight="46.0" prefWidth="710.0" spacing="20.0">
-                     <children>
-                        <Label text="Buscar: " />
-                        <TextField fx:id="tfBuscarEmpresa" prefWidth="200.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" top="10.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets left="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <TableView fx:id="tablaEmpresas" prefHeight="428.0" prefWidth="710.0">
-                    <columns>
-                      <TableColumn fx:id="colNombreEmpresa" prefWidth="75.0" text="Nombre" />
-                      <TableColumn fx:id="colTelefonoEmpresa" prefWidth="75.0" text="Telefono" />
-                        <TableColumn fx:id="colDireccionEmpresa" prefWidth="75.0" text="Dirección" />
-                        <TableColumn fx:id="colInfoEmpresa" prefWidth="75.0" text="Column X" />
-                    </columns>
-                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </VBox.margin>
-                  </TableView>
-               </children>
-            </VBox>
-            <VBox fx:id="panelFormModificar" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Label fx:id="lblTituloEmpresa" alignment="CENTER" prefHeight="18.0" prefWidth="714.0" text="Empresa">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="TOP_CENTER" prefHeight="101.0" prefWidth="710.0" spacing="30.0">
-                     <children>
-                        <Label text="Nombre" />
-                        <TextField fx:id="tfFormNombreEmpresa" editable="false" prefWidth="250.0" />
-                        <Button fx:id="btnEditarNombreEmpresa" contentDisplay="CENTER" mnemonicParsing="false">
-                        	 <graphic>
-       							 <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-            						<image>
-              						  <Image url="@../images/icono_editar.png" />
-           							</image>
-        						</ImageView>
-    						</graphic>
-                        </Button>
-                        
-                     </children>
-                  </HBox>
-                  <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="50.0" prefHeight="110.0" prefWidth="710.0" spacing="30.0">
-                     <children>
-                        <Label text="Dirección" />
-                        <TextField fx:id="tfFormDireccionEmpresa" editable="false" prefWidth="250.0" />
-                        <Button fx:id="btnEditarDireccionEmpresa" contentDisplay="CENTER" mnemonicParsing="false">
-                           <graphic>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icono_editar.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="150.0" prefHeight="122.0" prefWidth="710.0" spacing="30.0">
-                     <children>
-                        <Label text="Teléfono" />
-                        <TextField fx:id="tfFormTelefonoEmpresa" editable="false" prefWidth="250.0" />
-                        <Button fx:id="btnEditarTelefonoEmpresa" contentDisplay="CENTER" mnemonicParsing="false">
-                           <graphic>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icono_editar.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="117.0" prefWidth="710.0" spacing="30.0">
-                     <children>
-                        <Button fx:id="btnVolverTablaEmpresa" mnemonicParsing="false" onAction="#volverTablaEmpresa" prefWidth="80.0" text="Volver" />
-                        <Button fx:id="btnCancelarFormEmpresa" mnemonicParsing="false" onAction="#cancelarFormEmpresa" prefWidth="80.0" text="Cancelar" />
-                        <Button fx:id="btnGuardarFormEmpresa" mnemonicParsing="false" onAction="#guardarFormEmpresa" prefWidth="80.0" text="Guardar" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox fx:id="panelCrearUsuario" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="727.0" text="Nuevo usuario">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <GridPane prefHeight="322.0" prefWidth="670.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="163.3333740234375" minWidth="10.0" prefWidth="77.3333740234375" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.6666259765625" minWidth="10.0" prefWidth="221.3333740234375" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.333251953125" minWidth="0.333251953125" prefWidth="25.333292643229186" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.333251953125" minWidth="10.0" prefWidth="68.3333740234375" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="475.66666666666674" minWidth="10.0" prefWidth="235.66666666666669" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.6666259765625" minWidth="10.0" prefWidth="98.99991861979163" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="20.0" />
-                     </VBox.margin>
-                     <children>
-                        <Label text="Rol:" />
-                        <Label text="Nombre:" GridPane.rowIndex="1" />
-                        <Label text="Apellidos:" GridPane.rowIndex="2" />
-                        <Label text="Curso:" GridPane.rowIndex="3" />
-                        <Label prefHeight="43.0" prefWidth="89.0" text="Nombre usuario:" wrapText="true" GridPane.rowIndex="4" />
-                        <Label text="Contraseña:" GridPane.rowIndex="5" />
-                        <Label text="Email:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Label text="Teléfono:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfNombre" promptText="Alba" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="tfApellidosUsuario" promptText="Vena García" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfNombreUsuario" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="tfEmailUsuario" promptText="direccion@email.com" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                        <TextField fx:id="tfTelefonoUsuario" prefHeight="25.0" prefWidth="141.0" promptText="XXX-XXX-XXX" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <Label prefHeight="17.0" prefWidth="379.0" text="(Máximo 25 caracteres, solo letras, números y &quot;_&quot;)" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="346.0" layoutY="191.0" prefHeight="17.0" prefWidth="369.0" text="(Entre 6 y 12 caracteres, solo letras y numeros)" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="cbRol" prefHeight="25.0" prefWidth="136.0" promptText="Profesor" GridPane.columnIndex="1" />
-                        <ComboBox fx:id="cbCurso" prefHeight="25.0" prefWidth="139.0" promptText="1IFC303" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tfPass" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label text="Nº S.S." GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Label text="Empresa:" GridPane.columnIndex="3" />
-                        <TextField fx:id="tfNss" editable="false" promptText="XX-XXXXXX-XXX" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="cbEmpresaUsuario" disable="true" prefHeight="25.0" prefWidth="285.0" GridPane.columnIndex="4" />
-                     </children>
-                  </GridPane>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-                     <children>
-                        <Button fx:id="btnLimpiarCrearUsuario" mnemonicParsing="false" prefWidth="80.0" text="Limpiar" />
-                        <Button fx:id="btnGuardarCrearUsuario" mnemonicParsing="false" prefWidth="80.0" text="Guardar" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </StackPane>
-   </center>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-   <padding>
-      <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-   
+	<top>
+		<HBox fx:id="hbBarraSuperior" styleClass="barra-superior"
+			alignment="CENTER" fillHeight="false" prefHeight="98.0"
+			prefWidth="900.0" BorderPane.alignment="CENTER">
+			<children>
+				<ImageView fitHeight="100.0" fitWidth="127.0"
+					pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../images/LogoGestiona1_redondo.png" />
+					</image>
+				</ImageView>
+				<Region prefHeight="150.0" prefWidth="350.0" />
+				<VBox fx:id="vbUsuario" alignment="CENTER" prefHeight="150.0"
+					prefWidth="216.0" spacing="5.0">
+					<children>
+						<Label fx:id="lblRol" text="Rol" styleClass="label-rol" />
+						<Label fx:id="lblNombreUsuario" text="Nombre usuario"
+							styleClass="label-nombre-usuario" />
+					</children>
+				</VBox>
+				<Button fx:id="btnLogOut" mnemonicParsing="false"
+					prefHeight="36.0" prefWidth="90.0" text="Cerrar sesión"
+					styleClass="btn-logout">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</Button>
+				<Button fx:id="btnAyuda" mnemonicParsing="false"
+					onAction="#abrirAyuda" prefHeight="30.0" prefWidth="30.0" text="?"
+					styleClass="btn-ayuda">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</Button>
+			</children>
+			<padding>
+				<Insets left="20.0" right="10.0" />
+			</padding>
+		</HBox>
+	</top>
+
+	<left>
+		<VBox styleClass="fondo-menu" prefWidth="190.0"
+			BorderPane.alignment="CENTER">
+			<children>
+				<TitledPane styleClass="titled-pane-menu"
+					expanded="false" text="Gestión de usuarios">
+					<content>
+						<VBox styleClass="fondo-menu" prefWidth="190.0" spacing="2.0">
+							<children>
+								<Button fx:id="btnNuevoUsuario" styleClass="btn-menu"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									text="Nuevo usuario" />
+								<Button fx:id="btnModificarUsuario" styleClass="btn-menu"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									text="Modificar usuario" />
+								<Button fx:id="btnConsultarUsuario" styleClass="btn-menu"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									text="Consultar usuario" />
+							</children>
+						</VBox>
+					</content>
+				</TitledPane>
+				<TitledPane styleClass="titled-pane-menu"
+					expanded="false" text="Gestión de empresas">
+					<content>
+						<VBox styleClass="fondo-menu" prefWidth="190.0" spacing="2.0">
+							<children>
+								<Button fx:id="btnCrearEmpresaLateral"
+									styleClass="btn-menu" maxWidth="1.7976931348623157E308"
+									mnemonicParsing="false" onAction="#abrirCrearEmpresa"
+									text="Nueva Empresa asociada" />
+								<Button fx:id="btnModificarEmpresaLateral"
+									styleClass="btn-menu" maxWidth="1.7976931348623157E308"
+									mnemonicParsing="false" onAction="#abrirModificarEmpresa"
+									text="Modificar datos de Empresa" />
+								<Button fx:id="btnConsultarEmpresaLateral"
+									styleClass="btn-menu" maxWidth="1.7976931348623157E308"
+									mnemonicParsing="false" onAction="#abrirConsultarEmpresa"
+									text="Consultar Empresa" />
+							</children>
+						</VBox>
+					</content>
+				</TitledPane>
+				<TitledPane styleClass="titled-pane-menu"
+					expanded="false" text="Gestión de FCTs">
+					<content>
+						<AnchorPane styleClass="fondo-menu" minHeight="0.0"
+							minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+					</content>
+				</TitledPane>
+				<TitledPane styleClass="titled-pane-menu"
+					expanded="false" text="Documentación">
+					<content>
+						<AnchorPane styleClass="fondo-menu" minHeight="0.0"
+							minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+					</content>
+				</TitledPane>
+			</children>
+			<BorderPane.margin>
+				<Insets left="10.0" right="10.0" />
+			</BorderPane.margin>
+		</VBox>
+	</left>
+
+	<center>
+		<StackPane fx:id="stackPaneCentral"
+			styleClass="fondo-principal" prefHeight="150.0" prefWidth="200.0"
+			BorderPane.alignment="CENTER">
+			<children>
+
+				<!-- Panel crear empresa -->
+				<VBox fx:id="panelCrearEmpresa" managed="false" visible="false">
+					<children>
+						<Label styleClass="titulo-panel" alignment="CENTER"
+							prefHeight="27.0" prefWidth="714.0" text="Nueva Empresa"
+							textAlignment="CENTER" />
+						<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+							spacing="100.0">
+							<children>
+								<Label text="Nombre" />
+								<TextField fx:id="tfNombreEmpresa" prefWidth="200.0" />
+							</children>
+						</HBox>
+						<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+							spacing="100.0">
+							<children>
+								<Label text="Dirección" />
+								<TextField fx:id="tfDireccionEmpresa"
+									prefWidth="200.0" />
+							</children>
+						</HBox>
+						<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+							spacing="100.0">
+							<children>
+								<Label text="Teléfono" />
+								<TextField fx:id="tfTelefonoEmpresa" prefWidth="200.0" />
+							</children>
+						</HBox>
+						<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+							<children>
+								<Button fx:id="btnGuardarEmpresa"
+									styleClass="btn-primario" mnemonicParsing="false"
+									onAction="#guardarEmpresa" text="Guardar" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+
+				<!-- Panel tabla empresas -->
+				<VBox fx:id="panelTablaEmpresas" managed="false"
+					visible="false">
+					<children>
+						<Label styleClass="titulo-panel" alignment="CENTER"
+							prefHeight="18.0" prefWidth="779.0" text="Empresas" />
+						<HBox prefHeight="46.0" prefWidth="710.0" spacing="20.0">
+							<children>
+								<Label text="Buscar: " />
+								<TextField fx:id="tfBuscarEmpresa" prefWidth="200.0" />
+							</children>
+							<padding>
+								<Insets bottom="10.0" top="10.0" />
+							</padding>
+							<VBox.margin>
+								<Insets left="20.0" />
+							</VBox.margin>
+						</HBox>
+						<TableView fx:id="tablaEmpresas" prefHeight="428.0"
+							prefWidth="710.0">
+							<columnResizePolicy>
+								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							</columnResizePolicy>
+							<columns>
+								<TableColumn fx:id="colNombreEmpresa"
+									prefWidth="75.0" text="Nombre" />
+								<TableColumn fx:id="colTelefonoEmpresa"
+									prefWidth="75.0" text="Teléfono" />
+								<TableColumn fx:id="colDireccionEmpresa"
+									prefWidth="75.0" text="Dirección" />
+								<TableColumn fx:id="colInfoEmpresa" prefWidth="75.0"
+									text="Tutores" />
+							</columns>
+							<VBox.margin>
+								<Insets left="20.0" right="20.0" />
+							</VBox.margin>
+						</TableView>
+					</children>
+				</VBox>
+
+				<!-- Panel modificar empresa -->
+				<VBox fx:id="panelFormModificar" managed="false"
+					visible="false">
+					<children>
+						<Label fx:id="lblTituloEmpresa" styleClass="titulo-panel"
+							alignment="CENTER" prefHeight="18.0" prefWidth="714.0"
+							text="Empresa">
+							<VBox.margin>
+								<Insets bottom="20.0" />
+							</VBox.margin>
+						</Label>
+						<HBox alignment="TOP_CENTER" prefHeight="101.0"
+							prefWidth="710.0" spacing="30.0">
+							<children>
+								<Label text="Nombre" />
+								<TextField fx:id="tfFormNombreEmpresa"
+									editable="false" prefWidth="250.0" />
+								<Button fx:id="btnEditarNombreEmpresa"
+									contentDisplay="CENTER" mnemonicParsing="false">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+							</children>
+						</HBox>
+						<HBox alignment="TOP_CENTER" prefHeight="110.0"
+							prefWidth="710.0" spacing="30.0">
+							<children>
+								<Label text="Dirección" />
+								<TextField fx:id="tfFormDireccionEmpresa"
+									editable="false" prefWidth="250.0" />
+								<Button fx:id="btnEditarDireccionEmpresa"
+									contentDisplay="CENTER" mnemonicParsing="false">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+							</children>
+						</HBox>
+						<HBox alignment="TOP_CENTER" prefHeight="122.0"
+							prefWidth="710.0" spacing="30.0">
+							<children>
+								<Label text="Teléfono" />
+								<TextField fx:id="tfFormTelefonoEmpresa"
+									editable="false" prefWidth="250.0" />
+								<Button fx:id="btnEditarTelefonoEmpresa"
+									contentDisplay="CENTER" mnemonicParsing="false">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+							</children>
+						</HBox>
+						<HBox alignment="CENTER" prefHeight="117.0" prefWidth="710.0"
+							spacing="30.0">
+							<children>
+								<Button fx:id="btnVolverTablaEmpresa"
+									styleClass="btn-volver" mnemonicParsing="false"
+									onAction="#volverTablaEmpresa" prefWidth="80.0" text="Volver" />
+								<Button fx:id="btnCancelarFormEmpresa"
+									styleClass="btn-peligro" mnemonicParsing="false"
+									onAction="#cancelarFormEmpresa" prefWidth="80.0"
+									text="Cancelar" />
+								<Button fx:id="btnGuardarFormEmpresa"
+									styleClass="btn-primario" mnemonicParsing="false"
+									onAction="#guardarFormEmpresa" prefWidth="80.0" text="Guardar" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+
+				<!-- Panel crear usuario -->
+				<VBox fx:id="panelCrearUsuario" managed="false" visible="false">
+					<children>
+						<Label styleClass="titulo-panel" alignment="CENTER"
+							prefHeight="17.0" prefWidth="727.0" text="Nuevo usuario" />
+						<GridPane prefHeight="322.0" prefWidth="670.0">
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES"
+									maxWidth="163.3333740234375" minWidth="10.0"
+									prefWidth="77.3333740234375" />
+								<ColumnConstraints hgrow="SOMETIMES"
+									maxWidth="274.6666259765625" minWidth="10.0"
+									prefWidth="221.3333740234375" />
+								<ColumnConstraints hgrow="SOMETIMES"
+									maxWidth="297.333251953125" minWidth="0.333251953125"
+									prefWidth="25.333292643229186" />
+								<ColumnConstraints hgrow="SOMETIMES"
+									maxWidth="297.333251953125" minWidth="10.0"
+									prefWidth="68.3333740234375" />
+								<ColumnConstraints hgrow="SOMETIMES"
+									maxWidth="475.66666666666674" minWidth="10.0"
+									prefWidth="235.66666666666669" />
+								<ColumnConstraints hgrow="SOMETIMES"
+									maxWidth="310.6666259765625" minWidth="10.0"
+									prefWidth="98.99991861979163" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="10.0"
+									prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints minHeight="10.0"
+									prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints minHeight="10.0"
+									prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints minHeight="10.0"
+									prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints minHeight="10.0"
+									prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints minHeight="10.0"
+									prefHeight="30.0" vgrow="SOMETIMES" />
+							</rowConstraints>
+							<VBox.margin>
+								<Insets left="20.0" right="20.0" top="20.0" />
+							</VBox.margin>
+							<children>
+								<Label text="Rol:" />
+								<Label text="Nombre:" GridPane.rowIndex="1" />
+								<Label text="Apellidos:" GridPane.rowIndex="2" />
+								<Label text="Curso:" GridPane.rowIndex="3" />
+								<Label prefHeight="43.0" prefWidth="89.0"
+									text="Nombre usuario:" wrapText="true" GridPane.rowIndex="4" />
+								<Label text="Contraseña:" GridPane.rowIndex="5" />
+								<Label text="Email:" GridPane.columnIndex="3"
+									GridPane.rowIndex="2" />
+								<Label text="Teléfono:" GridPane.columnIndex="3"
+									GridPane.rowIndex="3" />
+								<TextField fx:id="tfNombre" promptText="Alba"
+									GridPane.columnIndex="1" GridPane.rowIndex="1" />
+								<TextField fx:id="tfApellidosUsuario"
+									promptText="Vena García" GridPane.columnIndex="1"
+									GridPane.rowIndex="2" />
+								<TextField fx:id="tfNombreUsuario"
+									GridPane.columnIndex="1" GridPane.rowIndex="4" />
+								<TextField fx:id="tfEmailUsuario"
+									promptText="direccion@email.com" GridPane.columnIndex="4"
+									GridPane.rowIndex="2" />
+								<TextField fx:id="tfTelefonoUsuario" prefHeight="25.0"
+									prefWidth="141.0" promptText="XXX-XXX-XXX"
+									GridPane.columnIndex="4" GridPane.rowIndex="3" />
+								<Label prefHeight="17.0" prefWidth="379.0"
+									text="(Máximo 25 caracteres, solo letras, números y &quot;_&quot;)"
+									style="-fx-font-style: italic; -fx-font-size: 12px;"
+									GridPane.columnIndex="3" GridPane.columnSpan="2"
+									GridPane.rowIndex="4" />
+								<Label prefHeight="17.0" prefWidth="369.0"
+									text="(Entre 6 y 12 caracteres, solo letras y numeros)"
+									style="-fx-font-style: italic; -fx-font-size: 12px;"
+									GridPane.columnIndex="3" GridPane.columnSpan="2"
+									GridPane.rowIndex="5" />
+								<ComboBox fx:id="cbRol" prefHeight="25.0"
+									prefWidth="136.0" promptText="Profesor"
+									GridPane.columnIndex="1" />
+								<ComboBox fx:id="cbCurso" prefHeight="25.0"
+									prefWidth="139.0" promptText="1IFC303" GridPane.columnIndex="1"
+									GridPane.rowIndex="3" />
+								<TextField fx:id="tfPass" GridPane.columnIndex="1"
+									GridPane.rowIndex="5" />
+								<Label text="Nº S.S." GridPane.columnIndex="3"
+									GridPane.rowIndex="1" />
+								<Label text="Empresa:" GridPane.columnIndex="3" />
+								<TextField fx:id="tfNss" editable="false"
+									promptText="XX-XXXXXX-XXX" GridPane.columnIndex="4"
+									GridPane.rowIndex="1" />
+								<ComboBox fx:id="cbEmpresaUsuario" disable="true"
+									prefHeight="25.0" prefWidth="285.0" GridPane.columnIndex="4" />
+							</children>
+						</GridPane>
+						<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+							spacing="30.0">
+							<children>
+								<Button fx:id="btnLimpiarCrearUsuario"
+									styleClass="btn-peligro" mnemonicParsing="false"
+									prefWidth="80.0" text="Limpiar" />
+								<Button fx:id="btnGuardarCrearUsuario"
+									styleClass="btn-primario" mnemonicParsing="false"
+									prefWidth="80.0" text="Guardar" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+
+			</children>
+		</StackPane>
+	</center>
+
+	<opaqueInsets>
+		<Insets />
+	</opaqueInsets>
+	<padding>
+		<Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+	</padding>
+
 </BorderPane>

@@ -17,17 +17,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 @Controller
 public class MenuAdminController {
+	
+	@FXML private BorderPane PaneAdmin;
 
     //StackPane  
     @FXML private VBox panelCrearEmpresa;
@@ -67,6 +74,8 @@ public class MenuAdminController {
     @FXML private Label lblRol;
     @FXML private Label lblNombreUsuario;
     @FXML private Button btnLogOut;
+    
+    @FXML private Button btnAyuda;
 
     @Autowired
     private EmpresaService empresaService;
@@ -94,6 +103,7 @@ public class MenuAdminController {
         configurarBuscador();
         configurarDobleClick();
         configurarBotonesEditar();
+        abrirAtajoAyuda();
         ocultarTodo();
     }
 
@@ -320,4 +330,47 @@ public class MenuAdminController {
         tfTelefonoEmpresa.clear();
         tfNombreEmpresa.setStyle("");
     }
+    
+    @FXML
+    private void abrirAyuda() {
+        try {
+            
+            String url = getClass().getResource("/ayuda/help.html").toExternalForm();
+
+            WebView webView = new WebView();
+            webView.getEngine().load(url);
+
+            Stage ventanaAyuda = new Stage();
+            ventanaAyuda.setTitle("Ayuda - Gestiona");
+
+            Scene escenaAyuda = new Scene(webView, 700, 500);
+            ventanaAyuda.setScene(escenaAyuda);
+
+            
+            ventanaAyuda.initModality(Modality.APPLICATION_MODAL);
+            ventanaAyuda.setResizable(true);
+            ventanaAyuda.show();
+
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Archivo de ayuda no encontrado");
+            alert.setContentText("No se pudo cargar el archivo de ayuda.");
+            alert.showAndWait();
+        }
+    }
+    
+    private void abrirAtajoAyuda() {
+    	PaneAdmin.sceneProperty().addListener((obs, escenaAnterior, escenaNueva) -> {
+    	    if (escenaNueva != null) {
+    	        escenaNueva.setOnKeyPressed(evento -> {
+    	            if (evento.getCode() == KeyCode.F1) {
+    	                abrirAyuda();
+    	            }
+    	        });
+    	    }
+    	});
+    }
+    
+    
 }

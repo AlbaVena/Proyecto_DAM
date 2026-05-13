@@ -2,146 +2,405 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Separator?>
 
 
-<BorderPane fx:id="PanelProfesor" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alba.proyecto.controller.MenuProfesorController">
-  
-  <top>
-    <HBox fx:id="hbBarraSuperior" alignment="CENTER" fillHeight="false" 
-          prefHeight="98.0" prefWidth="900.0" BorderPane.alignment="CENTER">
-        <children>
-            <ImageView fitHeight="100.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../images/LogoGestiona1_redondo.png" />
-                </image>
-            </ImageView>
-            <Region prefHeight="150.0" prefWidth="350.0" />
-            <VBox fx:id="vbUsuario" alignment="CENTER" prefHeight="150.0" prefWidth="216.0" spacing="20.0">
-                <children>
-                    <Label fx:id="lblRol" text="Rol" />
-                    <Label fx:id="lblNombreUsuario" text="Nombre usuario" />
-                </children>
-            </VBox>
-            <Button fx:id="btnLogOut" mnemonicParsing="false" 
-                    prefHeight="36.0" prefWidth="85.0" text="Cerrar sesión" />
-        </children>
-        <padding>
-            <Insets left="20.0" right="10.0" />
-        </padding>
-    </HBox>
-</top>  
-   <left>
-      <VBox prefWidth="190.0" BorderPane.alignment="CENTER">
-         <children>
-            <TitledPane text="Gestión FCT">
-               <content>
-                  <VBox prefHeight="2.0" prefWidth="188.0">
-                     <children>
-                        <Button fx:id="btnNuevaFCT" mnemonicParsing="false" onAction="#abrirNuevaFCT" prefHeight="25.0" prefWidth="216.0" text="Nueva FCT" />
-                        <Button fx:id="btnModificarFCT" mnemonicParsing="false" onAction="#abrirModificarFCT" prefHeight="25.0" prefWidth="277.0" text="Modificar FCT" />
-                        <Button fx:id="btnEliminarFCT" mnemonicParsing="false" onAction="#abrirEliminarFCT" prefHeight="25.0" prefWidth="223.0" text="Eliminar FCT" />
-                     </children>
-                  </VBox>
-               </content>
-            </TitledPane>
-            <TitledPane text="Evaluación">
-               <content>
-                  <VBox prefHeight="0.0" prefWidth="188.0">
-                     <children>
-                        <Button fx:id="btnNuevaEvaluacion" mnemonicParsing="false" onAction="#abrirNuevaEvaluacion" prefHeight="25.0" prefWidth="193.0" text="Nueva evaluacion" />
-                        <Button fx:id="btnConsultarEvaluaciones" mnemonicParsing="false" onAction="#abrirConsultaEvaluacion" prefHeight="25.0" prefWidth="255.0" text="Consultar evaluaciones" />
-                     </children>
-                  </VBox>
-               </content>
-            </TitledPane>
-         </children>
-         <BorderPane.margin>
-            <Insets left="10.0" right="10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox fx:id="panelNuevaFCT" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Nueva Formación en Centros de Trabajo">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox fx:id="panelTablaFCT" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Modificar FCT">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox fx:id="panelEliminarFCT" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Eliminar FCT">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox fx:id="panelNuevaEvaluacion" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Nueva evaluación">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox fx:id="panelConsultaEvaluacion" managed="false" prefHeight="200.0" prefWidth="100.0" visible="false">
-               <children>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="732.0" text="Consultar evaluaciones">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-         </children>
-      </StackPane>
-   </center>
+<BorderPane fx:id="PanelProfesor" prefHeight="700.0"
+	prefWidth="900.0" styleClass="fondo-principal"
+	stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/25"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.alba.proyecto.controller.MenuProfesorController">
+
+	<top>
+		<HBox fx:id="hbBarraSuperior" alignment="CENTER"
+			fillHeight="false" prefHeight="98.0" prefWidth="900.0"
+			styleClass="barra-superior" BorderPane.alignment="CENTER">
+			<children>
+				<ImageView fitHeight="100.0" fitWidth="127.0"
+					pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../images/LogoGestiona1_redondo.png" />
+					</image>
+				</ImageView>
+				<Region prefHeight="150.0" prefWidth="350.0" />
+				<VBox fx:id="vbUsuario" alignment="CENTER" prefHeight="150.0"
+					prefWidth="216.0" spacing="5.0">
+					<children>
+						<Label fx:id="lblRol" styleClass="label-rol" text="Rol" />
+						<Label fx:id="lblNombreUsuario"
+							styleClass="label-nombre-usuario" text="Nombre usuario" />
+					</children>
+				</VBox>
+				<Button fx:id="btnLogOut" mnemonicParsing="false"
+					prefHeight="36.0" prefWidth="90.0" styleClass="btn-logout"
+					text="Cerrar sesión">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</Button>
+				<Button fx:id="btnAyuda" mnemonicParsing="false"
+					onAction="#abrirAyuda" prefHeight="30.0" prefWidth="30.0"
+					styleClass="btn-ayuda" text="?">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</Button>
+			</children>
+			<padding>
+				<Insets left="20.0" right="10.0" />
+			</padding>
+		</HBox>
+	</top>
+
+	<left>
+		<VBox prefWidth="190.0" styleClass="fondo-menu"
+			BorderPane.alignment="CENTER">
+			<children>
+				<TitledPane expanded="false"
+					styleClass="titled-pane-menu" text="Gestión FCT">
+					<content>
+						<VBox prefWidth="188.0" spacing="2.0" styleClass="fondo-menu">
+							<children>
+								<Button fx:id="btnNuevaFCT"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirNuevaFCT" styleClass="btn-menu"
+									text="Nueva FCT" />
+								<Button fx:id="btnModificarFCT"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirModificarFCT" styleClass="btn-menu"
+									text="Modificar FCT" />
+								<Button fx:id="btnEliminarFCT"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirEliminarFCT" styleClass="btn-menu"
+									text="Eliminar FCT" />
+							</children>
+						</VBox>
+					</content>
+				</TitledPane>
+				<TitledPane expanded="false"
+					styleClass="titled-pane-menu" text="Evaluación">
+					<content>
+						<VBox prefWidth="188.0" spacing="2.0" styleClass="fondo-menu">
+							<children>
+								<Button fx:id="btnNuevaEvaluacion"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirNuevaEvaluacion" styleClass="btn-menu"
+									text="Nueva evaluación" />
+								<Button fx:id="btnConsultarEvaluaciones"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirConsultaEvaluacion" styleClass="btn-menu"
+									text="Consultar evaluaciones" />
+							</children>
+						</VBox>
+					</content>
+				</TitledPane>
+			</children>
+			<BorderPane.margin>
+				<Insets left="10.0" right="10.0" />
+			</BorderPane.margin>
+		</VBox>
+	</left>
+
+	<center>
+		<StackPane prefHeight="150.0" prefWidth="200.0"
+			styleClass="fondo-principal" BorderPane.alignment="CENTER">
+			<children>
+				<VBox fx:id="panelNuevaFCT" managed="false" prefHeight="600.0"
+					prefWidth="700.0" spacing="15.0" visible="false">
+					<padding>
+						<Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+					</padding>
+					<children>
+						<Label styleClass="titulo-panel" text="Nueva FCT" />
+
+						<GridPane hgap="15.0" vgap="12.0">
+							<columnConstraints>
+								<ColumnConstraints minWidth="100.0"
+									prefWidth="110.0" />
+								<ColumnConstraints minWidth="150.0"
+									prefWidth="180.0" />
+								<ColumnConstraints minWidth="100.0"
+									prefWidth="110.0" />
+								<ColumnConstraints minWidth="150.0"
+									prefWidth="180.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="35.0" />
+								<RowConstraints minHeight="35.0" />
+								<RowConstraints minHeight="35.0" />
+								<RowConstraints minHeight="35.0" />
+								<RowConstraints minHeight="35.0" />
+								<RowConstraints minHeight="35.0" />
+								<RowConstraints minHeight="80.0" />
+								<RowConstraints minHeight="35.0" />
+							</rowConstraints>
+							<children>
+
+								<!-- Fila 0: Estudiante -->
+								<Label text="Estudiante: *" GridPane.columnIndex="0"
+									GridPane.rowIndex="0" />
+								<ComboBox fx:id="cbEstudiantes" prefWidth="180.0"
+									promptText="Seleccionar..." GridPane.columnIndex="1"
+									GridPane.rowIndex="0" />
+								<Label
+									text="* Todos los campos marcados con '*' son obligatorios."
+									style="-fx-font-style: italic; -fx-font-size: 11px; -fx-text-fill: #4c85b9;"
+									GridPane.columnIndex="2" GridPane.rowIndex="0"
+									GridPane.columnSpan="2" />
+
+								<!-- Fila 1: Empresa y Tutor -->
+								<Label text="Empresa: *" GridPane.columnIndex="0"
+									GridPane.rowIndex="1" />
+								<ComboBox fx:id="cbEmpresas" prefWidth="180.0"
+									promptText="Seleccionar..." GridPane.columnIndex="1"
+									GridPane.rowIndex="1" />
+								<Label text="Tutor: *" GridPane.columnIndex="2"
+									GridPane.rowIndex="1" GridPane.halignment="RIGHT" />
+								<ComboBox fx:id="cbTutores" prefWidth="180.0"
+									promptText="Seleccionar..." GridPane.columnIndex="3"
+									GridPane.rowIndex="1" />
+
+								<!-- Fila 2: Periodo y Fecha inicio -->
+								<Label text="Periodo: *" GridPane.columnIndex="0"
+									GridPane.rowIndex="2" />
+								<ComboBox fx:id="cbPeriodo" prefWidth="180.0"
+									promptText="Seleccionar..." GridPane.columnIndex="1"
+									GridPane.rowIndex="2" />
+								<Label text="Fecha inicio: *" GridPane.columnIndex="2"
+									GridPane.rowIndex="2" GridPane.halignment="RIGHT" />
+								<DatePicker fx:id="dpFechaInicio"
+									promptText="dd/mm/aaaa" GridPane.columnIndex="3"
+									GridPane.rowIndex="2" />
+
+								<!-- Fila 3: Fecha fin -->
+								<Label text="Fecha fin: *" GridPane.columnIndex="2"
+									GridPane.rowIndex="3" GridPane.halignment="RIGHT" />
+								<DatePicker fx:id="dpFechaFin"
+									promptText="dd/mm/aaaa" GridPane.columnIndex="3"
+									GridPane.rowIndex="3" />
+
+								<!-- Fila 4: Documentación -->
+								<Label text="Documentación: *"
+									style="-fx-font-weight: bold;" GridPane.columnIndex="0"
+									GridPane.rowIndex="4" />
+
+								<!-- Fila 5: Tipo documento y botón adjuntar -->
+								<Label text="Tipo documento:" GridPane.columnIndex="0"
+									GridPane.rowIndex="5" />
+								<ComboBox fx:id="cbTipoDocumento" prefWidth="180.0"
+									promptText="Seleccionar..." GridPane.columnIndex="1"
+									GridPane.rowIndex="5" />
+								<Button fx:id="btnAdjuntarArchivos"
+									styleClass="btn-primario" mnemonicParsing="false"
+									text="Adjuntar archivos" GridPane.columnIndex="2"
+									GridPane.rowIndex="5" GridPane.columnSpan="2"
+									GridPane.halignment="CENTER" />
+
+								<!-- Fila 6: TextArea anotaciones -->
+								<TextArea fx:id="taAnotaciones" prefHeight="80.0"
+									promptText="Anotaciones..." GridPane.columnIndex="0"
+									GridPane.rowIndex="6" GridPane.columnSpan="2" />
+
+								<!-- Fila 7: Botones -->
+								<Button fx:id="btnLimpiarFCT" styleClass="btn-peligro"
+									mnemonicParsing="false" prefWidth="80.0" text="Limpiar"
+									GridPane.columnIndex="2" GridPane.rowIndex="7"
+									GridPane.halignment="RIGHT" />
+								<Button fx:id="btnGuardarFCT" styleClass="btn-primario"
+									mnemonicParsing="false" prefWidth="80.0" text="Guardar"
+									GridPane.columnIndex="3" GridPane.rowIndex="7"
+									GridPane.halignment="RIGHT" />
+
+							</children>
+						</GridPane>
+					</children>
+				</VBox>
+				<VBox fx:id="panelTablaFCT" managed="false" prefHeight="600.0" prefWidth="700.0" spacing="15.0" visible="false">
+    <padding>
+        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+    </padding>
+    <children>
+
+        <!-- Título -->
+        <Label styleClass="titulo-panel" text="Modificar FCT" />
+
+        <!-- Buscador -->
+        <HBox spacing="15.0" alignment="CENTER_LEFT">
+            <children>
+                <Label text="Estudiante:" />
+                <TextField fx:id="tfBuscarEstudiante" prefWidth="150.0" promptText="Buscar..." />
+                <Label text="Empresa:" />
+                <TextField fx:id="tfBuscarEmpresaFCT" prefWidth="150.0" promptText="Buscar..." />
+                <Button fx:id="btnBuscarFCT" styleClass="btn-primario"
+                        mnemonicParsing="false" text="Buscar" onAction="#buscarFCT"/>
+            </children>
+        </HBox>
+
+        <!-- Tabla de FCTs -->
+        <TableView fx:id="tablaFCTs" prefHeight="200.0" prefWidth="640.0">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="colEstudianteFCT" text="Estudiante" />
+                <TableColumn fx:id="colEmpresaFCT" text="Empresa" />
+                <TableColumn fx:id="colTutorFCT" text="Tutor" />
+                <TableColumn fx:id="colPeriodoFCT" text="Periodo" />
+                <TableColumn fx:id="colFechaInicioFCT" text="Fecha inicio" />
+                <TableColumn fx:id="colFechaFinFCT" text="Fecha fin" />
+            </columns>
+        </TableView>
+
+        <!-- Botón modificar alineado a la derecha -->
+        <HBox alignment="CENTER_RIGHT">
+            <children>
+                <Button fx:id="btnModificarFCTSeleccionada" styleClass="btn-primario"
+                        mnemonicParsing="false" text="Modificar seleccionada"
+                        disable="true" onAction="#modificarFCTSeleccionada"/>
+            </children>
+        </HBox>
+
+        <!-- Separador -->
+        <Separator />
+
+        <!-- Formulario de modificación (inicialmente oculto) -->
+        <VBox fx:id="subpanelModificarFCT" managed="false" visible="false" spacing="12.0">
+            <children>
+                <Label text="Datos de la FCT" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #18406a;" />
+
+                <GridPane hgap="15.0" vgap="12.0">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="100.0" prefWidth="110.0" />
+                        <ColumnConstraints minWidth="150.0" prefWidth="180.0" />
+                        <ColumnConstraints minWidth="100.0" prefWidth="110.0" />
+                        <ColumnConstraints minWidth="150.0" prefWidth="180.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="35.0" />
+                        <RowConstraints minHeight="35.0" />
+                        <RowConstraints minHeight="35.0" />
+                        <RowConstraints minHeight="35.0" />
+                        <RowConstraints minHeight="35.0" />
+                    </rowConstraints>
+                    <children>
+
+                        <!-- Fila 0: aviso obligatorios -->
+                        <Label text="* Todos los campos marcados con '*' son obligatorios."
+                               style="-fx-font-style: italic; -fx-font-size: 11px; -fx-text-fill: #4c85b9;"
+                               GridPane.columnIndex="2" GridPane.rowIndex="0"
+                               GridPane.columnSpan="2" />
+
+                        <!-- Fila 1: Estudiante (no editable) -->
+                        <Label text="Estudiante:"
+                               GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextField fx:id="tfEstudianteMod" disable="true"
+                                   prefWidth="180.0"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                        <!-- Fila 1: Empresa -->
+                        <Label text="Empresa: *" GridPane.halignment="RIGHT"
+                               GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cbEmpresasMod" prefWidth="180.0"
+                                  promptText="Seleccionar..."
+                                  GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                        <!-- Fila 2: Periodo y Tutor -->
+                        <Label text="Periodo: *"
+                               GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cbPeriodoMod" prefWidth="180.0"
+                                  promptText="Seleccionar..."
+                                  GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Tutor: *" GridPane.halignment="RIGHT"
+                               GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cbTutoresMod" prefWidth="180.0"
+                                  promptText="Seleccionar..."
+                                  GridPane.columnIndex="3" GridPane.rowIndex="2" />
+
+                        <!-- Fila 3: Fechas -->
+                        <Label text="Fecha inicio: *"
+                               GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="dpFechaInicioMod" prefWidth="180.0"
+                                    promptText="dd/mm/aaaa"
+                                    GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Fecha fin: *" GridPane.halignment="RIGHT"
+                               GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="dpFechaFinMod" prefWidth="180.0"
+                                    promptText="dd/mm/aaaa"
+                                    GridPane.columnIndex="3" GridPane.rowIndex="3" />
+
+                        <!-- Fila 4: Botones -->
+                        <Button fx:id="btnCancelarModFCT" styleClass="btn-peligro"
+                                mnemonicParsing="false" prefWidth="80.0" text="Cancelar"
+                                GridPane.columnIndex="2" GridPane.rowIndex="4"
+                                GridPane.halignment="RIGHT" onAction="#cancelarModFCT" />
+                                
+                        <Button fx:id="btnGuardarModFCT" styleClass="btn-primario"
+                                mnemonicParsing="false" prefWidth="80.0" text="Guardar"
+                                GridPane.columnIndex="3" GridPane.rowIndex="4"
+                                GridPane.halignment="RIGHT" onAction="#guardarModFCT" />
+
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+
+    </children>
+</VBox>
+				<VBox fx:id="panelEliminarFCT" managed="false" visible="false">
+					<children>
+						<Label alignment="CENTER" prefHeight="17.0"
+							prefWidth="732.0" styleClass="titulo-panel" text="Eliminar FCT">
+							<VBox.margin>
+								<Insets bottom="20.0" top="10.0" />
+							</VBox.margin>
+						</Label>
+					</children>
+				</VBox>
+				<VBox fx:id="panelNuevaEvaluacion" managed="false"
+					visible="false">
+					<children>
+						<Label alignment="CENTER" prefHeight="17.0"
+							prefWidth="732.0" styleClass="titulo-panel"
+							text="Nueva evaluación">
+							<VBox.margin>
+								<Insets bottom="20.0" top="10.0" />
+							</VBox.margin>
+						</Label>
+					</children>
+				</VBox>
+				<VBox fx:id="panelConsultaEvaluacion" managed="false"
+					visible="false">
+					<children>
+						<Label alignment="CENTER" prefHeight="17.0"
+							prefWidth="732.0" styleClass="titulo-panel"
+							text="Consultar evaluaciones">
+							<VBox.margin>
+								<Insets bottom="20.0" top="10.0" />
+							</VBox.margin>
+						</Label>
+					</children>
+				</VBox>
+				<VBox prefHeight="200.0" prefWidth="100.0" />
+			</children>
+		</StackPane>
+	</center>
+
 </BorderPane>
