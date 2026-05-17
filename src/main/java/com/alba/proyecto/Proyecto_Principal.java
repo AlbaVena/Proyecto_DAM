@@ -11,7 +11,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 @SpringBootApplication 									//Anotacion propia de Spring
-public class Tarea3Ad2024baseApplication extends Application {
+public class Proyecto_Principal extends Application {
 												//Interfaz que lanza un aplicativo
 	
 	protected ConfigurableApplicationContext springContext;
@@ -43,7 +43,7 @@ public class Tarea3Ad2024baseApplication extends Application {
 	}	//de una pantalla a otra						//en este caso pantalla "LOGIN"
 
 	private ConfigurableApplicationContext springBootApplicationContext() {
-		SpringApplicationBuilder builder = new SpringApplicationBuilder(Tarea3Ad2024baseApplication.class);
+		SpringApplicationBuilder builder = new SpringApplicationBuilder(Proyecto_Principal.class);
 		String[] args = getParameters().getRaw().stream().toArray(String[]::new);
 		return builder.run(args);
 	}

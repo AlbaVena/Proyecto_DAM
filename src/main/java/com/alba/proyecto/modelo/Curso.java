@@ -45,6 +45,11 @@ public class Curso {
 	
 	@Transient
 	private final String DAM_CODIGO = "VIFC302";
+	
+	
+	
+	
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
