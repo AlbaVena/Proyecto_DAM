@@ -2,6 +2,11 @@
    PALETA GESTIONA
    ========================================== */
 
+/* --- Fuente global --- */
+.root {
+    -fx-font-family: "Arial";
+}
+
 /* --- Fondo general --- */
 .fondo-principal {
     -fx-background-color: #e1e8ee;
