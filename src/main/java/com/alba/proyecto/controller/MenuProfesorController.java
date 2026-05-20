@@ -6,7 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 
+import com.alba.proyecto.modelo.Curso;
 import com.alba.proyecto.modelo.Persona;
+import com.alba.proyecto.modelo.Profesor;
+import com.alba.proyecto.repositorios.CursoRepository;
+import com.alba.proyecto.repositorios.EstudianteRepository;
+import com.alba.proyecto.repositorios.FCTRepository;
 import com.alba.proyecto.services.Sesion;
 
 import javafx.fxml.FXML;
@@ -89,6 +94,17 @@ public class MenuProfesorController {
     @FXML private Button btnCancelarModFCT;
     @FXML private Button btnGuardarModFCT;
     
+    //pantalla principal
+    @FXML private VBox panelPrincipal;
+    @FXML private Label lblBienvenidaProfesor;
+    @FXML private Label lblCursoProfesor;
+    @FXML private Label lblNumEstudiantesProfesor;
+    @FXML private Label lblNumFCTsProfesor;
+    
+    @Autowired private EstudianteRepository estudianteRepository;
+    @Autowired private FCTRepository fctRepository;
+    @Autowired private CursoRepository cursoRepository;
+    
 
     @FXML
     public void initialize() {
@@ -101,6 +117,8 @@ public class MenuProfesorController {
         
         btnModificarFCTSeleccionada.disableProperty().bind(tablaFCTs.getSelectionModel().selectedItemProperty().isNull());
 
+        mostrarPanel(panelPrincipal);
+        cargarEstadisticas();
     }
 
     private void ocultarTodo() {
@@ -114,6 +132,8 @@ public class MenuProfesorController {
         panelNuevaEvaluacion.setManaged(false);
         panelConsultaEvaluacion.setVisible(false);
         panelConsultaEvaluacion.setManaged(false);
+        panelPrincipal.setVisible(false);
+        panelPrincipal.setManaged(false);
     }
     
     private void cargarSesion() {
@@ -250,6 +270,21 @@ public class MenuProfesorController {
         cancelarModFCT();
     }
     
+    private void cargarEstadisticas() {
+        Persona p = sesion.getUsuarioActual();
+        if (p != null) {
+            lblBienvenidaProfesor.setText("Bienvenido/a, " + p.getNombre());
+            Profesor profesor = (Profesor) p;
+            Curso curso = profesor.getCurso();
+            if (curso != null) {
+                lblCursoProfesor.setText("Curso: " + curso.toString());
+                lblNumEstudiantesProfesor.setText(
+                    String.valueOf(estudianteRepository.countByCurso(curso)));
+                lblNumFCTsProfesor.setText(
+                    String.valueOf(fctRepository.count()));
+            }
+        }
+    }
     
     
     

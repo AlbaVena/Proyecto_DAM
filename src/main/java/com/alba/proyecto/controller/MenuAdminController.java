@@ -7,6 +7,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import com.alba.proyecto.modelo.Empresa;
 import com.alba.proyecto.modelo.Persona;
+import com.alba.proyecto.repositorios.EmpresaRepository;
+import com.alba.proyecto.repositorios.EstudianteRepository;
+import com.alba.proyecto.repositorios.FCTRepository;
 import com.alba.proyecto.services.EmpresaService;
 import com.alba.proyecto.services.Sesion;
 
@@ -76,6 +79,12 @@ public class MenuAdminController {
     @FXML private Button btnLogOut;
     
     @FXML private Button btnAyuda;
+    
+    @FXML private VBox panelPrincipal;
+    @FXML private Label lblBienvenidaAdmin;
+    @FXML private Label lblNumEstudiantes;
+    @FXML private Label lblNumEmpresas;
+    @FXML private Label lblNumFCTs;
 
     @Autowired
     private EmpresaService empresaService;
@@ -85,6 +94,12 @@ public class MenuAdminController {
     
     @Autowired
     private ConfigurableApplicationContext context;
+    
+    @Autowired private EstudianteRepository estudianteRepository;
+    
+    @Autowired private EmpresaRepository empresaRepository;
+    
+    @Autowired private FCTRepository fctRepository;
 
     // lista para la tabla de empresas
     private ObservableList<Empresa> listaEmpresas = FXCollections.observableArrayList();
@@ -105,15 +120,30 @@ public class MenuAdminController {
         configurarBotonesEditar();
         abrirAtajoAyuda();
         ocultarTodo();
+        mostrarPanel(panelPrincipal);
+        cargarEstadisticas();
     }
 
-    private void ocultarTodo() {
+    private void cargarEstadisticas() {
+    	  Persona p = sesion.getUsuarioActual();
+    	    if (p != null) {
+    	        lblBienvenidaAdmin.setText("Bienvenido/a, " + p.getNombre());
+    	    }
+    	    lblNumEstudiantes.setText(String.valueOf(estudianteRepository.count()));
+    	    lblNumEmpresas.setText(String.valueOf(empresaRepository.count()));
+    	    lblNumFCTs.setText(String.valueOf(fctRepository.count()));
+		
+	}
+
+	private void ocultarTodo() {
         panelCrearEmpresa.setVisible(false);
         panelCrearEmpresa.setManaged(false);
         panelTablaEmpresas.setVisible(false);
         panelTablaEmpresas.setManaged(false);
         panelFormModificar.setVisible(false);
         panelFormModificar.setManaged(false);
+        panelPrincipal.setVisible(false);
+        panelPrincipal.setManaged(false);
     }
     
     private void cargarSesion() {

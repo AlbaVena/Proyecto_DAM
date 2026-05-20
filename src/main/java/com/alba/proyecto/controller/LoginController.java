@@ -60,7 +60,7 @@ public class LoginController {
                     cargarPantalla("/fxml/MenuEstudiante.fxml");
                     break;
                 case TUTOREMPRESA:
-                    cargarPantalla("/fxml/MenuAdmin2.fxml");
+                    cargarPantalla("/fxml/MenuTutorEmpresa.fxml");
                     break;
                 default:
                     System.out.println("Perfil no reconocido.");

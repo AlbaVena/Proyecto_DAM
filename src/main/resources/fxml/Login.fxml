@@ -20,8 +20,8 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="username" layoutX="98.0" layoutY="174.0" prefHeight="36.0" prefWidth="204.0" promptText="Username" />
-      <PasswordFieldValidado fx:id="password" layoutX="99.0" layoutY="253.0" prefHeight="36.0" prefWidth="204.0" promptText="Password..." />
+      <TextField fx:id="username" layoutX="98.0" layoutY="174.0" prefHeight="36.0" prefWidth="204.0" promptText="Usuario..." />
+      <PasswordFieldValidado fx:id="password" layoutX="99.0" layoutY="253.0" prefHeight="36.0" prefWidth="204.0" promptText="Contraseña..." />
       <Button fx:id="btnLogin" layoutX="214.0" layoutY="323.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #59B5D9;" styleClass="btnGreen" text="Sign In" textFill="WHITE">
          <font>
             <Font size="15.0" />
