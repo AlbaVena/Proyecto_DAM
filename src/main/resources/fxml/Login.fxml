@@ -3,39 +3,54 @@
 <?import componentes.PasswordFieldValidado?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alba.proyecto.controller.LoginController">
-   <children>
-      <Rectangle fill="#dfe7f2" height="450.0" stroke="#ffffff8b" strokeType="INSIDE" width="600.0" />
-      <Label fx:id="lblLogin" layoutX="98.0" layoutY="91.0" prefHeight="30.0" prefWidth="204.0" text="Inicio de Sesión">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <TextField fx:id="username" layoutX="98.0" layoutY="174.0" prefHeight="36.0" prefWidth="204.0" promptText="Usuario..." />
-      <PasswordFieldValidado fx:id="password" layoutX="99.0" layoutY="253.0" prefHeight="36.0" prefWidth="204.0" promptText="Contraseña..." />
-      <Button fx:id="btnLogin" layoutX="214.0" layoutY="323.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #59B5D9;" styleClass="btnGreen" text="Sign In" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" />
-         </effect></Button>
-      <ImageView fx:id="logo" fitHeight="113.0" fitWidth="204.0" layoutX="371.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/logo_Laboral.png" />
-         </image>
-      </ImageView>
-   </children>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-</AnchorPane>
+
+<StackPane
+    prefHeight="700.0" prefWidth="900.0"
+    styleClass="fondo-principal"
+    stylesheets="@../styles/Styles.css"
+    xmlns="http://javafx.com/javafx/25"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.alba.proyecto.controller.LoginController">
+
+
+    <VBox alignment="CENTER" spacing="16.0" maxWidth="320.0">
+
+        <!-- Logo -->
+        <ImageView fitHeight="110.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/LogoGestiona1_redondo.png" />
+            </image>
+        </ImageView>
+
+
+        <Label text="Inicio de sesión" styleClass="titulo-panel">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </Label>
+
+        <TextField fx:id="username" prefHeight="36.0" prefWidth="280.0" promptText="Usuario..." />
+
+        <PasswordFieldValidado fx:id="password" prefHeight="36.0" prefWidth="280.0" promptText="Contraseña..." />
+
+        <Label fx:id="lblError" text="Usuario o contraseña incorrectos."
+               style="-fx-text-fill: #c0392b; -fx-font-size: 12px;"
+               visible="false" managed="false" />
+
+        <Button fx:id="btnLogin" prefHeight="36.0" prefWidth="280.0"
+                styleClass="btn-primario" text="Iniciar sesión" mnemonicParsing="false" />
+
+        <Hyperlink fx:id="lblOlvido" text="¿Olvidaste tu contraseña?"
+                   style="-fx-font-size: 12px;" />
+
+    </VBox>
+</StackPane>

@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import com.alba.proyecto.modelo.Empresa;
+import com.alba.proyecto.modelo.Perfil;
 import com.alba.proyecto.modelo.Persona;
 import com.alba.proyecto.repositorios.EmpresaRepository;
 import com.alba.proyecto.repositorios.EstudianteRepository;
 import com.alba.proyecto.repositorios.FCTRepository;
 import com.alba.proyecto.services.EmpresaService;
 import com.alba.proyecto.services.Sesion;
+import com.alba.proyecto.services.UsuarioService;
+import utils.Transformador;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +52,14 @@ public class MenuAdminController {
     @FXML private TextField tfDireccionEmpresa;
     @FXML private TextField tfTelefonoEmpresa;
     @FXML private Button btnGuardarEmpresa;
+
+    // Sección tutor opcional dentro del panel crear empresa
+    @FXML private TextField tfNombreTutor;
+    @FXML private TextField tfApellidosTutor;
+    @FXML private TextField tfEmailTutor;
+    @FXML private TextField tfTelefonoTutor;
+    @FXML private TextField tfUsuarioTutor;
+    @FXML private TextField tfPasswordTutor;
 
     // Panel Tabla  
     @FXML private TextField tfBuscarEmpresa;
@@ -88,6 +99,9 @@ public class MenuAdminController {
 
     @Autowired
     private EmpresaService empresaService;
+
+    @Autowired
+    private UsuarioService usuarioService;
     
     @Autowired
 	private Sesion sesion;
@@ -162,6 +176,7 @@ public class MenuAdminController {
                 Parent root = loader.load();
                 Stage stage = (Stage) btnLogOut.getScene().getWindow();
                 stage.setScene(new Scene(root));
+                stage.centerOnScreen();
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -294,26 +309,70 @@ public class MenuAdminController {
         });
     }
 
-    //Guardar empresa nueva  
+    //Guardar empresa nueva (y tutor opcional si se han rellenado sus campos)
     @FXML
     private void guardarEmpresa() {
-        String nombre = tfNombreEmpresa.getText();
-        String direccion = tfDireccionEmpresa.getText();
-        String telefono = tfTelefonoEmpresa.getText();
+        String nombre = tfNombreEmpresa.getText().trim();
+        String direccion = tfDireccionEmpresa.getText().trim();
+        String telefono = tfTelefonoEmpresa.getText().trim();
 
+        // nombre de empresa obligatorio
         if (nombre.isEmpty()) {
             tfNombreEmpresa.setStyle("-fx-border-color: red;");
             return;
         }
-
         tfNombreEmpresa.setStyle("");
 
+        // guardar empresa
         Empresa empresa = new Empresa();
         empresa.setNombre(nombre);
         empresa.setDireccion(direccion);
         empresa.setTelefono(telefono);
-
         empresaService.save(empresa);
+
+        // comprobar si se han rellenado datos del tutor
+        String nombreTutor    = tfNombreTutor.getText().trim();
+        String apellidosTutor = tfApellidosTutor.getText().trim();
+        String emailTutor     = tfEmailTutor.getText().trim();
+        String telefonoTutor  = tfTelefonoTutor.getText().trim();
+        String usuarioTutor   = tfUsuarioTutor.getText().trim();
+        String passwordTutor  = tfPasswordTutor.getText().trim();
+
+        // si al menos nombre, usuario y contraseña tienen algo, creamos el tutor
+        boolean crearTutor = !nombreTutor.isEmpty() && !usuarioTutor.isEmpty() && !passwordTutor.isEmpty();
+
+        if (crearTutor) {
+            // validación mínima de usuario y contraseña
+            if (!usuarioTutor.matches(utils.Validador.usuarioPasswordRegex)) {
+                tfUsuarioTutor.setStyle("-fx-border-color: red;");
+                // la empresa ya se guardó, avisamos pero no bloqueamos
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Tutor no guardado");
+                alerta.setHeaderText(null);
+                alerta.setContentText("La empresa se ha guardado correctamente.\n"
+                    + "El tutor no se ha creado porque el usuario no tiene el formato correcto "
+                    + "(entre 3 y 12 caracteres, solo letras, números y _).");
+                alerta.showAndWait();
+            } else if (!passwordTutor.matches(utils.Validador.usuarioPasswordRegex)) {
+                tfPasswordTutor.setStyle("-fx-border-color: red;");
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Tutor no guardado");
+                alerta.setHeaderText(null);
+                alerta.setContentText("La empresa se ha guardado correctamente.\n"
+                    + "El tutor no se ha creado porque la contraseña no tiene el formato correcto.");
+                alerta.showAndWait();
+            } else {
+                // hashear contraseña y crear tutor
+                String passwordHash = Transformador.hashPassword(passwordTutor);
+                usuarioService.crearTutorEmpresa(
+                    usuarioTutor, passwordHash,
+                    nombreTutor, apellidosTutor,
+                    emailTutor, telefonoTutor,
+                    Perfil.TUTOREMPRESA, empresa, null
+                );
+            }
+        }
+
         limpiarFormCrear();
         mostrarPanel(panelTablaEmpresas);
         modoTabla = "modificar";
@@ -353,12 +412,22 @@ public class MenuAdminController {
         mostrarPanel(panelTablaEmpresas);
     }
 
-    //Limpiar formulario crear  
+    //Limpiar formulario crear (empresa y tutor)
     private void limpiarFormCrear() {
+        // empresa
         tfNombreEmpresa.clear();
         tfDireccionEmpresa.clear();
         tfTelefonoEmpresa.clear();
         tfNombreEmpresa.setStyle("");
+        // tutor
+        tfNombreTutor.clear();
+        tfApellidosTutor.clear();
+        tfEmailTutor.clear();
+        tfTelefonoTutor.clear();
+        tfUsuarioTutor.clear();
+        tfPasswordTutor.clear();
+        tfUsuarioTutor.setStyle("");
+        tfPasswordTutor.setStyle("");
     }
     
     @FXML
