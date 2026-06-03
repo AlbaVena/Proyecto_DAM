@@ -14,6 +14,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -29,6 +31,12 @@ public class LoginController {
 
     @FXML
     private Button btnLogin;
+    
+    @FXML
+    private Label lblError;
+    
+    @FXML 
+    private Hyperlink lblOlvido;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -39,6 +47,22 @@ public class LoginController {
     @FXML
     public void initialize() {
         btnLogin.setOnAction(this::handleLogin);
+        
+     // limpiar el error cuando el usuario empiece a escribir
+        username.textProperty().addListener((obs, anterior, nuevo) -> ocultarError());
+        password.textProperty().addListener((obs, anterior, nuevo) ->{
+        	lblError.setVisible(false);
+            lblError.setManaged(false);
+            username.setStyle("");
+        }
+        );
+
+        // lblOlvido — de momento solo un mensaje informativo
+        lblOlvido.setOnAction(event -> {
+            lblError.setText("Para recuperar tu contraseña, contacta con el admin.");
+            lblError.setVisible(true);
+            lblError.setManaged(true);
+        });
     }
 
     private void handleLogin(ActionEvent event) {
@@ -66,8 +90,7 @@ public class LoginController {
                     System.out.println("Perfil no reconocido.");
             }
         } else {
-            username.setStyle("-fx-border-color: red;");
-            password.setStyle("-fx-border-color: red;");
+        	mostrarError("Usuario o contraseña incorrectos");
         }
     }
 
@@ -83,5 +106,20 @@ public class LoginController {
             e.printStackTrace();
             System.err.println("Error al cargar la vista: " + rutaFxml);
         }
+    }
+    
+    private void mostrarError(String mensaje) {
+        lblError.setText(mensaje);
+        lblError.setVisible(true);
+        lblError.setManaged(true);
+        username.setStyle("-fx-border-color: #c0392b;");
+       
+    }
+
+    private void ocultarError() {
+        lblError.setVisible(false);
+        lblError.setManaged(false);
+        username.setStyle("");
+       
     }
 }

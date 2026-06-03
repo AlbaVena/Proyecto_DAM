@@ -82,13 +82,13 @@
 							<children>
 								<Button fx:id="btnNuevoUsuario" styleClass="btn-menu"
 									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-									text="Nuevo usuario" />
+									onAction="#abrirCrearUsuario" text="Nuevo usuario" />
 								<Button fx:id="btnModificarUsuario" styleClass="btn-menu"
 									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-									text="Modificar usuario" />
+									onAction="#abrirModificarUsuario" text="Modificar usuario" />
 								<Button fx:id="btnConsultarUsuario" styleClass="btn-menu"
 									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-									text="Consultar usuario" />
+									onAction="#abrirConsultarUsuario" text="Consultar usuario" />
 							</children>
 						</VBox>
 					</content>
@@ -169,7 +169,8 @@
 									<children>
 										<Label fx:id="lblNumFCTs" text="0"
 											style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #1A5276;" />
-										<Label text="FEs registradas" style="-fx-font-size: 14px;" />
+										<Label text="FEs registradas"
+											style="-fx-font-size: 14px;" />
 									</children>
 								</VBox>
 							</children>
@@ -178,7 +179,8 @@
 				</VBox>
 
 				<!-- Panel crear empresa + tutor opcional -->
-				<VBox fx:id="panelCrearEmpresa" managed="false" visible="false" spacing="15.0">
+				<VBox fx:id="panelCrearEmpresa" managed="false" visible="false"
+					spacing="15.0">
 					<padding>
 						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
 					</padding>
@@ -189,8 +191,10 @@
 
 						<GridPane hgap="15.0" vgap="14.0">
 							<columnConstraints>
-								<ColumnConstraints minWidth="120.0" prefWidth="130.0" halignment="RIGHT" />
-								<ColumnConstraints minWidth="200.0" prefWidth="260.0" />
+								<ColumnConstraints minWidth="120.0"
+									prefWidth="130.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="200.0"
+									prefWidth="260.0" />
 							</columnConstraints>
 							<rowConstraints>
 								<RowConstraints minHeight="36.0" />
@@ -198,13 +202,17 @@
 								<RowConstraints minHeight="36.0" />
 							</rowConstraints>
 							<children>
-								<Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+								<Label text="Nombre:" GridPane.columnIndex="0"
+									GridPane.rowIndex="0" />
 								<TextField fx:id="tfNombreEmpresa" prefWidth="260.0"
 									GridPane.columnIndex="1" GridPane.rowIndex="0" />
-								<Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-								<TextField fx:id="tfDireccionEmpresa" prefWidth="260.0"
-									GridPane.columnIndex="1" GridPane.rowIndex="1" />
-								<Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+								<Label text="Dirección:" GridPane.columnIndex="0"
+									GridPane.rowIndex="1" />
+								<TextField fx:id="tfDireccionEmpresa"
+									prefWidth="260.0" GridPane.columnIndex="1"
+									GridPane.rowIndex="1" />
+								<Label text="Teléfono:" GridPane.columnIndex="0"
+									GridPane.rowIndex="2" />
 								<TextField fx:id="tfTelefonoEmpresa" prefWidth="260.0"
 									GridPane.columnIndex="1" GridPane.rowIndex="2" />
 							</children>
@@ -212,22 +220,29 @@
 
 						<!-- Separador -->
 						<Separator>
-							<VBox.margin><Insets top="5.0" bottom="5.0" /></VBox.margin>
+							<VBox.margin>
+								<Insets top="5.0" bottom="5.0" />
+							</VBox.margin>
 						</Separator>
 
 						<!-- Sección tutor opcional -->
 						<Label text="Tutor de esta empresa (opcional)"
 							style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #18406a;" />
-						<Label text="Si ya conoces el tutor, puedes crearlo ahora. Si no, puedes añadirlo más adelante desde Gestión de usuarios."
+						<Label
+							text="Si ya conoces el tutor, puedes crearlo ahora. Si no, puedes añadirlo más adelante desde Gestión de usuarios."
 							style="-fx-font-size: 11px; -fx-font-style: italic; -fx-text-fill: #666;"
 							wrapText="true" />
 
 						<GridPane hgap="10.0" vgap="14.0">
 							<columnConstraints>
-								<ColumnConstraints minWidth="90.0" prefWidth="100.0" halignment="RIGHT" />
-								<ColumnConstraints minWidth="130.0" prefWidth="150.0" />
-								<ColumnConstraints minWidth="90.0" prefWidth="100.0" halignment="RIGHT" />
-								<ColumnConstraints minWidth="130.0" prefWidth="150.0" />
+								<ColumnConstraints minWidth="90.0"
+									prefWidth="100.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="130.0"
+									prefWidth="150.0" />
+								<ColumnConstraints minWidth="90.0"
+									prefWidth="100.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="130.0"
+									prefWidth="150.0" />
 							</columnConstraints>
 							<rowConstraints>
 								<RowConstraints minHeight="36.0" />
@@ -236,26 +251,32 @@
 							</rowConstraints>
 							<children>
 								<!-- Fila 0: Nombre y Apellidos -->
-								<Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+								<Label text="Nombre:" GridPane.columnIndex="0"
+									GridPane.rowIndex="0" />
 								<TextField fx:id="tfNombreTutor"
 									GridPane.columnIndex="1" GridPane.rowIndex="0" />
-								<Label text="Apellidos:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+								<Label text="Apellidos:" GridPane.columnIndex="2"
+									GridPane.rowIndex="0" />
 								<TextField fx:id="tfApellidosTutor"
 									GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
 								<!-- Fila 1: Email y Teléfono -->
-								<Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+								<Label text="Email:" GridPane.columnIndex="0"
+									GridPane.rowIndex="1" />
 								<TextField fx:id="tfEmailTutor"
 									GridPane.columnIndex="1" GridPane.rowIndex="1" />
-								<Label text="Teléfono:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+								<Label text="Teléfono:" GridPane.columnIndex="2"
+									GridPane.rowIndex="1" />
 								<TextField fx:id="tfTelefonoTutor"
 									GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
 								<!-- Fila 2: Usuario y Contraseña -->
-								<Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+								<Label text="Usuario:" GridPane.columnIndex="0"
+									GridPane.rowIndex="2" />
 								<TextField fx:id="tfUsuarioTutor"
 									GridPane.columnIndex="1" GridPane.rowIndex="2" />
-								<Label text="Contraseña:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+								<Label text="Contraseña:" GridPane.columnIndex="2"
+									GridPane.rowIndex="2" />
 								<TextField fx:id="tfPasswordTutor"
 									GridPane.columnIndex="3" GridPane.rowIndex="2" />
 							</children>
@@ -263,11 +284,13 @@
 
 						<!-- Botón único que guarda empresa y tutor si procede -->
 						<HBox>
-							<VBox.margin><Insets top="10.0" /></VBox.margin>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
 							<children>
-								<Button fx:id="btnGuardarEmpresa" styleClass="btn-primario"
-									mnemonicParsing="false" onAction="#guardarEmpresa"
-									prefWidth="110.0" text="Guardar" />
+								<Button fx:id="btnGuardarEmpresa"
+									styleClass="btn-primario" mnemonicParsing="false"
+									onAction="#guardarEmpresa" prefWidth="110.0" text="Guardar" />
 							</children>
 						</HBox>
 
@@ -275,26 +298,32 @@
 				</VBox>
 
 				<!-- Panel tabla empresas -->
-				<VBox fx:id="panelTablaEmpresas" managed="false" visible="false" spacing="10.0">
+				<VBox fx:id="panelTablaEmpresas" managed="false"
+					visible="false" spacing="10.0">
 					<padding>
 						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
 					</padding>
 					<children>
-						<Label fx:id="lblTituloTablaEmpresas" styleClass="titulo-panel" text="Empresas" />
+						<Label fx:id="lblTituloTablaEmpresas"
+							styleClass="titulo-panel" text="Empresas" />
 						<HBox spacing="15.0" alignment="CENTER_LEFT">
 							<children>
 								<Label text="Buscar:" />
-								<TextField fx:id="tfBuscarEmpresa" prefWidth="220.0" promptText="Nombre o dirección..." />
+								<TextField fx:id="tfBuscarEmpresa" prefWidth="220.0"
+									promptText="Nombre o dirección..." />
 							</children>
 						</HBox>
-						<TableView fx:id="tablaEmpresas" prefHeight="400.0" prefWidth="640.0">
+						<TableView fx:id="tablaEmpresas" prefHeight="400.0"
+							prefWidth="640.0">
 							<columnResizePolicy>
 								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 							</columnResizePolicy>
 							<columns>
 								<TableColumn fx:id="colNombreEmpresa" text="Nombre" />
-								<TableColumn fx:id="colTelefonoEmpresa" text="Teléfono" />
-								<TableColumn fx:id="colDireccionEmpresa" text="Dirección" />
+								<TableColumn fx:id="colTelefonoEmpresa"
+									text="Teléfono" />
+								<TableColumn fx:id="colDireccionEmpresa"
+									text="Dirección" />
 								<TableColumn fx:id="colInfoEmpresa" text="Tutores" />
 							</columns>
 						</TableView>
@@ -302,18 +331,23 @@
 				</VBox>
 
 				<!-- Panel modificar/consultar empresa -->
-				<VBox fx:id="panelFormModificar" managed="false" visible="false" spacing="14.0">
+				<VBox fx:id="panelFormModificar" managed="false"
+					visible="false" spacing="14.0">
 					<padding>
 						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
 					</padding>
 					<children>
-						<Label fx:id="lblTituloEmpresa" styleClass="titulo-panel" text="Empresa" />
+						<Label fx:id="lblTituloEmpresa" styleClass="titulo-panel"
+							text="Empresa" />
 
 						<GridPane hgap="15.0" vgap="14.0">
 							<columnConstraints>
-								<ColumnConstraints minWidth="120.0" prefWidth="130.0" halignment="RIGHT" />
-								<ColumnConstraints minWidth="200.0" prefWidth="260.0" />
-								<ColumnConstraints minWidth="36.0" prefWidth="36.0" />
+								<ColumnConstraints minWidth="120.0"
+									prefWidth="130.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="200.0"
+									prefWidth="260.0" />
+								<ColumnConstraints minWidth="36.0"
+									prefWidth="36.0" />
 							</columnConstraints>
 							<rowConstraints>
 								<RowConstraints minHeight="36.0" />
@@ -321,38 +355,56 @@
 								<RowConstraints minHeight="36.0" />
 							</rowConstraints>
 							<children>
-								<Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-								<TextField fx:id="tfFormNombreEmpresa" editable="false" prefWidth="260.0"
-									GridPane.columnIndex="1" GridPane.rowIndex="0" />
-								<Button fx:id="btnEditarNombreEmpresa" mnemonicParsing="false"
-									GridPane.columnIndex="2" GridPane.rowIndex="0">
+								<Label text="Nombre:" GridPane.columnIndex="0"
+									GridPane.rowIndex="0" />
+								<TextField fx:id="tfFormNombreEmpresa"
+									editable="false" prefWidth="260.0" GridPane.columnIndex="1"
+									GridPane.rowIndex="0" />
+								<Button fx:id="btnEditarNombreEmpresa"
+									mnemonicParsing="false" GridPane.columnIndex="2"
+									GridPane.rowIndex="0">
 									<graphic>
-										<ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-											<image><Image url="@../images/icono_editar.png" /></image>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
 										</ImageView>
 									</graphic>
 								</Button>
 
-								<Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-								<TextField fx:id="tfFormDireccionEmpresa" editable="false" prefWidth="260.0"
-									GridPane.columnIndex="1" GridPane.rowIndex="1" />
-								<Button fx:id="btnEditarDireccionEmpresa" mnemonicParsing="false"
-									GridPane.columnIndex="2" GridPane.rowIndex="1">
+								<Label text="Dirección:" GridPane.columnIndex="0"
+									GridPane.rowIndex="1" />
+								<TextField fx:id="tfFormDireccionEmpresa"
+									editable="false" prefWidth="260.0" GridPane.columnIndex="1"
+									GridPane.rowIndex="1" />
+								<Button fx:id="btnEditarDireccionEmpresa"
+									mnemonicParsing="false" GridPane.columnIndex="2"
+									GridPane.rowIndex="1">
 									<graphic>
-										<ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-											<image><Image url="@../images/icono_editar.png" /></image>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
 										</ImageView>
 									</graphic>
 								</Button>
 
-								<Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-								<TextField fx:id="tfFormTelefonoEmpresa" editable="false" prefWidth="260.0"
-									GridPane.columnIndex="1" GridPane.rowIndex="2" />
-								<Button fx:id="btnEditarTelefonoEmpresa" mnemonicParsing="false"
-									GridPane.columnIndex="2" GridPane.rowIndex="2">
+								<Label text="Teléfono:" GridPane.columnIndex="0"
+									GridPane.rowIndex="2" />
+								<TextField fx:id="tfFormTelefonoEmpresa"
+									editable="false" prefWidth="260.0" GridPane.columnIndex="1"
+									GridPane.rowIndex="2" />
+								<Button fx:id="btnEditarTelefonoEmpresa"
+									mnemonicParsing="false" GridPane.columnIndex="2"
+									GridPane.rowIndex="2">
 									<graphic>
-										<ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-											<image><Image url="@../images/icono_editar.png" /></image>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
 										</ImageView>
 									</graphic>
 								</Button>
@@ -360,24 +412,28 @@
 						</GridPane>
 
 						<HBox spacing="15.0">
-							<VBox.margin><Insets top="10.0" /></VBox.margin>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
 							<children>
-								<Button fx:id="btnVolverTablaEmpresa" styleClass="btn-volver"
-									mnemonicParsing="false" onAction="#volverTablaEmpresa"
-									prefWidth="80.0" text="Volver" />
-								<Button fx:id="btnCancelarFormEmpresa" styleClass="btn-peligro"
-									mnemonicParsing="false" onAction="#cancelarFormEmpresa"
-									prefWidth="80.0" text="Cancelar" />
-								<Button fx:id="btnGuardarFormEmpresa" styleClass="btn-primario"
-									mnemonicParsing="false" onAction="#guardarFormEmpresa"
-									prefWidth="80.0" text="Guardar" />
+								<Button fx:id="btnVolverTablaEmpresa"
+									styleClass="btn-volver" mnemonicParsing="false"
+									onAction="#volverTablaEmpresa" prefWidth="80.0" text="Volver" />
+								<Button fx:id="btnCancelarFormEmpresa"
+									styleClass="btn-peligro" mnemonicParsing="false"
+									onAction="#cancelarFormEmpresa" prefWidth="80.0"
+									text="Cancelar" />
+								<Button fx:id="btnGuardarFormEmpresa"
+									styleClass="btn-primario" mnemonicParsing="false"
+									onAction="#guardarFormEmpresa" prefWidth="80.0" text="Guardar" />
 							</children>
 						</HBox>
 					</children>
 				</VBox>
 
 				<!-- Panel crear usuario -->
-				<VBox fx:id="panelCrearUsuario" managed="false" visible="false" spacing="15.0">
+				<VBox fx:id="panelCrearUsuario" managed="false" visible="false"
+					spacing="15.0">
 					<padding>
 						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
 					</padding>
@@ -386,10 +442,14 @@
 
 						<GridPane hgap="20.0" vgap="12.0">
 							<columnConstraints>
-								<ColumnConstraints minWidth="110.0" prefWidth="120.0" halignment="RIGHT" />
-								<ColumnConstraints minWidth="160.0" prefWidth="180.0" />
-								<ColumnConstraints minWidth="110.0" prefWidth="120.0" halignment="RIGHT" />
-								<ColumnConstraints minWidth="160.0" prefWidth="180.0" />
+								<ColumnConstraints minWidth="110.0"
+									prefWidth="120.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="160.0"
+									prefWidth="180.0" />
+								<ColumnConstraints minWidth="110.0"
+									prefWidth="120.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="160.0"
+									prefWidth="180.0" />
 							</columnConstraints>
 							<rowConstraints>
 								<RowConstraints minHeight="34.0" />
@@ -401,64 +461,486 @@
 							</rowConstraints>
 							<children>
 								<!-- Fila 0: Rol y Empresa -->
-								<Label text="Rol:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-								<ComboBox fx:id="cbRol" prefWidth="180.0" promptText="Seleccionar..."
-									GridPane.columnIndex="1" GridPane.rowIndex="0" />
-								<Label text="Empresa:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-								<ComboBox fx:id="cbEmpresaUsuario" disable="true" prefWidth="180.0"
-									GridPane.columnIndex="3" GridPane.rowIndex="0" />
+								<Label text="Rol:" GridPane.columnIndex="0"
+									GridPane.rowIndex="0" />
+								<ComboBox fx:id="cbRol" prefWidth="180.0"
+									promptText="Seleccionar..." GridPane.columnIndex="1"
+									GridPane.rowIndex="0" />
+								<Label text="Empresa:" GridPane.columnIndex="2"
+									GridPane.rowIndex="0" />
+								<ComboBox fx:id="cbEmpresaUsuario"
+									prefWidth="180.0" GridPane.columnIndex="3"
+									GridPane.rowIndex="0" />
 
 								<!-- Fila 1: Nombre y Nº SS -->
-								<Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+								<Label text="Nombre:" GridPane.columnIndex="0"
+									GridPane.rowIndex="1" />
 								<TextField fx:id="tfNombre" promptText="Nombre"
 									GridPane.columnIndex="1" GridPane.rowIndex="1" />
-								<Label text="Nº S.S.:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-								<TextField fx:id="tfNss" editable="false" promptText="XX-XXXXXX-XXX"
-									GridPane.columnIndex="3" GridPane.rowIndex="1" />
+								<Label text="Nº S.S.:" GridPane.columnIndex="2"
+									GridPane.rowIndex="1" />
+								<TextField fx:id="tfNss" editable="false"
+									promptText="XX-XXXXXX-XXX" GridPane.columnIndex="3"
+									GridPane.rowIndex="1" />
 
 								<!-- Fila 2: Apellidos y Email -->
-								<Label text="Apellidos:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-								<TextField fx:id="tfApellidosUsuario" promptText="Apellidos"
-									GridPane.columnIndex="1" GridPane.rowIndex="2" />
-								<Label text="Email:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-								<TextField fx:id="tfEmailUsuario" promptText="correo@email.com"
-									GridPane.columnIndex="3" GridPane.rowIndex="2" />
+								<Label text="Apellidos:" GridPane.columnIndex="0"
+									GridPane.rowIndex="2" />
+								<TextField fx:id="tfApellidosUsuario"
+									promptText="Apellidos" GridPane.columnIndex="1"
+									GridPane.rowIndex="2" />
+								<Label text="Email:" GridPane.columnIndex="2"
+									GridPane.rowIndex="2" />
+								<TextField fx:id="tfEmailUsuario"
+									promptText="correo@email.com" GridPane.columnIndex="3"
+									GridPane.rowIndex="2" />
 
 								<!-- Fila 3: Curso y Teléfono -->
-								<Label text="Curso:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-								<ComboBox fx:id="cbCurso" prefWidth="180.0" promptText="Seleccionar..."
-									GridPane.columnIndex="1" GridPane.rowIndex="3" />
-								<Label text="Teléfono:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-								<TextField fx:id="tfTelefonoUsuario" promptText="6XX XXX XXX"
-									GridPane.columnIndex="3" GridPane.rowIndex="3" />
+								<Label text="Curso:" GridPane.columnIndex="0"
+									GridPane.rowIndex="3" />
+								<ComboBox fx:id="cbCurso" prefWidth="180.0"
+									promptText="Seleccionar..." GridPane.columnIndex="1"
+									GridPane.rowIndex="3" />
+								<Label text="Teléfono:" GridPane.columnIndex="2"
+									GridPane.rowIndex="3" />
+								<TextField fx:id="tfTelefonoUsuario"
+									promptText="6XX XXX XXX" GridPane.columnIndex="3"
+									GridPane.rowIndex="3" />
 
 								<!-- Fila 4: Nombre usuario -->
-								<Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+								<Label text="Usuario:" GridPane.columnIndex="0"
+									GridPane.rowIndex="4" />
 								<TextField fx:id="tfNombreUsuario"
 									GridPane.columnIndex="1" GridPane.rowIndex="4" />
 								<Label text="(máx. 25 car., letras/números/_)"
 									style="-fx-font-style: italic; -fx-font-size: 11px;"
-									GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+									GridPane.columnIndex="2" GridPane.columnSpan="2"
+									GridPane.rowIndex="4" />
 
 								<!-- Fila 5: Contraseña -->
-								<Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-								<TextField fx:id="tfPass"
-									GridPane.columnIndex="1" GridPane.rowIndex="5" />
+								<Label text="Contraseña:" GridPane.columnIndex="0"
+									GridPane.rowIndex="5" />
+								<TextField fx:id="tfPass" GridPane.columnIndex="1"
+									GridPane.rowIndex="5" />
 								<Label text="(entre 6 y 12 car., letras y números)"
 									style="-fx-font-style: italic; -fx-font-size: 11px;"
-									GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+									GridPane.columnIndex="2" GridPane.columnSpan="2"
+									GridPane.rowIndex="5" />
 							</children>
 						</GridPane>
 
 						<HBox spacing="15.0">
-							<VBox.margin><Insets top="10.0" /></VBox.margin>
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
 							<children>
-								<Button fx:id="btnLimpiarCrearUsuario" styleClass="btn-peligro"
-									mnemonicParsing="false" prefWidth="80.0" text="Limpiar" />
-								<Button fx:id="btnGuardarCrearUsuario" styleClass="btn-primario"
-									mnemonicParsing="false" prefWidth="80.0" text="Guardar" />
+								<Button fx:id="btnLimpiarCrearUsuario"
+									styleClass="btn-peligro" mnemonicParsing="false"
+									prefWidth="80.0" text="Limpiar" />
+								<Button fx:id="btnGuardarCrearUsuario"
+									styleClass="btn-primario" mnemonicParsing="false"
+									prefWidth="80.0" text="Guardar" />
 							</children>
 						</HBox>
+					</children>
+				</VBox>
+				<!-- Panel modificar usuario -->
+				<VBox fx:id="panelModificarUsuario" managed="false"
+					visible="false" spacing="12.0">
+					<padding>
+						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
+					</padding>
+					<children>
+						<Label styleClass="titulo-panel" text="Modificar usuario" />
+
+						<!-- Buscador y filtro por rol -->
+						<HBox spacing="15.0" alignment="CENTER_LEFT">
+							<children>
+								<Label text="Buscar:" />
+								<TextField fx:id="tfBuscarUsuario" prefWidth="220.0"
+									promptText="Nombre o apellidos..." />
+								<Label text="Rol:" />
+								<ComboBox fx:id="cbFiltroRol" prefWidth="140.0"
+									promptText="Todos" />
+							</children>
+						</HBox>
+
+						<!-- Tabla de usuarios -->
+						<TableView fx:id="tablaUsuarios" prefHeight="200.0">
+							<columnResizePolicy>
+								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							</columnResizePolicy>
+							<columns>
+								<TableColumn fx:id="colNombreUsuario" text="Nombre" />
+								<TableColumn fx:id="colRolUsuario" text="Rol" />
+								<TableColumn fx:id="colFEUsuario" text="FE" />
+							</columns>
+						</TableView>
+
+						<Separator />
+
+						<!-- Formulario de modificación — campos bloqueados hasta pulsar editar -->
+						<Label text="Datos del usuario seleccionado"
+							style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #18406a;" />
+
+						<GridPane hgap="10.0" vgap="12.0">
+							<columnConstraints>
+								<ColumnConstraints minWidth="100.0"
+									prefWidth="110.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="130.0"
+									prefWidth="150.0" />
+								<ColumnConstraints minWidth="36.0"
+									prefWidth="36.0" />
+								<ColumnConstraints minWidth="100.0"
+									prefWidth="110.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="130.0"
+									prefWidth="150.0" />
+								<ColumnConstraints minWidth="36.0"
+									prefWidth="36.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="34.0" />
+								<RowConstraints minHeight="34.0" />
+								<RowConstraints minHeight="34.0" />
+								<RowConstraints minHeight="34.0" />
+							</rowConstraints>
+							<children>
+								<!-- Fila 0: Nombre y Apellidos -->
+								<Label text="Nombre:" GridPane.columnIndex="0"
+									GridPane.rowIndex="0" />
+								<TextField fx:id="tfNombreMod" editable="false"
+									GridPane.columnIndex="1" GridPane.rowIndex="0" />
+								<Button fx:id="btnEditarNombreMod"
+									mnemonicParsing="false" GridPane.columnIndex="2"
+									GridPane.rowIndex="0">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+								<Label text="Apellidos:" GridPane.columnIndex="3"
+									GridPane.rowIndex="0" />
+								<TextField fx:id="tfApellidosMod" editable="false"
+									GridPane.columnIndex="4" GridPane.rowIndex="0" />
+								<Button fx:id="btnEditarApellidosMod"
+									mnemonicParsing="false" GridPane.columnIndex="5"
+									GridPane.rowIndex="0">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+
+								<!-- Fila 1: Email y Teléfono -->
+								<Label text="Email:" GridPane.columnIndex="0"
+									GridPane.rowIndex="1" />
+								<TextField fx:id="tfEmailMod" editable="false"
+									GridPane.columnIndex="1" GridPane.rowIndex="1" />
+								<Button fx:id="btnEditarEmailMod" mnemonicParsing="false"
+
+									GridPane.columnIndex="2" GridPane.rowIndex="1">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+								<Label text="Teléfono:" GridPane.columnIndex="3"
+									GridPane.rowIndex="1" />
+								<TextField fx:id="tfTelefonoMod" editable="false"
+									GridPane.columnIndex="4" GridPane.rowIndex="1" />
+								<Button fx:id="btnEditarTelefonoMod"
+									mnemonicParsing="false" GridPane.columnIndex="5"
+									GridPane.rowIndex="1">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+
+								<!-- Fila 2: Usuario y Rol -->
+								<Label text="Usuario:" GridPane.columnIndex="0"
+									GridPane.rowIndex="2" />
+								<TextField fx:id="tfUsuarioMod" editable="false"
+									GridPane.columnIndex="1" GridPane.rowIndex="2" />
+								<Button fx:id="btnEditarUsuarioMod"
+									mnemonicParsing="false" GridPane.columnIndex="2"
+									GridPane.rowIndex="2">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+								<Label text="Rol:" GridPane.columnIndex="3"
+									GridPane.rowIndex="2" />
+								<ComboBox fx:id="cbRolMod" disable="true"
+									prefWidth="150.0" GridPane.columnIndex="4"
+									GridPane.rowIndex="2" />
+								<Button fx:id="btnEditarRolMod" mnemonicParsing="false"
+
+									GridPane.columnIndex="5" GridPane.rowIndex="2">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+
+								<!-- Fila 3: Contraseña -->
+								<Label text="Nueva contraseña:" GridPane.columnIndex="0"
+									GridPane.rowIndex="3" />
+								<TextField fx:id="tfPasswordMod" editable="false"
+									promptText="Dejar vacío para no cambiar"
+									GridPane.columnIndex="1" GridPane.rowIndex="3" />
+								<Button fx:id="btnEditarPasswordMod"
+									mnemonicParsing="false" GridPane.columnIndex="2"
+									GridPane.rowIndex="3">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+								<!-- Fila 3: columnas 3-4-5 — empresa solo visible si es TutorEmpresa -->
+								<Label fx:id="lblEmpresaMod" text="Empresa:"
+									style="-fx-font-weight: bold;" managed="false" visible="false"
+									GridPane.columnIndex="3" GridPane.rowIndex="3" />
+								<ComboBox fx:id="cbEmpresaMod" disable="true"
+									prefWidth="150.0" managed="false" visible="false"
+									GridPane.columnIndex="4" GridPane.rowIndex="3" />
+								<Button fx:id="btnEditarEmpresaMod"
+									mnemonicParsing="false" managed="false" visible="false"
+									GridPane.columnIndex="5" GridPane.rowIndex="3">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+							</children>
+						</GridPane>
+
+						<!-- Botones -->
+						<HBox spacing="15.0">
+							<VBox.margin>
+								<Insets top="5.0" />
+							</VBox.margin>
+							<children>
+								<Button fx:id="btnCancelarModUsuario"
+									styleClass="btn-peligro" mnemonicParsing="false"
+									onAction="#cancelarModUsuario" prefWidth="90.0" text="Cancelar" />
+								<Button fx:id="btnGuardarModUsuario"
+									styleClass="btn-primario" mnemonicParsing="false"
+									onAction="#guardarModUsuario" prefWidth="90.0" text="Guardar" />
+							</children>
+						</HBox>
+
+					</children>
+				</VBox>
+				<!-- Panel consultar usuario -->
+				<VBox fx:id="panelConsultarUsuario" managed="false"
+					visible="false" spacing="12.0">
+					<padding>
+						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
+					</padding>
+					<children>
+						<Label styleClass="titulo-panel" text="Consultar usuario" />
+
+						<!-- Buscador y filtro -->
+						<HBox spacing="15.0" alignment="CENTER_LEFT">
+							<children>
+								<Label text="Buscar:" />
+								<TextField fx:id="tfBuscarUsuarioConsulta"
+									prefWidth="220.0" promptText="Nombre o apellidos..." />
+								<Label text="Rol:" />
+								<ComboBox fx:id="cbFiltroRolConsulta" prefWidth="140.0"
+									promptText="Todos" />
+							</children>
+						</HBox>
+
+						<TableView fx:id="tablaUsuariosConsulta"
+							prefHeight="190.0">
+							<columnResizePolicy>
+								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							</columnResizePolicy>
+							<columns>
+								<TableColumn fx:id="colNombreConsulta" text="Nombre" />
+								<TableColumn fx:id="colRolConsulta" text="Rol" />
+								<TableColumn fx:id="colFEConsulta" text="FE" />
+							</columns>
+						</TableView>
+
+						<Separator />
+
+						<!-- Info del usuario — cambia según perfil -->
+						<Label text="Información del usuario seleccionado"
+							style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #18406a;" />
+
+						<!-- StackPane con un panel por perfil -->
+						<StackPane fx:id="stackInfoConsulta">
+							<children>
+
+								<!-- Info Profesor -->
+								<GridPane fx:id="infoProfesor" hgap="20.0" vgap="10.0"
+									managed="false" visible="false">
+									<columnConstraints>
+										<ColumnConstraints minWidth="130.0"
+											prefWidth="140.0" halignment="RIGHT" />
+										<ColumnConstraints minWidth="160.0"
+											prefWidth="200.0" />
+										<ColumnConstraints minWidth="130.0"
+											prefWidth="140.0" halignment="RIGHT" />
+										<ColumnConstraints minWidth="160.0"
+											prefWidth="200.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints minHeight="28.0" />
+										<RowConstraints minHeight="28.0" />
+									</rowConstraints>
+									<children>
+										<Label text="Nombre completo:"
+											style="-fx-font-weight: bold;" GridPane.columnIndex="0"
+											GridPane.rowIndex="0" />
+										<Label fx:id="lblNombreProf" text="—"
+											GridPane.columnIndex="1" GridPane.rowIndex="0" />
+										<Label text="Usuario:" style="-fx-font-weight: bold;"
+											GridPane.columnIndex="2" GridPane.rowIndex="0" />
+										<Label fx:id="lblUsuarioProf" text="—"
+											GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+										<Label text="Curso coordinado:"
+											style="-fx-font-weight: bold;" GridPane.columnIndex="0"
+											GridPane.rowIndex="1" />
+										<Label fx:id="lblCursoProf" text="—"
+											GridPane.columnIndex="1" GridPane.rowIndex="1" />
+										<Label text="Email:" style="-fx-font-weight: bold;"
+											GridPane.columnIndex="2" GridPane.rowIndex="1" />
+										<Label fx:id="lblEmailProf" text="—"
+											GridPane.columnIndex="3" GridPane.rowIndex="1" />
+									</children>
+								</GridPane>
+
+								<!-- Info Estudiante -->
+								<GridPane fx:id="infoEstudiante" hgap="20.0"
+									vgap="10.0" managed="false" visible="false">
+									<columnConstraints>
+										<ColumnConstraints minWidth="130.0"
+											prefWidth="140.0" halignment="RIGHT" />
+										<ColumnConstraints minWidth="160.0"
+											prefWidth="200.0" />
+										<ColumnConstraints minWidth="130.0"
+											prefWidth="140.0" halignment="RIGHT" />
+										<ColumnConstraints minWidth="160.0"
+											prefWidth="200.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints minHeight="28.0" />
+										<RowConstraints minHeight="28.0" />
+										<RowConstraints minHeight="28.0" />
+									</rowConstraints>
+									<children>
+										<Label text="Nombre completo:"
+											style="-fx-font-weight: bold;" GridPane.columnIndex="0"
+											GridPane.rowIndex="0" />
+										<Label fx:id="lblNombreEst" text="—"
+											GridPane.columnIndex="1" GridPane.rowIndex="0" />
+										<Label text="Usuario:" style="-fx-font-weight: bold;"
+											GridPane.columnIndex="2" GridPane.rowIndex="0" />
+										<Label fx:id="lblUsuarioEst" text="—"
+											GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+										<Label text="Curso:" style="-fx-font-weight: bold;"
+											GridPane.columnIndex="0" GridPane.rowIndex="1" />
+										<Label fx:id="lblCursoEst" text="—"
+											GridPane.columnIndex="1" GridPane.rowIndex="1" />
+										<Label text="Email:" style="-fx-font-weight: bold;"
+											GridPane.columnIndex="2" GridPane.rowIndex="1" />
+										<Label fx:id="lblEmailEst" text="—"
+											GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+										<Label text="FE asignada:"
+											style="-fx-font-weight: bold;" GridPane.columnIndex="0"
+											GridPane.rowIndex="2" />
+										<Label fx:id="lblFEEst" text="—"
+											GridPane.columnIndex="1" GridPane.rowIndex="2" />
+										<Label text="Empresa:" style="-fx-font-weight: bold;"
+											GridPane.columnIndex="2" GridPane.rowIndex="2" />
+										<Label fx:id="lblEmpresaEst" text="—"
+											GridPane.columnIndex="3" GridPane.rowIndex="2" />
+									</children>
+								</GridPane>
+
+								<!-- Info TutorEmpresa -->
+								<GridPane fx:id="infoTutor" hgap="20.0" vgap="10.0"
+									managed="false" visible="false">
+									<columnConstraints>
+										<ColumnConstraints minWidth="130.0"
+											prefWidth="140.0" halignment="RIGHT" />
+										<ColumnConstraints minWidth="160.0"
+											prefWidth="200.0" />
+										<ColumnConstraints minWidth="130.0"
+											prefWidth="140.0" halignment="RIGHT" />
+										<ColumnConstraints minWidth="160.0"
+											prefWidth="200.0" />
+									</columnConstraints>
+									<rowConstraints>
+										<RowConstraints minHeight="28.0" />
+										<RowConstraints minHeight="28.0" />
+									</rowConstraints>
+									<children>
+										<Label text="Nombre completo:"
+											style="-fx-font-weight: bold;" GridPane.columnIndex="0"
+											GridPane.rowIndex="0" />
+										<Label fx:id="lblNombreTutorC" text="—"
+											GridPane.columnIndex="1" GridPane.rowIndex="0" />
+										<Label text="Usuario:" style="-fx-font-weight: bold;"
+											GridPane.columnIndex="2" GridPane.rowIndex="0" />
+										<Label fx:id="lblUsuarioTutorC" text="—"
+											GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+										<Label text="Empresa:" style="-fx-font-weight: bold;"
+											GridPane.columnIndex="0" GridPane.rowIndex="1" />
+										<Label fx:id="lblEmpresaTutorC" text="—"
+											GridPane.columnIndex="1" GridPane.rowIndex="1" />
+										<Label text="FEs asignadas:"
+											style="-fx-font-weight: bold;" GridPane.columnIndex="2"
+											GridPane.rowIndex="1" />
+										<Label fx:id="lblNumFEsTutorC" text="—"
+											GridPane.columnIndex="3" GridPane.rowIndex="1" />
+									</children>
+								</GridPane>
+
+							</children>
+						</StackPane>
+
 					</children>
 				</VBox>
 

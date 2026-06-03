@@ -172,6 +172,14 @@ public class Persona implements Serializable{
 		return super.toString();
 	}
 	
+	public String getNombreCompleto() {
+		return nombre+" "+apellidos;
+	}
+	
+	public String getPerfilStr() {
+		return perfil.toString();
+	}
+	
 	
 	
 

@@ -1,5 +1,7 @@
 package com.alba.proyecto.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -16,6 +18,7 @@ import com.alba.proyecto.modelo.Persona;
 import com.alba.proyecto.modelo.Profesor;
 import com.alba.proyecto.modelo.TutorEmpresa;
 import com.alba.proyecto.repositorios.AdministradorRepository;
+import com.alba.proyecto.repositorios.CursoRepository;
 import com.alba.proyecto.repositorios.EstudianteRepository;
 import com.alba.proyecto.repositorios.ProfesorRepository;
 import com.alba.proyecto.repositorios.TutorEmpresaRepository;
@@ -39,6 +42,13 @@ public class UsuarioService {
 
 	@Autowired
 	private EstudianteRepository estudianteRepository;
+	
+	@Autowired
+	private  CursoRepository cursoRepository;
+	
+	//EntityManager para queries nativas
+	@Autowired
+	private jakarta.persistence.EntityManager entityManager;
 
 	public Estudiante crearEstudiante(String usuario, String contraseña, String nombre, String apellidos, String email,
 			String telefono, Perfil perfil, String nSS, Curso curso) {
@@ -52,6 +62,8 @@ public class UsuarioService {
 			String telefono, Perfil perfil, Curso curso) {
 		Profesor profesor = new Profesor(usuario, contraseña, nombre, apellidos, email, telefono, perfil, curso);
 		guardarUsuario(profesor);
+	    curso.setProfesor(profesor);
+	    cursoRepository.save(curso);
 		return profesor;
 	}
 
@@ -139,5 +151,31 @@ public class UsuarioService {
 	    System.out.println("Verificacion password: " + Validador.verificarPassword(contrasena, persona == null ? "null" : persona.getContraseña()));
 	    return null; // contraseña incorrecta
 	}
+	
+	public List<Persona> findAll() {
+	    List<Persona> todos = new ArrayList<>();
+	    todos.addAll(administradorRepository.findAll());
+	    todos.addAll(profesorRepository.findAll());
+	    todos.addAll(estudianteRepository.findAll());
+	    todos.addAll(tutorEmpresaRepository.findAll());
+	    return todos;
+	}
+	
+	public boolean existeEmail(String email) {
+	    Long count = (Long) entityManager
+	        .createQuery("SELECT COUNT(p) FROM Persona p WHERE LOWER(p.email) = LOWER(:email)")
+	        .setParameter("email", email)
+	        .getSingleResult();
+	    return count > 0;
+	}
+
+	public boolean existeUsuario(String usuario) {
+	    Long count = (Long) entityManager
+	        .createQuery("SELECT COUNT(p) FROM Persona p WHERE LOWER(p.usuario) = LOWER(:usuario)")
+	        .setParameter("usuario", usuario)
+	        .getSingleResult();
+	    return count > 0;
+	}
+
 
 }

@@ -3,6 +3,7 @@ package com.alba.proyecto.modelo;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -32,7 +33,7 @@ public class TutorEmpresa extends Persona{
 	@JoinColumn(name = "FK_empresa_id", nullable = false)
 	private Empresa empresa;
 	
-	@OneToMany(mappedBy = "tutor")
+	@OneToMany(mappedBy = "tutor",  fetch = FetchType.EAGER)
 	private Set<FCT> fct;
 
 	public TutorEmpresa(String usuario, String contraseña, String nombre, String apellidos, String email,

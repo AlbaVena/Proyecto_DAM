@@ -15,4 +15,5 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 	
     Optional<Profesor> findByUsuario(String usuario);
 
+
 }
