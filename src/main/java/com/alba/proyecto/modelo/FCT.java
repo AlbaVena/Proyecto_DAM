@@ -6,6 +6,8 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 /**
  * Clase FCT.
@@ -25,7 +28,10 @@ import jakarta.persistence.Table;
  * @since 2026
  */
 @Entity
-@Table(name = "fct")
+@Table(name = "fct", uniqueConstraints = {
+	    @UniqueConstraint(name = "UK_estudiante_periodo", 
+                columnNames = {"fk_estudiante", "periodo"})
+})
 public class FCT implements Serializable {
 
 
@@ -45,7 +51,10 @@ public class FCT implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "FK_estudiante", nullable = false)
 	private Estudiante estudiante;
-
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "periodo", nullable = false)
+	private Periodo periodo;
 
 	@ManyToOne
 	@JoinColumn(name = "FK_tutor", nullable = false)
@@ -54,8 +63,6 @@ public class FCT implements Serializable {
 	@OneToMany(mappedBy = "fct")
 	private Set<FaltaAsistencia> faltas;
 	
-	//TODO añadir periodo (ENUM- ORDINARIO/EXTRAORDINARIO)
-
 	public FCT(Long id, LocalDate fechaInicio, LocalDate fechaFin, Estudiante estudiante, TutorEmpresa tutor,
 			Set<FaltaAsistencia> faltas) {
 		super();
@@ -66,6 +73,21 @@ public class FCT implements Serializable {
 		this.tutor = tutor;
 		this.faltas = faltas;
 	}
+	
+	
+
+	public FCT(Long id, LocalDate fechaInicio, LocalDate fechaFin, Estudiante estudiante, Periodo periodo,
+			TutorEmpresa tutor) {
+		super();
+		this.id = id;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.estudiante = estudiante;
+		this.periodo = periodo;
+		this.tutor = tutor;
+	}
+
+
 
 	public FCT() {
 		super();
@@ -118,5 +140,14 @@ public class FCT implements Serializable {
 	public void setFaltas(Set<FaltaAsistencia> faltas) {
 		this.faltas = faltas;
 	}
+
+	public Periodo getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
+	}
+	
 
 }

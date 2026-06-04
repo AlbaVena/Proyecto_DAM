@@ -1,6 +1,7 @@
 package com.alba.proyecto.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,6 +12,7 @@ import com.alba.proyecto.modelo.Empresa;
 import com.alba.proyecto.modelo.Estudiante;
 import com.alba.proyecto.modelo.FCT;
 import com.alba.proyecto.modelo.Perfil;
+import com.alba.proyecto.modelo.Periodo;
 import com.alba.proyecto.modelo.Persona;
 import com.alba.proyecto.modelo.Profesor;
 import com.alba.proyecto.modelo.TutorEmpresa;
@@ -18,7 +20,9 @@ import com.alba.proyecto.repositorios.CursoRepository;
 import com.alba.proyecto.repositorios.EmpresaRepository;
 import com.alba.proyecto.repositorios.EstudianteRepository;
 import com.alba.proyecto.repositorios.FCTRepository;
+import com.alba.proyecto.repositorios.TutorEmpresaRepository;
 import com.alba.proyecto.services.EmpresaService;
+import com.alba.proyecto.services.ServicioInformes;
 import com.alba.proyecto.services.Sesion;
 import com.alba.proyecto.services.UsuarioService;
 import utils.Transformador;
@@ -33,7 +37,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -282,6 +288,110 @@ public class MenuAdminController {
 	private Button btnGuardarCrearUsuario;
 	@FXML
 	private Button btnLimpiarCrearUsuario;
+	
+	// Paneles FE
+	@FXML 
+	private VBox panelNuevaFE;
+	@FXML 
+	private VBox panelTablaFEs;
+	@FXML 
+	private VBox panelModFE;
+	
+	// Botones menú FE
+	@FXML 
+	private Button btnNuevaFE;
+	@FXML
+	private Button btnModificarFE;
+	@FXML
+	private Button btnConsultarFE;
+	
+	// Panel nueva FE
+	@FXML 
+	private ComboBox<Estudiante> cbEstudianteFE;
+	@FXML
+	private ComboBox<TutorEmpresa> cbTutorFE;
+	@FXML 
+	private ComboBox<Periodo> cbPeriodoFE;
+	@FXML 
+	private DatePicker dpFechaInicioFE;
+	@FXML 
+	private DatePicker dpFechaFinFE;
+	@FXML 
+	private Button btnGuardarNuevaFE;
+	
+	
+	
+	// Panel tabla FEs
+	@FXML 
+	private Label lblTituloTablaFEs;
+	@FXML 
+	private TextField tfBuscarFE;
+	@FXML 
+	private ComboBox<String> cbFiltroPeriodoFE;
+	@FXML 
+	private TableView<FCT> tablaFEs;
+	@FXML 
+	private TableColumn<FCT, String> colEstudianteFE;
+	@FXML
+	private TableColumn<FCT, String> colTutorFE;
+	@FXML 
+	private TableColumn<FCT, String> colPeriodoFE;
+	@FXML 
+	private TableColumn<FCT, String> colFechaInicioFE;
+	@FXML 
+	private TableColumn<FCT, String> colFechaFinFE;
+	
+	// Panel modificar FE
+	@FXML 
+	private TextField tfEstudianteModFE;
+	@FXML 
+	private TextField tfPeriodoModFE;
+	@FXML
+	private ComboBox<TutorEmpresa> cbTutorModFE;
+	@FXML 
+	
+	private DatePicker dpFechaInicioModFE;
+	@FXML 
+	private DatePicker dpFechaFinModFE;
+	@FXML 
+	private Button btnEditarTutorModFE;
+	@FXML
+	private Button btnEditarFechaInicioModFE;
+	@FXML 
+	private Button btnEditarFechaFinModFE;
+	@FXML
+	private Button btnVolverTablaFEs;
+	@FXML
+	private Button btnCancelarModFE;
+	@FXML 
+	private Button btnGuardarModFE;
+	
+	@FXML
+	private Separator separadorConsultaFE;
+	@FXML
+	private Label lblTituloInfoFE;
+	@FXML 
+	private GridPane gridInfoFE;
+	@FXML 
+	private Label lblAlumnoFEConsulta;
+	@FXML
+	private Label lblCursoFEConsulta;
+	@FXML 
+	private Label lblEmailAlumnoFEConsulta;
+	@FXML
+	private Label lblPeriodoFEConsulta;
+	@FXML
+	private Label lblFechaInicioFEConsulta;
+	@FXML 
+	private Label lblFechaFinFEConsulta;
+	@FXML 
+	private Label lblTutorFEConsulta;
+	@FXML 
+	private Label lblEmpresaFEConsulta;
+
+	// FE seleccionada en la tabla
+	private FCT feSeleccionada;
+	private String modoTablaFEs = "";
 
 	// usuario seleccionado en la tabla de modificar
 	private Persona usuarioSeleccionado;
@@ -309,6 +419,12 @@ public class MenuAdminController {
 
 	@Autowired
 	private FCTRepository fctRepository;
+	
+	@Autowired
+	private TutorEmpresaRepository tutorEmpresaRepository;
+	
+	@Autowired
+	private ServicioInformes servicioInformes;
 
 	// lista para la tabla de empresas
 	private ObservableList<Empresa> listaEmpresas = FXCollections.observableArrayList();
@@ -326,12 +442,14 @@ public class MenuAdminController {
 		configurarColumnas();
 		configurarBuscador();
 		configurarDobleClick();
+		configurarPanelesGestionFE();
 		configurarBotonesEditar();
 		configurarPanelCrearUsuario();
 		abrirAtajoAyuda();
+		cargarEstadisticas();
 		ocultarTodo();
 		mostrarPanel(panelPrincipal);
-		cargarEstadisticas();
+
 	}
 
 	private void cargarEstadisticas() {
@@ -360,6 +478,12 @@ public class MenuAdminController {
 		panelModificarUsuario.setManaged(false);
 		panelConsultarUsuario.setVisible(false);
 		panelConsultarUsuario.setManaged(false);
+		panelNuevaFE.setVisible(false);   
+		panelNuevaFE.setManaged(false);
+		panelTablaFEs.setVisible(false);  
+		panelTablaFEs.setManaged(false);
+		panelModFE.setVisible(false);     
+		panelModFE.setManaged(false);
 	}
 
 	private void cargarSesion() {
@@ -1209,5 +1333,292 @@ public class MenuAdminController {
 			break;
 		}
 	}
+	
+	private void configurarPanelesGestionFE() {
+	    // cargar combos de nueva FE
+	    cbEstudianteFE.setItems(FXCollections.observableArrayList(estudianteRepository.findAll()));
+	    cbEstudianteFE.setCellFactory(lv -> new javafx.scene.control.ListCell<Estudiante>() {
+	        @Override protected void updateItem(Estudiante e, boolean empty) {
+	            super.updateItem(e, empty);
+	            setText(empty || e == null ? null : e.getNombreCompleto());
+	        }
+	    });
+	    cbEstudianteFE.setButtonCell(new javafx.scene.control.ListCell<Estudiante>() {
+	        @Override protected void updateItem(Estudiante e, boolean empty) {
+	            super.updateItem(e, empty);
+	            setText(empty || e == null ? null : e.getNombreCompleto());
+	        }
+	    });
 
+	    cbTutorFE.setItems(FXCollections.observableArrayList(tutorEmpresaRepository.findAll()));
+	    cbTutorFE.setCellFactory(lv -> new javafx.scene.control.ListCell<TutorEmpresa>() {
+	        @Override protected void updateItem(TutorEmpresa t, boolean empty) {
+	            super.updateItem(t, empty);
+	            setText(empty || t == null ? null : t.getNombreCompleto());
+	        }
+	    });
+	    cbTutorFE.setButtonCell(new javafx.scene.control.ListCell<TutorEmpresa>() {
+	        @Override protected void updateItem(TutorEmpresa t, boolean empty) {
+	            super.updateItem(t, empty);
+	            setText(empty || t == null ? null : t.getNombreCompleto());
+	        }
+	    });
+
+	    cbPeriodoFE.setItems(FXCollections.observableArrayList(Periodo.values()));
+
+	    btnGuardarNuevaFE.setOnAction(event -> guardarNuevaFE());
+
+	    // botones editar en panel modificar FE
+	    btnEditarTutorModFE.setOnAction(event -> {
+	        cbTutorModFE.setDisable(false);
+	        cbTutorModFE.show();
+	    });
+	    btnEditarFechaInicioModFE.setOnAction(event -> dpFechaInicioModFE.setDisable(false));
+	    btnEditarFechaFinModFE.setOnAction(event -> dpFechaFinModFE.setDisable(false));
+	}
+
+	@FXML
+	private void abrirNuevaFE() {
+	    limpiarNuevaFE();
+	    mostrarPanel(panelNuevaFE);
+	}
+
+	@FXML
+	private void abrirModificarFE() {
+	    modoTablaFEs = "modificar";
+	    lblTituloTablaFEs.setText("Modificar FE");
+	    cargarTablaFEs();
+	    mostrarPanel(panelTablaFEs);
+	}
+
+	@FXML
+	private void abrirConsultarFE() {
+	    modoTablaFEs = "consultar";
+	    lblTituloTablaFEs.setText("Consultar FE");
+	    
+	    // ocultar info hasta que se seleccione una fila
+	    separadorConsultaFE.setVisible(false);  
+	    separadorConsultaFE.setManaged(false);
+	    lblTituloInfoFE.setVisible(false);      
+	    lblTituloInfoFE.setManaged(false);
+	    gridInfoFE.setVisible(false);          
+	    gridInfoFE.setManaged(false);
+	    cargarTablaFEs();
+	    mostrarPanel(panelTablaFEs);
+	}
+
+	private void cargarTablaFEs() {
+	    colEstudianteFE.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getEstudiante().getNombreCompleto()));
+	    colTutorFE.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getTutor().getNombreCompleto()));
+	    colPeriodoFE.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getPeriodo().toString()));
+	    colFechaInicioFE.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getFechaInicio() != null
+	                ? data.getValue().getFechaInicio().toString() : "—"));
+	    colFechaFinFE.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getFechaFin() != null
+	                ? data.getValue().getFechaFin().toString() : "—"));
+
+	    List<FCT> todasFEs = fctRepository.findAll();
+	    ObservableList<FCT> lista = FXCollections.observableArrayList(todasFEs);
+
+	    FilteredList<FCT> listaFiltrada = new FilteredList<>(lista, f -> true);
+
+	    cbFiltroPeriodoFE.setItems(FXCollections.observableArrayList(
+	        "Todos", "ORDINARIO", "EXTRAORDINARIO"));
+	    cbFiltroPeriodoFE.setValue("Todos");
+
+	    Runnable aplicarFiltro = () -> {
+	        String textoBuscar = tfBuscarFE.getText();
+	        String periodoSel = cbFiltroPeriodoFE.getValue();
+	        listaFiltrada.setPredicate(fe -> {
+	            boolean coincideNombre = textoBuscar == null || textoBuscar.isEmpty()
+	                || fe.getEstudiante().getNombreCompleto().toLowerCase()
+	                    .contains(textoBuscar.toLowerCase());
+	            boolean coincidePeriodo = periodoSel == null || periodoSel.equals("Todos")
+	                || fe.getPeriodo().toString().equals(periodoSel);
+	            return coincideNombre && coincidePeriodo;
+	        });
+	    };
+
+	    tfBuscarFE.textProperty().addListener((obs, a, n) -> aplicarFiltro.run());
+	    cbFiltroPeriodoFE.valueProperty().addListener((obs, a, n) -> aplicarFiltro.run());
+
+	    tablaFEs.setItems(listaFiltrada);
+
+	    tablaFEs.setOnMouseClicked(event -> {
+	        feSeleccionada = tablaFEs.getSelectionModel().getSelectedItem();
+	        if (feSeleccionada == null) return;
+
+	        if (modoTablaFEs.equals("modificar") && event.getClickCount() == 2) {
+	            rellenarModFE();
+	            configurarModoFormFE();
+	            mostrarPanel(panelModFE);
+	        } else if (modoTablaFEs.equals("consultar") && event.getClickCount() == 1) {
+	            mostrarInfoConsultaFE(feSeleccionada);
+	        }
+	    });
+	}
+	
+	private void mostrarInfoConsultaFE(FCT fe) {
+	    // datos alumno
+	    lblAlumnoFEConsulta.setText(fe.getEstudiante().getNombreCompleto());
+	    lblCursoFEConsulta.setText(fe.getEstudiante().getCurso() != null
+	        ? fe.getEstudiante().getCurso().toString() : "—");
+	    lblEmailAlumnoFEConsulta.setText(fe.getEstudiante().getEmail() != null
+	        ? fe.getEstudiante().getEmail() : "—");
+
+	    // datos FE
+	    lblPeriodoFEConsulta.setText(fe.getPeriodo().toString());
+	    lblFechaInicioFEConsulta.setText(fe.getFechaInicio() != null
+	        ? fe.getFechaInicio().toString() : "—");
+	    lblFechaFinFEConsulta.setText(fe.getFechaFin() != null
+	        ? fe.getFechaFin().toString() : "—");
+
+	    // datos tutor y empresa
+	    lblTutorFEConsulta.setText(fe.getTutor().getNombreCompleto());
+	    lblEmpresaFEConsulta.setText(fe.getTutor().getEmpresa() != null
+	        ? fe.getTutor().getEmpresa().getNombre() : "—");
+
+	    // mostrar la sección
+	    separadorConsultaFE.setVisible(true);  separadorConsultaFE.setManaged(true);
+	    lblTituloInfoFE.setVisible(true);      lblTituloInfoFE.setManaged(true);
+	    gridInfoFE.setVisible(true);           gridInfoFE.setManaged(true);
+	}
+
+	private void rellenarModFE() {
+	    tfEstudianteModFE.setText(feSeleccionada.getEstudiante().getNombreCompleto());
+	    tfPeriodoModFE.setText(feSeleccionada.getPeriodo().toString());
+
+	    List<TutorEmpresa> tutores = tutorEmpresaRepository.findAll();
+	    cbTutorModFE.setItems(FXCollections.observableArrayList(tutores));
+	    cbTutorModFE.setCellFactory(lv -> new javafx.scene.control.ListCell<TutorEmpresa>() {
+	        @Override protected void updateItem(TutorEmpresa t, boolean empty) {
+	            super.updateItem(t, empty);
+	            setText(empty || t == null ? null : t.getNombreCompleto());
+	        }
+	    });
+	    cbTutorModFE.setButtonCell(new javafx.scene.control.ListCell<TutorEmpresa>() {
+	        @Override protected void updateItem(TutorEmpresa t, boolean empty) {
+	            super.updateItem(t, empty);
+	            setText(empty || t == null ? null : t.getNombreCompleto());
+	        }
+	    });
+	    cbTutorModFE.setValue(feSeleccionada.getTutor());
+	    cbTutorModFE.setDisable(true);
+
+	    dpFechaInicioModFE.setValue(feSeleccionada.getFechaInicio());
+	    dpFechaInicioModFE.setDisable(true);
+	    dpFechaFinModFE.setValue(feSeleccionada.getFechaFin());
+	    dpFechaFinModFE.setDisable(true);
+	}
+
+	private void configurarModoFormFE() {
+	    boolean esModificar = modoTablaFEs.equals("modificar");
+	    btnEditarTutorModFE.setVisible(esModificar);
+	    btnEditarFechaInicioModFE.setVisible(esModificar);
+	    btnEditarFechaFinModFE.setVisible(esModificar);
+	    btnGuardarModFE.setVisible(esModificar);
+	    btnCancelarModFE.setVisible(esModificar);
+	}
+
+	@FXML
+	private void volverTablaFEs() {
+	    mostrarPanel(panelTablaFEs);
+	}
+
+	@FXML
+	private void cancelarModFE() {
+	    if (feSeleccionada != null) {
+	        rellenarModFE();
+	    }
+	}
+
+	@FXML
+	private void guardarModFE() {
+	    if (feSeleccionada == null) return;
+	    feSeleccionada.setTutor(cbTutorModFE.getValue());
+	    feSeleccionada.setFechaInicio(dpFechaInicioModFE.getValue());
+	    feSeleccionada.setFechaFin(dpFechaFinModFE.getValue());
+	    fctRepository.save(feSeleccionada);
+	    volverTablaFEs();
+	    cargarTablaFEs();
+	}
+
+	private void guardarNuevaFE() {
+	    Estudiante estudiante = cbEstudianteFE.getValue();
+	    TutorEmpresa tutor    = cbTutorFE.getValue();
+	    Periodo periodo       = cbPeriodoFE.getValue();
+		LocalDate inicio      = dpFechaInicioFE.getValue();
+	    LocalDate fin         = dpFechaFinFE.getValue();
+
+	    boolean valido = true;
+
+	    if (estudiante == null) { cbEstudianteFE.setStyle("-fx-border-color: red;"); valido = false; }
+	    else { cbEstudianteFE.setStyle(""); }
+	    if (tutor == null)      { cbTutorFE.setStyle("-fx-border-color: red;");      valido = false; }
+	    else { cbTutorFE.setStyle(""); }
+	    if (periodo == null)    { cbPeriodoFE.setStyle("-fx-border-color: red;");    valido = false; }
+	    else { cbPeriodoFE.setStyle(""); }
+	    if (inicio == null)     { dpFechaInicioFE.setStyle("-fx-border-color: red;"); valido = false; }
+	    else { dpFechaInicioFE.setStyle(""); }
+	    if (fin == null || fin.isBefore(inicio)) {
+	        dpFechaFinFE.setStyle("-fx-border-color: red;"); valido = false;
+	    } else { dpFechaFinFE.setStyle(""); }
+
+	    if (!valido) return;
+
+	    FCT fct = new FCT();
+	    fct.setFechaInicio(inicio);
+	    fct.setFechaFin(fin);
+	    fct.setEstudiante(estudiante);
+	    fct.setPeriodo(periodo);
+	    fct.setTutor(tutor);
+	    fctRepository.save(fct);
+
+	    limpiarNuevaFE();
+	    mostrarPanel(panelTablaFEs);
+	    modoTablaFEs = "modificar";
+	    lblTituloTablaFEs.setText("Modificar FE");
+	    cargarTablaFEs();
+	}
+
+	private void limpiarNuevaFE() {
+	    cbEstudianteFE.setValue(null);
+	    cbTutorFE.setValue(null);
+	    cbPeriodoFE.setValue(null);
+	    dpFechaInicioFE.setValue(null);
+	    dpFechaFinFE.setValue(null);
+	    cbEstudianteFE.setStyle(""); cbTutorFE.setStyle("");
+	    cbPeriodoFE.setStyle(""); dpFechaInicioFE.setStyle(""); dpFechaFinFE.setStyle("");
+	}
+	
+	@FXML
+	private void generarInformeEstadistico() {
+	    long estudiantes = estudianteRepository.count();
+	    long empresas = empresaRepository.count();
+	    long fes = fctRepository.count();
+
+	    String ruta = servicioInformes.generarInformeEstadistico(estudiantes, empresas, fes);
+
+	    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+	    alert.setTitle("Informe generado");
+	    alert.setHeaderText(null);
+	    if (ruta != null) {
+	        alert.setContentText("Informe generado correctamente en:\n" + ruta);
+	    } else {
+	        alert.setAlertType(Alert.AlertType.ERROR);
+	        alert.setContentText("Error al generar el informe. Comprueba la consola.");
+	    }
+	    alert.showAndWait();
+	}
+	
+	
 }

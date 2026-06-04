@@ -20,6 +20,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.DatePicker?>
 
 <BorderPane fx:id="PaneAdmin"
 	stylesheets="@../styles/Styles.css" styleClass="fondo-principal"
@@ -117,8 +118,19 @@
 				<TitledPane styleClass="titled-pane-menu"
 					expanded="false" text="Gestión de FEs">
 					<content>
-						<AnchorPane styleClass="fondo-menu" minHeight="0.0"
-							minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+						<VBox styleClass="fondo-menu" prefWidth="190.0" spacing="2.0">
+							<children>
+								<Button fx:id="btnNuevaFE" styleClass="btn-menu"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirNuevaFE" text="Nueva FE" />
+								<Button fx:id="btnModificarFE" styleClass="btn-menu"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirModificarFE" text="Modificar FE" />
+								<Button fx:id="btnConsultarFE" styleClass="btn-menu"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirConsultarFE" text="Consultar FE" />
+							</children>
+						</VBox>
 					</content>
 				</TitledPane>
 				<TitledPane styleClass="titled-pane-menu"
@@ -468,9 +480,8 @@
 									GridPane.rowIndex="0" />
 								<Label text="Empresa:" GridPane.columnIndex="2"
 									GridPane.rowIndex="0" />
-								<ComboBox fx:id="cbEmpresaUsuario"
-									prefWidth="180.0" GridPane.columnIndex="3"
-									GridPane.rowIndex="0" />
+								<ComboBox fx:id="cbEmpresaUsuario" prefWidth="180.0"
+									GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
 								<!-- Fila 1: Nombre y Nº SS -->
 								<Label text="Nombre:" GridPane.columnIndex="0"
@@ -941,6 +952,293 @@
 							</children>
 						</StackPane>
 
+					</children>
+				</VBox>
+				<!-- Panel nueva FE -->
+				<VBox fx:id="panelNuevaFE" managed="false" visible="false"
+					spacing="15.0">
+					<padding>
+						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
+					</padding>
+					<children>
+						<Label styleClass="titulo-panel" text="Nueva FE" />
+
+						<GridPane hgap="15.0" vgap="14.0">
+							<columnConstraints>
+								<ColumnConstraints minWidth="120.0"
+									prefWidth="130.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="200.0"
+									prefWidth="260.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="36.0" />
+								<RowConstraints minHeight="36.0" />
+								<RowConstraints minHeight="36.0" />
+								<RowConstraints minHeight="36.0" />
+								<RowConstraints minHeight="36.0" />
+							</rowConstraints>
+							<children>
+								<Label text="Estudiante:" GridPane.columnIndex="0"
+									GridPane.rowIndex="0" />
+								<ComboBox fx:id="cbEstudianteFE" prefWidth="260.0"
+									promptText="Seleccionar estudiante..." GridPane.columnIndex="1"
+									GridPane.rowIndex="0" />
+
+								<Label text="Tutor empresa:" GridPane.columnIndex="0"
+									GridPane.rowIndex="1" />
+								<ComboBox fx:id="cbTutorFE" prefWidth="260.0"
+									promptText="Seleccionar tutor..." GridPane.columnIndex="1"
+									GridPane.rowIndex="1" />
+
+								<Label text="Periodo:" GridPane.columnIndex="0"
+									GridPane.rowIndex="2" />
+								<ComboBox fx:id="cbPeriodoFE" prefWidth="260.0"
+									GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+								<Label text="Fecha inicio:" GridPane.columnIndex="0"
+									GridPane.rowIndex="3" />
+								<DatePicker fx:id="dpFechaInicioFE" prefWidth="260.0"
+									GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+								<Label text="Fecha fin:" GridPane.columnIndex="0"
+									GridPane.rowIndex="4" />
+								<DatePicker fx:id="dpFechaFinFE" prefWidth="260.0"
+									GridPane.columnIndex="1" GridPane.rowIndex="4" />
+							</children>
+						</GridPane>
+
+						<HBox spacing="15.0">
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+							<children>
+								<Button fx:id="btnGuardarNuevaFE"
+									styleClass="btn-primario" mnemonicParsing="false"
+									prefWidth="110.0" text="Guardar" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+
+				<!-- Panel tabla FEs (compartido para modificar y consultar) -->
+				<VBox fx:id="panelTablaFEs" managed="false" visible="false"
+					spacing="10.0">
+					<padding>
+						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
+					</padding>
+					<children>
+						<Label fx:id="lblTituloTablaFEs" styleClass="titulo-panel"
+							text="FEs" />
+
+						<HBox spacing="15.0" alignment="CENTER_LEFT">
+							<children>
+								<Label text="Buscar estudiante:" />
+								<TextField fx:id="tfBuscarFE" prefWidth="220.0"
+									promptText="Nombre o apellidos..." />
+								<Label text="Periodo:" />
+								<ComboBox fx:id="cbFiltroPeriodoFE" prefWidth="160.0"
+									promptText="Todos" />
+							</children>
+						</HBox>
+
+						<TableView fx:id="tablaFEs" prefHeight="300.0">
+							<columnResizePolicy>
+								<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+							</columnResizePolicy>
+							<columns>
+								<TableColumn fx:id="colEstudianteFE"
+									text="Estudiante" />
+								<TableColumn fx:id="colTutorFE" text="Tutor" />
+								<TableColumn fx:id="colPeriodoFE" text="Periodo" />
+								<TableColumn fx:id="colFechaInicioFE" text="Inicio" />
+								<TableColumn fx:id="colFechaFinFE" text="Fin" />
+							</columns>
+						</TableView>
+						<!-- Sección info consultar — solo visible en modo consultar -->
+						<Separator fx:id="separadorConsultaFE" managed="false"
+							visible="false" />
+
+						<Label fx:id="lblTituloInfoFE"
+							text="Información de la FE seleccionada"
+							style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #18406a;"
+							managed="false" visible="false" />
+
+						<GridPane fx:id="gridInfoFE" hgap="20.0" vgap="10.0"
+							managed="false" visible="false">
+							<columnConstraints>
+								<ColumnConstraints minWidth="130.0"
+									prefWidth="150.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="160.0"
+									prefWidth="200.0" />
+								<ColumnConstraints minWidth="130.0"
+									prefWidth="150.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="160.0"
+									prefWidth="200.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="28.0" />
+								<RowConstraints minHeight="28.0" />
+								<RowConstraints minHeight="28.0" />
+								<RowConstraints minHeight="28.0" />
+							</rowConstraints>
+							<children>
+								<Label text="Alumno/a:" style="-fx-font-weight: bold;"
+									GridPane.columnIndex="0" GridPane.rowIndex="0" />
+								<Label fx:id="lblAlumnoFEConsulta" text="—"
+									GridPane.columnIndex="1" GridPane.rowIndex="0" />
+								<Label text="Curso:" style="-fx-font-weight: bold;"
+									GridPane.columnIndex="2" GridPane.rowIndex="0" />
+								<Label fx:id="lblCursoFEConsulta" text="—"
+									GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+								<Label text="Email alumno/a:"
+									style="-fx-font-weight: bold;" GridPane.columnIndex="0"
+									GridPane.rowIndex="1" />
+								<Label fx:id="lblEmailAlumnoFEConsulta" text="—"
+									GridPane.columnIndex="1" GridPane.rowIndex="1" />
+								<Label text="Periodo:" style="-fx-font-weight: bold;"
+									GridPane.columnIndex="2" GridPane.rowIndex="1" />
+								<Label fx:id="lblPeriodoFEConsulta" text="—"
+									GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+								<Label text="Fecha inicio:" style="-fx-font-weight: bold;"
+									GridPane.columnIndex="0" GridPane.rowIndex="2" />
+								<Label fx:id="lblFechaInicioFEConsulta" text="—"
+									GridPane.columnIndex="1" GridPane.rowIndex="2" />
+								<Label text="Fecha fin:" style="-fx-font-weight: bold;"
+									GridPane.columnIndex="2" GridPane.rowIndex="2" />
+								<Label fx:id="lblFechaFinFEConsulta" text="—"
+									GridPane.columnIndex="3" GridPane.rowIndex="2" />
+
+								<Label text="Tutor empresa:"
+									style="-fx-font-weight: bold;" GridPane.columnIndex="0"
+									GridPane.rowIndex="3" />
+								<Label fx:id="lblTutorFEConsulta" text="—"
+									GridPane.columnIndex="1" GridPane.rowIndex="3" />
+								<Label text="Empresa:" style="-fx-font-weight: bold;"
+									GridPane.columnIndex="2" GridPane.rowIndex="3" />
+								<Label fx:id="lblEmpresaFEConsulta" text="—"
+									GridPane.columnIndex="3" GridPane.rowIndex="3" />
+							</children>
+						</GridPane>
+					</children>
+				</VBox>
+
+				<!-- Panel modificar FE (doble click en tabla) -->
+				<VBox fx:id="panelModFE" managed="false" visible="false"
+					spacing="14.0">
+					<padding>
+						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
+					</padding>
+					<children>
+						<Label styleClass="titulo-panel" text="FE seleccionada" />
+
+						<GridPane hgap="15.0" vgap="14.0">
+							<columnConstraints>
+								<ColumnConstraints minWidth="120.0"
+									prefWidth="130.0" halignment="RIGHT" />
+								<ColumnConstraints minWidth="200.0"
+									prefWidth="260.0" />
+								<ColumnConstraints minWidth="36.0"
+									prefWidth="36.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="36.0" />
+								<RowConstraints minHeight="36.0" />
+								<RowConstraints minHeight="36.0" />
+								<RowConstraints minHeight="36.0" />
+								<RowConstraints minHeight="36.0" />
+							</rowConstraints>
+							<children>
+								<!-- Estudiante — solo lectura siempre -->
+								<Label text="Estudiante:" GridPane.columnIndex="0"
+									GridPane.rowIndex="0" />
+								<TextField fx:id="tfEstudianteModFE" editable="false"
+									prefWidth="260.0" GridPane.columnIndex="1"
+									GridPane.rowIndex="0" />
+
+								<!-- Periodo — solo lectura siempre -->
+								<Label text="Periodo:" GridPane.columnIndex="0"
+									GridPane.rowIndex="1" />
+								<TextField fx:id="tfPeriodoModFE" editable="false"
+									prefWidth="260.0" GridPane.columnIndex="1"
+									GridPane.rowIndex="1" />
+
+								<!-- Tutor — editable -->
+								<Label text="Tutor empresa:" GridPane.columnIndex="0"
+									GridPane.rowIndex="2" />
+								<ComboBox fx:id="cbTutorModFE" disable="true"
+									prefWidth="260.0" GridPane.columnIndex="1"
+									GridPane.rowIndex="2" />
+								<Button fx:id="btnEditarTutorModFE"
+									mnemonicParsing="false" GridPane.columnIndex="2"
+									GridPane.rowIndex="2">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+
+								<!-- Fecha inicio — editable -->
+								<Label text="Fecha inicio:" GridPane.columnIndex="0"
+									GridPane.rowIndex="3" />
+								<DatePicker fx:id="dpFechaInicioModFE" disable="true"
+									prefWidth="260.0" GridPane.columnIndex="1"
+									GridPane.rowIndex="3" />
+								<Button fx:id="btnEditarFechaInicioModFE"
+									mnemonicParsing="false" GridPane.columnIndex="2"
+									GridPane.rowIndex="3">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+
+								<!-- Fecha fin — editable -->
+								<Label text="Fecha fin:" GridPane.columnIndex="0"
+									GridPane.rowIndex="4" />
+								<DatePicker fx:id="dpFechaFinModFE" disable="true"
+									prefWidth="260.0" GridPane.columnIndex="1"
+									GridPane.rowIndex="4" />
+								<Button fx:id="btnEditarFechaFinModFE"
+									mnemonicParsing="false" GridPane.columnIndex="2"
+									GridPane.rowIndex="4">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0"
+											pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../images/icono_editar.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</Button>
+							</children>
+						</GridPane>
+
+						<HBox spacing="15.0">
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+							<children>
+								<Button fx:id="btnVolverTablaFEs" styleClass="btn-volver"
+									mnemonicParsing="false" onAction="#volverTablaFEs"
+									prefWidth="80.0" text="Volver" />
+								<Button fx:id="btnCancelarModFE" styleClass="btn-peligro"
+									mnemonicParsing="false" onAction="#cancelarModFE"
+									prefWidth="80.0" text="Cancelar" />
+								<Button fx:id="btnGuardarModFE" styleClass="btn-primario"
+									mnemonicParsing="false" onAction="#guardarModFE"
+									prefWidth="80.0" text="Guardar" />
+							</children>
+						</HBox>
 					</children>
 				</VBox>
 
