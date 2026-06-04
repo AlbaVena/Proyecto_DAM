@@ -35,6 +35,10 @@ import com.alba.gestiona.R
 import com.alba.gestiona.modelo.RespuestaEstudiante
 import com.alba.gestiona.viewmodel.EstadoLogin
 import com.alba.gestiona.viewmodel.LoginViewModel
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.runtime.LaunchedEffect
 
 // colores de la app
 val AzulOscuro = Color(0xFF1A5276)
@@ -53,12 +57,19 @@ fun PantallaLogin(
 
     var usuario by remember { mutableStateOf("") }
     var contrasena by remember { mutableStateOf("") }
+    val controladorTeclado = LocalSoftwareKeyboardController.current
 
     // si el login fue exitoso, navegar a la siguiente pantalla
     if (estado is EstadoLogin.Exito) {
         val estudiante = (estado as EstadoLogin.Exito).estudiante
         onLoginExitoso(estudiante)
         viewModel.reiniciar()
+    }
+
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
     }
 
     Column(
@@ -129,7 +140,10 @@ fun PantallaLogin(
             CircularProgressIndicator(color = AzulOscuro)
         } else {
             Button(
-                onClick = { viewModel.login(usuario, contrasena) },
+                onClick = {
+                    controladorTeclado?.hide()
+                    viewModel.login(usuario, contrasena)
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
