@@ -1685,11 +1685,18 @@ public class MenuAdminController {
 
 	@FXML
 	private void generarListadoFEs() {
-	    // TODO: implementar cuando el .jasper esté listo
+		List<FCT> fcts = fctRepository.findAll();
+	    String ruta = servicioInformes.generarListadoFEs(fcts);
+
 	    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-	    alert.setTitle("En desarrollo");
+	    alert.setTitle("Informe generado");
 	    alert.setHeaderText(null);
-	    alert.setContentText("El listado de FEs se implementará próximamente.");
+	    if (ruta != null) {
+	        alert.setContentText("Listado de FEs generado correctamente en:\n" + ruta);
+	    } else {
+	        alert.setAlertType(Alert.AlertType.ERROR);
+	        alert.setContentText("Error al generar el listado. Comprueba la consola.");
+	    }
 	    alert.showAndWait();
 	}
 	
