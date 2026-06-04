@@ -136,8 +136,19 @@
 				<TitledPane styleClass="titled-pane-menu"
 					expanded="false" text="Documentación">
 					<content>
-						<AnchorPane styleClass="fondo-menu" minHeight="0.0"
-							minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+						<VBox styleClass="fondo-menu" prefWidth="190.0" spacing="2.0">
+							<children>
+								<Button styleClass="btn-menu"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirFichaEstudiante" text="Ficha de estudiante" />
+								<Button styleClass="btn-menu"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirInformeEstadistico" text="Informe estadístico" />
+								<Button styleClass="btn-menu"
+									maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+									onAction="#abrirListadoFEs" text="Listado de FEs" />
+							</children>
+						</VBox>
 					</content>
 				</TitledPane>
 			</children>
@@ -1237,6 +1248,112 @@
 								<Button fx:id="btnGuardarModFE" styleClass="btn-primario"
 									mnemonicParsing="false" onAction="#guardarModFE"
 									prefWidth="80.0" text="Guardar" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+				<!-- Panel ficha de estudiante -->
+				<VBox fx:id="panelFichaEstudiante" managed="false"
+					visible="false" spacing="20.0">
+					<padding>
+						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
+					</padding>
+					<children>
+						<Label styleClass="titulo-panel" text="Ficha de estudiante" />
+						<Label
+							text="Genera un PDF con los datos personales y de FE del estudiante seleccionado."
+							wrapText="true" style="-fx-font-size: 13px; -fx-text-fill: #444;" />
+						<Separator />
+						<HBox spacing="15.0" alignment="CENTER_LEFT">
+							<children>
+								<Label text="Estudiante:" style="-fx-font-weight: bold;" />
+								<ComboBox fx:id="cbEstudianteFicha" prefWidth="280.0"
+									promptText="Seleccionar estudiante..." />
+							</children>
+						</HBox>
+						<Label
+							text="El informe incluirá: nombre, curso, empresa asignada, tutor, fechas de la FE y periodo."
+							wrapText="true"
+							style="-fx-font-size: 11px; -fx-font-style: italic; -fx-text-fill: #666;" />
+						<HBox spacing="15.0">
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+							<children>
+								<Button fx:id="btnGenerarFicha" styleClass="btn-primario"
+									mnemonicParsing="false" onAction="#generarFichaEstudiante"
+									prefWidth="150.0" text="Generar PDF" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+
+				<!-- Panel informe estadístico -->
+				<VBox fx:id="panelInformeEstadistico" managed="false"
+					visible="false" spacing="20.0">
+					<padding>
+						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
+					</padding>
+					<children>
+						<Label styleClass="titulo-panel" text="Informe estadístico" />
+						<Label
+							text="Genera un PDF con un resumen del estado actual del departamento."
+							wrapText="true" style="-fx-font-size: 13px; -fx-text-fill: #444;" />
+						<Separator />
+						<VBox spacing="12.0"
+							style="-fx-background-color: #D6EAF8; -fx-background-radius: 8; -fx-padding: 16;">
+							<children>
+								<Label text="El informe incluirá:"
+									style="-fx-font-weight: bold; -fx-font-size: 13px;" />
+								<Label text="• Número total de estudiantes registrados" />
+								<Label text="• Número total de empresas colaboradoras" />
+								<Label text="• Número total de FEs registradas" />
+								<Label text="• Fecha de generación del informe" />
+							</children>
+						</VBox>
+						<HBox spacing="15.0">
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+							<children>
+								<Button styleClass="btn-primario" mnemonicParsing="false"
+									onAction="#generarInformeEstadistico" prefWidth="150.0"
+									text="Generar PDF" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+
+				<!-- Panel listado de FEs -->
+				<VBox fx:id="panelListadoFEs" managed="false" visible="false"
+					spacing="20.0">
+					<padding>
+						<Insets top="20.0" left="30.0" right="30.0" bottom="20.0" />
+					</padding>
+					<children>
+						<Label styleClass="titulo-panel" text="Listado de FEs" />
+						<Label
+							text="Genera un PDF con el listado completo de las FEs registradas en el sistema."
+							wrapText="true" style="-fx-font-size: 13px; -fx-text-fill: #444;" />
+						<Separator />
+						<VBox spacing="12.0"
+							style="-fx-background-color: #D6EAF8; -fx-background-radius: 8; -fx-padding: 16;">
+							<children>
+								<Label text="El informe incluirá:"
+									style="-fx-font-weight: bold; -fx-font-size: 13px;" />
+								<Label text="• Nombre del estudiante" />
+								<Label text="• Empresa y tutor asignados" />
+								<Label text="• Periodo, fecha de inicio y fecha de fin" />
+							</children>
+						</VBox>
+						<HBox spacing="15.0">
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+							<children>
+								<Button styleClass="btn-primario" mnemonicParsing="false"
+									onAction="#generarListadoFEs" prefWidth="150.0"
+									text="Generar PDF" />
 							</children>
 						</HBox>
 					</children>

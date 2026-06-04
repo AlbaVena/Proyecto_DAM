@@ -8,7 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.alba.proyecto.modelo.DatoGrafico;
 
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -21,52 +24,57 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @Service
 public class ServicioInformes {
 	
-	 /**
-     * Genera el informe estadístico del departamento en PDF.
-     * El archivo se guarda en la carpeta "informes" del directorio raíz del proyecto.
-     *
-     * @param numEstudiantes número de estudiantes registrados
-     * @param numEmpresas    número de empresas registradas
-     * @param numFEs         número de FEs registradas
-     * @return ruta absoluta del PDF generado, o null si hay error
-     */
-    public String generarInformeEstadistico(long numEstudiantes, long numEmpresas, long numFEs) {
+	@Autowired
+	private com.alba.proyecto.repositorios.FCTRepository fctRepository;
 
-        try {
-            // cargar el .jasper desde resources
-            InputStream plantilla = getClass().getResourceAsStream("/reportes/informeEstadistico.jasper");
+	@Autowired
+	private com.alba.proyecto.repositorios.EstudianteRepository estudianteRepository;
 
-            // parámetros del informe
-            Map<String, Object> parametros = new HashMap<String, Object>();
-            parametros.put("numEstudiantes", numEstudiantes);
-            parametros.put("numEmpresas", numEmpresas);
-            parametros.put("numFEs", numFEs);
-            parametros.put("fecha", LocalDate.now().toString());
+	public String generarInformeEstadistico(long numEstudiantes, long numEmpresas, long numFEs) {
 
-            // datasource vacío (el informe solo usa parámetros, no filas)
-            List<Object> listaVacia = new ArrayList<Object>();
-            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listaVacia);
+	    try {
+	        InputStream plantilla = getClass().getResourceAsStream("/reportes/informeEstadistico.jasper");
 
-            // rellenar el informe
-            JasperPrint jasperPrint = JasperFillManager.fillReport(plantilla, parametros, dataSource);
+	        // calcular estudiantes con y sin FE
+	        long conFE = fctRepository.contarEstudiantesConFE();
+	        long sinFE = numEstudiantes - conFE;
 
-            // crear carpeta de salida si no existe
-            File carpeta = new File("reportes_generados");
-            if (!carpeta.exists()) {
-                carpeta.mkdirs();
-            }
+	        // construir lista para el gráfico
+	        List<DatoGrafico> datos = new ArrayList<DatoGrafico>();
+	        datos.add(new DatoGrafico("Con FE asignada", conFE));
+	        datos.add(new DatoGrafico("Sin FE asignada", sinFE));
 
-            // exportar a PDF
-            String rutaSalida = "informes" + File.separator + "informe_estadistico_" + LocalDate.now() + ".pdf";
-            JasperExportManager.exportReportToPdfFile(jasperPrint, rutaSalida);
+	        // parámetros
+	        Map<String, Object> parametros = new HashMap<String, Object>();
+	        //para el logo:
+	        InputStream imgStream = getClass().getResourceAsStream("/images/LogoGestiona1_redondo.png");
+	        java.awt.Image logo = javax.imageio.ImageIO.read(imgStream);
+	        parametros.put("logo", logo);
+	        
+	        parametros.put("numEstudiantes", numEstudiantes);
+	        parametros.put("numEmpresas", numEmpresas);
+	        parametros.put("numFEs", numFEs);
+	        parametros.put("fecha", LocalDate.now().toString());
 
-            return new File(rutaSalida).getAbsolutePath();
+	        // datasource con los datos del gráfico
+	        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(datos);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-	
+	        JasperPrint jasperPrint = JasperFillManager.fillReport(plantilla, parametros, dataSource);
+
+	        File carpeta = new File("reportes_generados");
+	        if (!carpeta.exists()) {
+	            carpeta.mkdirs();
+	        }
+
+	        String rutaSalida = "reportes_generados" + File.separator + "informe_estadistico_" + LocalDate.now() + ".pdf";
+	        JasperExportManager.exportReportToPdfFile(jasperPrint, rutaSalida);
+
+	        return new File(rutaSalida).getAbsolutePath();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
 
 }

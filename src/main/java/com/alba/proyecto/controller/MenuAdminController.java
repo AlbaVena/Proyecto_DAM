@@ -388,6 +388,17 @@ public class MenuAdminController {
 	private Label lblTutorFEConsulta;
 	@FXML 
 	private Label lblEmpresaFEConsulta;
+	
+	// Paneles documentación
+	@FXML
+	private VBox panelFichaEstudiante;
+	@FXML
+	private VBox panelInformeEstadistico;
+	@FXML
+	private VBox panelListadoFEs;
+
+	@FXML
+	private ComboBox<Estudiante> cbEstudianteFicha;
 
 	// FE seleccionada en la tabla
 	private FCT feSeleccionada;
@@ -484,6 +495,12 @@ public class MenuAdminController {
 		panelTablaFEs.setManaged(false);
 		panelModFE.setVisible(false);     
 		panelModFE.setManaged(false);
+		panelFichaEstudiante.setVisible(false);
+		panelFichaEstudiante.setManaged(false);
+		panelInformeEstadistico.setVisible(false);
+		panelInformeEstadistico.setManaged(false);
+		panelListadoFEs.setVisible(false);
+		panelListadoFEs.setManaged(false);
 	}
 
 	private void cargarSesion() {
@@ -1617,6 +1634,62 @@ public class MenuAdminController {
 	        alert.setAlertType(Alert.AlertType.ERROR);
 	        alert.setContentText("Error al generar el informe. Comprueba la consola.");
 	    }
+	    alert.showAndWait();
+	}
+	
+	@FXML
+	private void abrirFichaEstudiante() {
+	    // cargar combo de estudiantes
+	    cbEstudianteFicha.setItems(FXCollections.observableArrayList(estudianteRepository.findAll()));
+	    cbEstudianteFicha.setCellFactory(lv -> new javafx.scene.control.ListCell<Estudiante>() {
+	        @Override protected void updateItem(Estudiante e, boolean empty) {
+	            super.updateItem(e, empty);
+	            setText(empty || e == null ? null : e.getNombreCompleto());
+	        }
+	    });
+	    cbEstudianteFicha.setButtonCell(new javafx.scene.control.ListCell<Estudiante>() {
+	        @Override protected void updateItem(Estudiante e, boolean empty) {
+	            super.updateItem(e, empty);
+	            setText(empty || e == null ? null : e.getNombreCompleto());
+	        }
+	    });
+	    cbEstudianteFicha.setValue(null);
+	    mostrarPanel(panelFichaEstudiante);
+	}
+
+	@FXML
+	private void abrirInformeEstadistico() {
+	    mostrarPanel(panelInformeEstadistico);
+	}
+
+	@FXML
+	private void abrirListadoFEs() {
+	    mostrarPanel(panelListadoFEs);
+	}
+
+	@FXML
+	private void generarFichaEstudiante() {
+	    Estudiante estudiante = cbEstudianteFicha.getValue();
+	    if (estudiante == null) {
+	        cbEstudianteFicha.setStyle("-fx-border-color: red;");
+	        return;
+	    }
+	    cbEstudianteFicha.setStyle("");
+	    // TODO: implementar cuando el .jasper esté listo
+	    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+	    alert.setTitle("En desarrollo");
+	    alert.setHeaderText(null);
+	    alert.setContentText("La ficha de estudiante se implementará próximamente.");
+	    alert.showAndWait();
+	}
+
+	@FXML
+	private void generarListadoFEs() {
+	    // TODO: implementar cuando el .jasper esté listo
+	    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+	    alert.setTitle("En desarrollo");
+	    alert.setHeaderText(null);
+	    alert.setContentText("El listado de FEs se implementará próximamente.");
 	    alert.showAndWait();
 	}
 	
