@@ -37,13 +37,12 @@ import com.alba.gestiona.viewmodel.EstadoLogin
 import com.alba.gestiona.viewmodel.LoginViewModel
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.runtime.LaunchedEffect
 
 // colores de la app
-val AzulOscuro = Color(0xFF1A5276)
-val AzulClaro = Color(0xFFD6EAF8)
-val AzulMedio = Color(0xFF85C1E9)
+val AzulOscuro = Color(0xFF18406A)
+val AzulClaro = Color(0xFFE1E8EE)
+val AzulMedio = Color(0xFF4C85B9)
 
 /**
  * Pantalla de inicio de sesión para estudiantes.
@@ -82,9 +81,9 @@ fun PantallaLogin(
     ) {
         // logo
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            painter = painterResource(id = R.drawable.logo_gestiona),
             contentDescription = "Logo Gestiona",
-            modifier = Modifier.size(100.dp)
+            modifier = Modifier.size(150.dp)
         )
 
         Spacer(modifier = Modifier.height(16.dp))

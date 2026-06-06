@@ -24,6 +24,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alba.gestiona.modelo.RespuestaEstudiante
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 
 /**
  * Pantalla que muestra los datos personales y de FE del estudiante.
@@ -31,7 +34,8 @@ import com.alba.gestiona.modelo.RespuestaEstudiante
 @Composable
 fun PantallaDatos(
     estudiante: RespuestaEstudiante,
-    onCerrarSesion: () -> Unit
+    onCerrarSesion: () -> Unit,
+    onAbrirCalendario: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -90,6 +94,17 @@ fun PantallaDatos(
                 FilaDato("Periodo", estudiante.periodo.ifEmpty { "—" })
                 FilaDato("Fecha inicio", estudiante.fechaInicio.ifEmpty { "—" })
                 FilaDato("Fecha fin", estudiante.fechaFin.ifEmpty { "—" })
+            }
+
+            Button(
+                onClick = onAbrirCalendario,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                shape = RoundedCornerShape(8.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = AzulOscuro)
+            ) {
+                Text("Mi calendario de asistencia", color = Color.White, fontSize = 16.sp)
             }
 
             Spacer(modifier = Modifier.height(16.dp))

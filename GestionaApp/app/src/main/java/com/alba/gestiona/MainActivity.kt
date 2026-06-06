@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.alba.gestiona.modelo.RespuestaEstudiante
 import com.alba.gestiona.pantallas.PantallaDatos
 import com.alba.gestiona.pantallas.PantallaLogin
+import com.alba.gestiona.pantallas.PantallaCalendario
 import com.alba.gestiona.ui.theme.GestionaAppTheme
 
 /**
@@ -65,6 +66,20 @@ fun AppNavegacion() {
                         navController.navigate("login") {
                             popUpTo("datos") { inclusive = true }
                         }
+                    },
+                    onAbrirCalendario = {
+                        navController.navigate("calendario")
+                    }
+                )
+            }
+        }
+
+        composable("calendario") {
+            estudianteActual?.let { estudiante ->
+                PantallaCalendario(
+                    estudiante = estudiante,
+                    onVolver = {
+                        navController.popBackStack()
                     }
                 )
             }

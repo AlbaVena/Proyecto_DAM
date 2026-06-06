@@ -30,6 +30,16 @@ public class Transformador {
 	}
 	
 	/**
+	 * pasa una fecha a String legible
+	 * @param fecha
+	 * @return
+	 */
+	public static String transformarFechaAString(LocalDate fecha) {
+	    DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	    return fecha.format(formateador);
+	}
+	
+	/**
 	 * Hashea una contraseña para guardarla en la base de datos
 	 * mediante {@link BCrypt}.
 	 * 
