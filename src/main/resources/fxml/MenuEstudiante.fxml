@@ -38,7 +38,7 @@
                         <Label fx:id="lblNombreUsuario" styleClass="label-nombre-usuario" text="Nombre usuario" />
                     </children>
                 </VBox>
-                <Button fx:id="btnLogOut" mnemonicParsing="false" prefHeight="36.0" prefWidth="90.0" styleClass="btn-logout" text="Cerrar sesión">
+                <Button fx:id="btnLogOut" mnemonicParsing="false" prefHeight="36.0" prefWidth=110.0" styleClass="btn-logout" text="Cerrar sesión">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin>

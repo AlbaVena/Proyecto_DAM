@@ -61,6 +61,7 @@ fun PantallaCalendario(
     estudiante: RespuestaEstudiante,
     onVolver: () -> Unit
 ) {
+    // TODO si le das muy rápido dos veces al volver, te queda en blanco la pantalla
     // mapa que guarda el estado de cada día
     val estadosDias = remember { mutableStateMapOf<LocalDate, EstadoDia>() }
 

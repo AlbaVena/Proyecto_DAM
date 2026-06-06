@@ -34,11 +34,18 @@
                     </children>
                 </VBox>
                 <Button fx:id="btnLogOut" mnemonicParsing="false"
-                    prefHeight="36.0" prefWidth="90.0" text="Cerrar sesión" styleClass="btn-logout">
+                    prefHeight="36.0" prefWidth="110.0" text="Cerrar sesión" styleClass="btn-logout">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin>
                 </Button>
+                <Button fx:id="btnAyuda" mnemonicParsing="false"
+					onAction="#abrirAyuda" prefHeight="30.0" prefWidth="30.0"
+					styleClass="btn-ayuda" text="?">
+					<HBox.margin>
+						<Insets left="10.0" />
+					</HBox.margin>
+				</Button>
             </children>
             <padding>
                 <Insets left="20.0" right="10.0" />
