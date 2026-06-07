@@ -595,7 +595,7 @@
 							<columns>
 								<TableColumn fx:id="colNombreUsuario" text="Nombre" />
 								<TableColumn fx:id="colRolUsuario" text="Rol" />
-								<TableColumn fx:id="colFEUsuario" text="FE" />
+								<TableColumn fx:id="colFEUsuario" text="Email" />
 							</columns>
 						</TableView>
 
@@ -816,7 +816,7 @@
 							<columns>
 								<TableColumn fx:id="colNombreConsulta" text="Nombre" />
 								<TableColumn fx:id="colRolConsulta" text="Rol" />
-								<TableColumn fx:id="colFEConsulta" text="FE" />
+								<TableColumn fx:id="colFEConsulta" text="Email" />
 							</columns>
 						</TableView>
 
