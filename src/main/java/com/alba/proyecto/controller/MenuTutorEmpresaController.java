@@ -20,10 +20,21 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+import com.alba.proyecto.modelo.FCT;
+import com.alba.proyecto.modelo.TutorEmpresa;
+import com.alba.proyecto.repositorios.FCTRepository;
+import com.alba.proyecto.services.ServicioInformes;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
 @Controller
 public class MenuTutorEmpresaController {
-	
-	@FXML 
+
+	@FXML
 	private BorderPane panelTutor;
 
 	@FXML
@@ -34,8 +45,8 @@ public class MenuTutorEmpresaController {
 	private Label lblBienvenida;
 	@FXML
 	private Button btnLogOut;
-	
-	@FXML 
+
+	@FXML
 	private Button btnAyuda;
 
 	@FXML
@@ -50,6 +61,25 @@ public class MenuTutorEmpresaController {
 	private VBox panelRegistrarFalta;
 	@FXML
 	private VBox panelDocumentacion;
+
+	@FXML
+	private TableView<FCT> tablaTutorias;
+	@FXML
+	private TableColumn<FCT, String> colEstudianteTutoria;
+	@FXML
+	private TableColumn<FCT, String> colCursoTutoria;
+	@FXML
+	private TableColumn<FCT, String> colPeriodoTutoria;
+	@FXML
+	private TableColumn<FCT, String> colFechaInicioTutoria;
+	@FXML
+	private TableColumn<FCT, String> colFechaFinTutoria;
+
+	@Autowired
+	private FCTRepository fctRepository;
+
+	@Autowired
+	private ServicioInformes servicioInformes;
 
 	@Autowired
 	private Sesion sesion;
@@ -114,7 +144,37 @@ public class MenuTutorEmpresaController {
 
 	@FXML
 	private void abrirTutorias() {
-		mostrarPanel(panelTutorias);
+	    // configurar columnas
+	    colEstudianteTutoria.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getEstudiante().getNombreCompleto()));
+	    colCursoTutoria.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getEstudiante().getCurso() != null
+	                ? data.getValue().getEstudiante().getCurso().toString() : "—"));
+	    colPeriodoTutoria.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getPeriodo().toString()));
+	    colFechaInicioTutoria.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getFechaInicio() != null
+	                ? data.getValue().getFechaInicio().toString() : "—"));
+	    colFechaFinTutoria.setCellValueFactory(data ->
+	        new javafx.beans.property.SimpleStringProperty(
+	            data.getValue().getFechaFin() != null
+	                ? data.getValue().getFechaFin().toString() : "—"));
+
+	    // cargar solo las FEs del tutor logueado
+	    TutorEmpresa tutorActual = (TutorEmpresa) sesion.getUsuarioActual();
+	    List<FCT> todasFEs = fctRepository.findAll();
+	    ObservableList<FCT> misFEs = FXCollections.observableArrayList();
+	    for (FCT fct : todasFEs) {
+	        if (fct.getTutor() != null && fct.getTutor().getId().equals(tutorActual.getId())) {
+	            misFEs.add(fct);
+	        }
+	    }
+	    tablaTutorias.setItems(misFEs);
+	    mostrarPanel(panelTutorias);
 	}
 
 	@FXML
@@ -136,8 +196,7 @@ public class MenuTutorEmpresaController {
 	private void abrirDocumentacion() {
 		mostrarPanel(panelDocumentacion);
 	}
-	
-	
+
 	@FXML
 	private void abrirAyuda() {
 		try {
@@ -178,4 +237,37 @@ public class MenuTutorEmpresaController {
 		});
 	}
 	
+	@FXML
+	private void generarListadoFEs() {
+	    TutorEmpresa tutorActual = (TutorEmpresa) sesion.getUsuarioActual();
+	    List<FCT> todasFEs = fctRepository.findAll();
+	    List<FCT> misFEs = new ArrayList<FCT>();
+	    for (FCT fct : todasFEs) {
+	        if (fct.getTutor() != null && fct.getTutor().getId().equals(tutorActual.getId())) {
+	            misFEs.add(fct);
+	        }
+	    }
+
+	    if (misFEs.isEmpty()) {
+	        Alert alert = new Alert(Alert.AlertType.WARNING);
+	        alert.setTitle("Sin datos");
+	        alert.setHeaderText(null);
+	        alert.setContentText("No tienes FEs asignadas. No hay nada que exportar.");
+	        alert.showAndWait();
+	        return;
+	    }
+
+	    String ruta = servicioInformes.generarListadoFEs(misFEs);
+	    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+	    alert.setTitle("Informe generado");
+	    alert.setHeaderText(null);
+	    if (ruta != null) {
+	        alert.setContentText("Listado generado correctamente en:\n" + ruta);
+	    } else {
+	        alert.setAlertType(Alert.AlertType.ERROR);
+	        alert.setContentText("Error al generar el listado. Comprueba la consola.");
+	    }
+	    alert.showAndWait();
+	}
+
 }
