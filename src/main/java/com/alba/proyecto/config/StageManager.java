@@ -37,6 +37,14 @@ public class StageManager {
         //scene.getStylesheets().add("/styles/Styles.css");
         
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
+     // icono de la aplicación
+        try {
+            primaryStage.getIcons().add(new javafx.scene.image.Image(
+                getClass().getResourceAsStream("/images/LogoGestiona1_redondo.png")));
+        } catch (Exception e) {
+            LOG.warn("No se pudo cargar el icono de la aplicación");
+        }
+        
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
