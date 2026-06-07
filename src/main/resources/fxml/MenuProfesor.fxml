@@ -28,6 +28,9 @@
 	stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/25"
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.alba.proyecto.controller.MenuProfesorController">
+	<padding>
+		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+	</padding>
 
 	<top>
 		<HBox fx:id="hbBarraSuperior" alignment="CENTER"
@@ -113,9 +116,6 @@
 					</content>
 				</TitledPane>
 			</children>
-			<BorderPane.margin>
-				<Insets left="10.0" right="10.0" />
-			</BorderPane.margin>
 		</VBox>
 	</left>
 
@@ -255,11 +255,10 @@
 									GridPane.rowIndex="6" GridPane.columnSpan="2" />
 
 								<!-- Fila 7: Botones -->
-								<Button fx:id="btnLimpiarFCT" styleClass="btn-peligro" 
+								<Button fx:id="btnLimpiarFCT" styleClass="btn-peligro"
 									mnemonicParsing="false" prefWidth="80.0" text="Limpiar"
-									focusTraversable="true"
-									GridPane.columnIndex="2" GridPane.rowIndex="7"
-									GridPane.halignment="RIGHT" />
+									focusTraversable="true" GridPane.columnIndex="2"
+									GridPane.rowIndex="7" GridPane.halignment="RIGHT" />
 								<Button fx:id="btnGuardarFCT" styleClass="btn-primario"
 									mnemonicParsing="false" prefWidth="80.0" text="Guardar"
 									GridPane.columnIndex="3" GridPane.rowIndex="7"

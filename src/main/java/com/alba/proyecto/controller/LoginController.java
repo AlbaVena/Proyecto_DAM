@@ -16,9 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
 
 @Controller
 public class LoginController {
@@ -62,6 +62,18 @@ public class LoginController {
             lblError.setText("Para recuperar tu contraseña, contacta con el admin.");
             lblError.setVisible(true);
             lblError.setManaged(true);
+        });
+        
+     // permitir login pulsando Enter
+        username.setOnKeyPressed(evento -> {
+            if (evento.getCode() == KeyCode.ENTER) {
+                handleLogin(null);
+            }
+        });
+        password.setOnKeyPressed(evento -> {
+            if (evento.getCode() == KeyCode.ENTER) {
+                handleLogin(null);
+            }
         });
     }
 

@@ -34,6 +34,9 @@ public class MenuTutorEmpresaController {
 	private Label lblBienvenida;
 	@FXML
 	private Button btnLogOut;
+	
+	@FXML 
+	private Button btnAyuda;
 
 	@FXML
 	private VBox panelBienvenida;
