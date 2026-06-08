@@ -27,7 +27,7 @@
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.alba.proyecto.controller.MenuEstudianteController">
 	<padding>
-		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+		<Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
 	</padding>
 
 	<top>
@@ -68,9 +68,6 @@
 			<padding>
 				<Insets left="20.0" right="10.0" />
 			</padding>
-			<BorderPane.margin>
-				<Insets left="10.0" />
-			</BorderPane.margin>
 		</HBox>
 	</top>
 
@@ -327,7 +324,39 @@
 				</VBox>
 
 				<VBox fx:id="panelDocumentacion" managed="false"
-					prefHeight="200.0" prefWidth="100.0" visible="false" />
+					visible="false" spacing="20.0">
+					<padding>
+						<Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+					</padding>
+					<children>
+						<Label styleClass="titulo-panel" text="Documentación" />
+						<Label
+							text="Genera un PDF con tu ficha personal y los datos de tu FE."
+							wrapText="true" style="-fx-font-size: 13px; -fx-text-fill: #444;" />
+						<Separator />
+						<VBox spacing="12.0"
+							style="-fx-background-color: #D6EAF8; -fx-background-radius: 8; -fx-padding: 16;">
+							<children>
+								<Label text="La ficha incluirá:"
+									style="-fx-font-weight: bold; -fx-font-size: 13px;" />
+								<Label
+									text="• Nombre, email, teléfono y Nº de la Seguridad Social" />
+								<Label text="• Curso asignado" />
+								<Label text="• Empresa, tutor, periodo y fechas de la FE" />
+							</children>
+						</VBox>
+						<HBox spacing="15.0">
+							<VBox.margin>
+								<Insets top="10.0" />
+							</VBox.margin>
+							<children>
+								<Button styleClass="btn-primario" mnemonicParsing="false"
+									onAction="#generarMiFicha" prefWidth="150.0"
+									text="Generar mi ficha" />
+							</children>
+						</HBox>
+					</children>
+				</VBox>
 			</children>
 		</StackPane>
 	</center>

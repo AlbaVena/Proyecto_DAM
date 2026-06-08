@@ -7,18 +7,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.awt.Image;
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alba.proyecto.modelo.DatoGrafico;
+import com.alba.proyecto.modelo.Estudiante;
 import com.alba.proyecto.modelo.FCT;
 import com.alba.proyecto.modelo.FctDTO;
+import com.alba.proyecto.repositorios.EstudianteRepository;
+import com.alba.proyecto.repositorios.FCTRepository;
 
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import utils.Transformador;
 
 /**
  * servicio para la generación de informes
@@ -27,10 +34,10 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class ServicioInformes {
 	
 	@Autowired
-	private com.alba.proyecto.repositorios.FCTRepository fctRepository;
+	private FCTRepository fctRepository;
 
 	@Autowired
-	private com.alba.proyecto.repositorios.EstudianteRepository estudianteRepository;
+	private EstudianteRepository estudianteRepository;
 
 	public String generarInformeEstadistico(long numEstudiantes, long numEmpresas, long numFEs) {
 
@@ -50,7 +57,7 @@ public class ServicioInformes {
 	        Map<String, Object> parametros = new HashMap<String, Object>();
 	        //para el logo:
 	        InputStream imgStream = getClass().getResourceAsStream("/images/LogoGestiona1_redondo.png");
-	        java.awt.Image logo = javax.imageio.ImageIO.read(imgStream);
+	        Image logo = ImageIO.read(imgStream);
 	        parametros.put("logo", logo);
 	        
 	        parametros.put("numEstudiantes", numEstudiantes);
@@ -101,7 +108,7 @@ public class ServicioInformes {
 	        // parámetros
 	        Map<String, Object> parametros = new HashMap<String, Object>();
 	        InputStream imgStream = getClass().getResourceAsStream("/images/LogoGestiona1_redondo.png");
-	        java.awt.Image logo = javax.imageio.ImageIO.read(imgStream);
+	        Image logo = ImageIO.read(imgStream);
 	        parametros.put("logo", logo);
 	        parametros.put("fecha", LocalDate.now().toString());
 
@@ -115,6 +122,68 @@ public class ServicioInformes {
 	        }
 
 	        String rutaSalida = "reportes_generados" + File.separator + "listado_fes_" + LocalDate.now() + ".pdf";
+	        JasperExportManager.exportReportToPdfFile(jasperPrint, rutaSalida);
+
+	        return new File(rutaSalida).getAbsolutePath();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+	/**
+	 * Genera la ficha PDF de un estudiante concreto.
+	 *
+	 */
+	public String generarFichaEstudiante(Estudiante estudiante) {
+	    try {
+	        InputStream plantilla = getClass().getResourceAsStream("/reportes/fichaEstudiante.jasper");
+
+	        Map<String, Object> parametros = new HashMap<String, Object>();
+	        InputStream imgStream = getClass().getResourceAsStream("/images/LogoGestiona1_redondo.png");
+	        Image logo = ImageIO.read(imgStream);
+	        parametros.put("logo", logo);
+	        parametros.put("nombre", estudiante.getNombre());
+	        parametros.put("apellidos", estudiante.getApellidos());
+	        parametros.put("email", estudiante.getEmail() != null ? estudiante.getEmail() : "—");
+	        parametros.put("telefono", estudiante.getTelefono() != null ? estudiante.getTelefono() : "—");
+	        parametros.put("usuario", estudiante.getUsuario());
+	        parametros.put("nss", estudiante.getnSS() != null ? estudiante.getnSS() : "—");
+	        parametros.put("curso", estudiante.getCurso() != null ? estudiante.getCurso().toString() : "—");
+	        parametros.put("fecha", LocalDate.now().toString());
+
+	        // datos de la FE si tiene
+	        if (estudiante.getFcts() != null && !estudiante.getFcts().isEmpty()) {
+	            FCT fct = estudiante.getFcts().iterator().next();
+	            parametros.put("empresa", fct.getTutor() != null && fct.getTutor().getEmpresa() != null
+	                    ? fct.getTutor().getEmpresa().getNombre() : "—");
+	            parametros.put("tutorEmpresa", fct.getTutor() != null
+	                    ? fct.getTutor().getNombreCompleto() : "—");
+	            parametros.put("fechaInicio", fct.getFechaInicio() != null
+	                    ? Transformador.transformarFechaAString(fct.getFechaInicio()) : "—");
+	            parametros.put("fechaFin", fct.getFechaFin() != null
+	                    ? Transformador.transformarFechaAString(fct.getFechaFin()) : "—");
+	            parametros.put("periodo", fct.getPeriodo() != null
+	                    ? fct.getPeriodo().toString() : "—");
+	        } else {
+	            parametros.put("empresa", "Sin FE asignada");
+	            parametros.put("tutorEmpresa", "—");
+	            parametros.put("fechaInicio", "—");
+	            parametros.put("fechaFin", "—");
+	            parametros.put("periodo", "—");
+	        }
+
+	        JREmptyDataSource dataSource =
+	                new JREmptyDataSource(1);
+
+	        JasperPrint jasperPrint =
+	                JasperFillManager.fillReport(plantilla, parametros, dataSource);
+
+	        File carpeta = new File("reportes_generados");
+	        if (!carpeta.exists()) carpeta.mkdirs();
+
+	        String rutaSalida = "reportes_generados" + File.separator
+	                + "ficha_" + estudiante.getUsuario() + "_" + LocalDate.now() + ".pdf";
 	        JasperExportManager.exportReportToPdfFile(jasperPrint, rutaSalida);
 
 	        return new File(rutaSalida).getAbsolutePath();

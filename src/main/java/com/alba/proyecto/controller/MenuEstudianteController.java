@@ -26,6 +26,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import com.alba.proyecto.modelo.Estudiante;
+import com.alba.proyecto.services.ServicioInformes;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Controller
 public class MenuEstudianteController {
 	
@@ -75,6 +79,9 @@ public class MenuEstudianteController {
 
     @Autowired
     private ConfigurableApplicationContext context;
+    
+    @Autowired
+    private ServicioInformes servicioInformes;
     
     
 
@@ -271,5 +278,21 @@ public class MenuEstudianteController {
     	        });
     	    }
     	});
+    }
+    
+    @FXML
+    private void generarMiFicha() {
+        Estudiante estudiante = (Estudiante) sesion.getUsuarioActual();
+        String ruta = servicioInformes.generarFichaEstudiante(estudiante);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Ficha generada");
+        alert.setHeaderText(null);
+        if (ruta != null) {
+            alert.setContentText("Ficha generada correctamente en:\n" + ruta);
+        } else {
+            alert.setAlertType(Alert.AlertType.ERROR);
+            alert.setContentText("Error al generar la ficha. Comprueba la consola.");
+        }
+        alert.showAndWait();
     }
 }
