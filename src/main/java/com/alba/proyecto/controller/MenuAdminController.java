@@ -2,6 +2,7 @@ package com.alba.proyecto.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -26,7 +27,7 @@ import com.alba.proyecto.services.ServicioInformes;
 import com.alba.proyecto.services.Sesion;
 import com.alba.proyecto.services.UsuarioService;
 import utils.Transformador;
-
+import utils.Validador;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -1600,11 +1601,13 @@ public class MenuAdminController {
 		} else {
 			dpFechaInicioFE.setStyle("");
 		}
-		if (fin == null || fin.isBefore(inicio)) {
-			dpFechaFinFE.setStyle("-fx-border-color: red;");
-			valido = false;
+		if (inicio == null || fin == null || !Validador.esFechaValida(
+		        inicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+		        fin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
+		    dpFechaFinFE.setStyle("-fx-border-color: red;");
+		    valido = false;
 		} else {
-			dpFechaFinFE.setStyle("");
+		    dpFechaFinFE.setStyle("");
 		}
 
 		if (!valido)

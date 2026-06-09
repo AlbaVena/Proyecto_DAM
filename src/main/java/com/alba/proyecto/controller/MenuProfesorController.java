@@ -2,6 +2,7 @@ package com.alba.proyecto.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import utils.Validador;
 
 @Controller
 public class MenuProfesorController {
@@ -1179,12 +1181,15 @@ public class MenuProfesorController {
 		} else {
 			dpFechaInicioFE.setStyle("");
 		}
-		if (fin == null || fin.isBefore(inicio)) {
-			dpFechaFinFE.setStyle("-fx-border-color: red;");
-			valido = false;
+		if (inicio == null || fin == null || !Validador.esFechaValida(
+		        inicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+		        fin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
+		    dpFechaFinFE.setStyle("-fx-border-color: red;");
+		    valido = false;
 		} else {
-			dpFechaFinFE.setStyle("");
+		    dpFechaFinFE.setStyle("");
 		}
+		
 		if (!valido)
 			return;
 		FCT fct = new FCT();
