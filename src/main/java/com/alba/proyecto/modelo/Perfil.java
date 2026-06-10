@@ -1,7 +1,8 @@
 package com.alba.proyecto.modelo;
 
 /**
- * Clase Perfil.
+ * Enumerado Perfil.
+ * 
  * Define los tipos de usuario que se pueden registrar.
  * 
  * 

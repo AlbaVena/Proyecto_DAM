@@ -20,8 +20,10 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class Transformador {
 
-	/*
-	 * Cambia un formato de fecha a uno mas legible.
+	/**
+	 * Cambia un formato de fecha en String a un LocalDate.
+	 * @param fecha en formato dd/MM/yyyy.
+	 * @return LocalDate equivalente
 	 */
 	public static LocalDate tranformarFecha(String fecha) {
 		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy");

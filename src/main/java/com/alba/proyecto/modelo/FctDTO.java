@@ -1,7 +1,13 @@
 package com.alba.proyecto.modelo;
 
 /**
+ * Clase FctDTO.
+ * 
  * clase para transportar los datos a JasperSoft
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
  */
 public class FctDTO {
 

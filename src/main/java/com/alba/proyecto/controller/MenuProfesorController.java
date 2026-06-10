@@ -19,7 +19,6 @@ import com.alba.proyecto.modelo.Persona;
 import com.alba.proyecto.modelo.Profesor;
 import com.alba.proyecto.modelo.TutorEmpresa;
 import com.alba.proyecto.repositorios.CursoRepository;
-import com.alba.proyecto.repositorios.EmpresaRepository;
 import com.alba.proyecto.repositorios.EstudianteRepository;
 import com.alba.proyecto.repositorios.FCTRepository;
 import com.alba.proyecto.repositorios.TutorEmpresaRepository;
@@ -58,6 +57,9 @@ import utils.Validador;
  * Controlador del menú del Profesor. Tiene las mismas funcionalidades
  * que el Administrador pero restringidas a los perfiles Estudiante
  * y Tutor de Empresa.
+ * 
+ * Las estadísticas del panel principal muestran únicamente los datos
+ * del curso asignado al profesor.
  * 
  * @author ALBA VENA GARCIA
  * @version 1.0
@@ -350,8 +352,6 @@ public class MenuProfesorController {
 	@Autowired
 	private EstudianteRepository estudianteRepository;
 	@Autowired
-	private EmpresaRepository empresaRepository;
-	@Autowired
 	private FCTRepository fctRepository;
 	@Autowired
 	private TutorEmpresaRepository tutorEmpresaRepository;
@@ -374,6 +374,10 @@ public class MenuProfesorController {
 		mostrarPanel(panelPrincipal);
 	}
 
+	/**
+	 * Carga el mensaje de bienvenida y los contadores del panel principal
+	 * filtrados por el curso asignado al profesor de la sesión activa.
+	 */
 	private void cargarEstadisticas() {
 		Persona p = sesion.getUsuarioActual();
 		if (p != null) {
@@ -1161,6 +1165,11 @@ public class MenuProfesorController {
 		cargarTablaFEs();
 	}
 
+	/**
+	 * Recoge los datos del formulario de nueva FE, valida las fechas
+	 * y comprueba que el estudiante no tenga ya una FE en el mismo periodo
+	 * antes de guardar.
+	 */
 	private void guardarNuevaFE() {
 		Estudiante estudiante = cbEstudianteFE.getValue();
 		TutorEmpresa tutor = cbTutorFE.getValue();
@@ -1247,6 +1256,10 @@ public class MenuProfesorController {
 		dpFechaFinFE.setStyle("");
 	}
 
+	/**
+	 * Genera un listado en PDF con todas las FEs registradas
+	 * usando JasperReports y lo guarda en reportes_generados/.
+	 */
 	@FXML
 	private void generarListadoFEs() {
 		List<FCT> fcts = fctRepository.findAll();

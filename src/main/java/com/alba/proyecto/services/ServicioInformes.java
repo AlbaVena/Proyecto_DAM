@@ -30,15 +30,30 @@ import utils.Transformador;
 /**
  * servicio para la generación de informes
  */
+
+/**
+ * Clase ServicioInformes.
+ * 
+ * Servicio encargado de generar los informes PDF de la aplicación
+ * usando JasperReports. Los archivos se guardan en reportes_generados/.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Service
 public class ServicioInformes {
 	
 	@Autowired
 	private FCTRepository fctRepository;
 
-	@Autowired
-	private EstudianteRepository estudianteRepository;
-
+	/**
+	 * Gewnera un PDF estadistico con un g´rafico mostrando estudiantes con y sin FE asignada.
+	 * @param numEstudiantes
+	 * @param numEmpresas
+	 * @param numFEs
+	 * @return Ruta absoluta del PDF generado, o null si hay error.
+	 */
 	public String generarInformeEstadistico(long numEstudiantes, long numEmpresas, long numFEs) {
 
 	    try {
@@ -48,7 +63,7 @@ public class ServicioInformes {
 	        long conFE = fctRepository.contarEstudiantesConFE();
 	        long sinFE = numEstudiantes - conFE;
 
-	        // construir lista para el gráfico
+	        // construir la lista para el gráfico
 	        List<DatoGrafico> datos = new ArrayList<DatoGrafico>();
 	        datos.add(new DatoGrafico("Con FE asignada", conFE));
 	        datos.add(new DatoGrafico("Sin FE asignada", sinFE));
@@ -86,6 +101,12 @@ public class ServicioInformes {
 	    }
 	}
 	
+	/**
+	 * Genera un listado en PDF con las FEs recibidas como parámetro.
+	 * 
+	 * @param fcts Lista de FCTs a incluir en el listado.
+	 * @return Ruta absoluta del PDF generado, o null si hay error.
+	 */
 	public String generarListadoFEs(List<FCT> fcts) {
 
 	    try {
@@ -131,9 +152,13 @@ public class ServicioInformes {
 	        return null;
 	    }
 	}
+
 	/**
-	 * Genera la ficha PDF de un estudiante concreto.
-	 *
+	 * Genera la ficha en PDF de un estudiante concreto con sus datos
+	 * personales y los de su FE asignada si la tiene.
+	 * 
+	 * @param estudiante Estudiante del que se genera la ficha.
+	 * @return Ruta absoluta del PDF generado, o null si hay error.
 	 */
 	public String generarFichaEstudiante(Estudiante estudiante) {
 	    try {

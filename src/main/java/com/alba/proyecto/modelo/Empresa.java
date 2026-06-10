@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
  * Clase Empresa.
  * 
  * 
- * {@link TutorEmpresa}
+ * Una empresa puede tener uno o varios {@link TutorEmpresa}.
  * 
  * 
  * @author ALBA VENA GARCIA

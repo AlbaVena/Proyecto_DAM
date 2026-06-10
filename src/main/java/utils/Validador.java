@@ -63,7 +63,7 @@ public class Validador {
 	private static final DateTimeFormatter formFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	/**
-	 * Comprueba si una cadena de texo coincide con un string.
+	 * Comprueba si una cadena de texo cumple con el patrón regex indicado.
 	 * 
 	 * @param texto Cadena que se va a comparar.
 	 * @param regex Cadena contra la que se compara.

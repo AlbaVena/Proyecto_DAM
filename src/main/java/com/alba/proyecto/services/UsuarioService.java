@@ -23,8 +23,20 @@ import com.alba.proyecto.repositorios.EstudianteRepository;
 import com.alba.proyecto.repositorios.ProfesorRepository;
 import com.alba.proyecto.repositorios.TutorEmpresaRepository;
 
+import jakarta.persistence.EntityManager;
 import utils.Validador;
 
+/**
+ * Clase UsuarioService.
+ * 
+ * Servicio que gestiona la creación, modificación y autenticación
+ * de usuarios.Capa intermedia entre los controladores
+ * y los repositorios de cada tipo de usuario.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Service
 public class UsuarioService {
 
@@ -48,7 +60,7 @@ public class UsuarioService {
 	
 	//EntityManager para queries nativas
 	@Autowired
-	private jakarta.persistence.EntityManager entityManager;
+	private EntityManager entityManager;
 
 	public Estudiante crearEstudiante(String usuario, String contraseña, String nombre, String apellidos, String email,
 			String telefono, Perfil perfil, String nSS, Curso curso) {
@@ -75,6 +87,11 @@ public class UsuarioService {
 		return tutor;
 	}
 
+	/**
+	 * Guarda la persona en el repositorio correspondiente según su perfil.
+	 * 
+	 * @param nueva Persona a guardar.
+	 */
 	private void guardarUsuario(Persona nueva) {
 		if (nueva.getPerfil() == Perfil.PROFESOR) {
 			Profesor profesor = (Profesor) nueva;
@@ -102,6 +119,15 @@ public class UsuarioService {
 		}
 	}
 	
+	/**
+	 * Busca el usuario en todos los repositorios por orden y verifica
+	 * la contraseña con BCrypt. Si es correcto, guarda el usuario
+	 * en la sesión activa y lo devuelve.
+	 * 
+	 * @param usuario   Nombre de usuario introducido en el login.
+	 * @param contrasena Contraseña introducida en el login.
+	 * @return La persona autenticada, o null si las credenciales son incorrectas.
+	 */
 	public Persona login(String usuario, String contrasena) {
 		Persona persona = null;
 		
@@ -161,6 +187,13 @@ public class UsuarioService {
 	    return todos;
 	}
 	
+	/**
+	 * Comprueba si ya existe una persona con el email indicado.
+	 * Usa JPQL sobre la clase Persona para cubrir todos los perfiles.
+	 * 
+	 * @param email a comprobar.
+	 * @return true si ya existe, false si no.
+	 */
 	public boolean existeEmail(String email) {
 	    Long count = (Long) entityManager
 	        .createQuery("SELECT COUNT(p) FROM Persona p WHERE LOWER(p.email) = LOWER(:email)")
@@ -169,6 +202,13 @@ public class UsuarioService {
 	    return count > 0;
 	}
 
+	/**
+	 * Comprueba si ya existe una persona con el nombre de usuario indicado.
+	 * Usa JPQL sobre la clase Persona para cubrir todos los perfiles.
+	 * 
+	 * @param usuario Nombre de usuario a comprobar.
+	 * @return true si ya existe, false si no.
+	 */
 	public boolean existeUsuario(String usuario) {
 	    Long count = (Long) entityManager
 	        .createQuery("SELECT COUNT(p) FROM Persona p WHERE LOWER(p.usuario) = LOWER(:usuario)")

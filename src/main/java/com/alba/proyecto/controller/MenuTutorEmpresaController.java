@@ -152,6 +152,10 @@ public class MenuTutorEmpresaController {
 		});
 	}
 
+	/**
+	 * Carga en la tabla únicamente las FEs asignadas al tutor
+	 * de la sesión activa, filtrando por su ID.
+	 */
 	@FXML
 	private void abrirTutorias() {
 	    // configurar columnas
@@ -247,6 +251,11 @@ public class MenuTutorEmpresaController {
 		});
 	}
 	
+	/**
+	 * Genera un listado en PDF solo con las FEs asignadas al tutor
+	 * de la sesión activa. Si no tiene ninguna, muestra un aviso
+	 * y no genera el archivo.
+	 */
 	@FXML
 	private void generarListadoFEs() {
 	    TutorEmpresa tutorActual = (TutorEmpresa) sesion.getUsuarioActual();

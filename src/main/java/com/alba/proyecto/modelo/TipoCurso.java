@@ -1,7 +1,9 @@
 package com.alba.proyecto.modelo;
 
 /**
- * Clase ENUMERADA TipoCurso.
+ * Enumerado TipoCurso.
+ * 
+ * Define los tipos de curso disponibles en el sistema.
  * 
  * @author ALBA VENA GARCIA
  * @version 1.0

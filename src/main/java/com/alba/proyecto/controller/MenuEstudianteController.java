@@ -109,6 +109,11 @@ public class MenuEstudianteController {
         abrirAtajoAyuda();
     }
 
+    /**
+     * Rellena los paneles Mis Datos y Mi FE con la información
+     * del estudiante de la sesión activa.
+     * Si no tiene FE asignada, muestra guiones en los campos correspondientes.
+     */
     private void cargarDatosEstudiante() {
     Persona p = sesion.getUsuarioActual();
     
@@ -290,6 +295,10 @@ public class MenuEstudianteController {
     	});
     }
     
+    /**
+     * Genera la ficha del estudiante en PDF usando JasperReports
+     * y la guarda en la carpeta reportes_generados/.
+     */
     @FXML
     private void generarMiFicha() {
         Estudiante estudiante = (Estudiante) sesion.getUsuarioActual();

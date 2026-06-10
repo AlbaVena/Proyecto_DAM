@@ -2,6 +2,17 @@ package com.alba.proyecto.view;
 
 import java.util.ResourceBundle;
 
+/**
+ * Enumerado FxmlView.
+ * 
+ * Define las vistas FXML disponibles en la aplicación con su título
+ * y ruta de archivo. Se usa junto a {@link StageManager} para
+ * navegar entre pantallas.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 public enum FxmlView {
 	//Pantalla USER
 	USER {							

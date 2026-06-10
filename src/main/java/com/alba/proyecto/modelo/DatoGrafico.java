@@ -1,6 +1,8 @@
 package com.alba.proyecto.modelo;
 
 /**
+ * Clase DatoGrafico.
+ * 
  * clase auxiliar para los datos de g´raficos de Jaspersoft
  */
 public class DatoGrafico {

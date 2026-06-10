@@ -10,6 +10,18 @@ import com.alba.proyecto.view.FxmlView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Clase Proyecto_Principal.
+ * 
+ * Punto de entrada de la aplicación. Combina Spring Boot con JavaFX,
+ * arrancando el contexto de Spring en el método init() y lanzando
+ * la interfaz gráfica en start(). La primera pantalla que se muestra
+ * es el Login.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @SpringBootApplication 									//Anotacion propia de Spring
 public class Proyecto_Principal extends Application {
 												//Interfaz que lanza un aplicativo
@@ -34,11 +46,12 @@ public class Proyecto_Principal extends Application {
 	}
 
 	/**
-	 * Useful to override this method by sub-classes wishing to change the first
-	 * Scene to be displayed on startup. Example: Functional tests on main window.
+	 * Establece la pantalla inicial de la aplicación.
+	 * Se muestra la pantalla de Login al arrancar.
 	 */
 	protected void displayInitialScene() {
 		stageManager.switchScene(FxmlView.LOGIN);		//**Pantalla de inicio**
+		
 		//esto para cambiar de ESCENA,
 	}	//de una pantalla a otra						//en este caso pantalla "LOGIN"
 
