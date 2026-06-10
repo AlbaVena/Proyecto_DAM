@@ -84,13 +84,19 @@ public class ServicioInformes {
 	        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(datos);
 
 	        JasperPrint jasperPrint = JasperFillManager.fillReport(plantilla, parametros, dataSource);
+	        
+	        String userHome = System.getProperty("user.home");//el home del usuario actual
+	        
 
-	        File carpeta = new File("reportes_generados");
+	        //ruta del escritorio del usuario actual (desktop funciona siempre)
+	        String rutaCarpeta = userHome + File.separator + "Desktop" + File.separator + "reportes_generados";
+	        File carpeta = new File(rutaCarpeta);
+
 	        if (!carpeta.exists()) {
 	            carpeta.mkdirs();
 	        }
+	        String rutaSalida = rutaCarpeta + File.separator + "informe_estadistico_" + LocalDate.now() + ".pdf";
 
-	        String rutaSalida = "reportes_generados" + File.separator + "informe_estadistico_" + LocalDate.now() + ".pdf";
 	        JasperExportManager.exportReportToPdfFile(jasperPrint, rutaSalida);
 
 	        return new File(rutaSalida).getAbsolutePath();
@@ -137,12 +143,15 @@ public class ServicioInformes {
 
 	        JasperPrint jasperPrint = JasperFillManager.fillReport(plantilla, parametros, dataSource);
 
-	        File carpeta = new File("reportes_generados");
+	        String userHome = System.getProperty("user.home");
+	        String rutaCarpeta = userHome + File.separator + "Desktop" + File.separator + "reportes_generados";
+	        File carpeta = new File(rutaCarpeta);
+
 	        if (!carpeta.exists()) {
 	            carpeta.mkdirs();
 	        }
 
-	        String rutaSalida = "reportes_generados" + File.separator + "listado_fes_" + LocalDate.now() + ".pdf";
+	        String rutaSalida = rutaCarpeta + File.separator + "listado_fes_" + LocalDate.now() + ".pdf";
 	        JasperExportManager.exportReportToPdfFile(jasperPrint, rutaSalida);
 
 	        return new File(rutaSalida).getAbsolutePath();
@@ -204,11 +213,15 @@ public class ServicioInformes {
 	        JasperPrint jasperPrint =
 	                JasperFillManager.fillReport(plantilla, parametros, dataSource);
 
-	        File carpeta = new File("reportes_generados");
-	        if (!carpeta.exists()) carpeta.mkdirs();
+	        String userHome = System.getProperty("user.home");
+	        String rutaCarpeta = userHome + File.separator + "Desktop" + File.separator + "reportes_generados";
+	        File carpeta = new File(rutaCarpeta);
 
-	        String rutaSalida = "reportes_generados" + File.separator
-	                + "ficha_" + estudiante.getUsuario() + "_" + LocalDate.now() + ".pdf";
+	        if (!carpeta.exists()) {
+	            carpeta.mkdirs();
+	        }
+
+	        String rutaSalida = rutaCarpeta + File.separator + "ficha_" + estudiante.getNombreCompleto() + "_" + LocalDate.now() + ".pdf";
 	        JasperExportManager.exportReportToPdfFile(jasperPrint, rutaSalida);
 
 	        return new File(rutaSalida).getAbsolutePath();
