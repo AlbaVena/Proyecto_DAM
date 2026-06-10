@@ -52,6 +52,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utils.Validador;
 
+/**
+ * Clase MenuProfesorController.
+ * 
+ * Controlador del menú del Profesor. Tiene las mismas funcionalidades
+ * que el Administrador pero restringidas a los perfiles Estudiante
+ * y Tutor de Empresa.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Controller
 public class MenuProfesorController {
 

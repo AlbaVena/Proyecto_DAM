@@ -53,6 +53,16 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Clase MenuAdminController.
+ * 
+ * Controlador del menú del Administrador. Permite gestionar usuarios, empresas
+ * y FEs, así como generar informes.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Controller
 public class MenuAdminController {
 
@@ -462,6 +472,10 @@ public class MenuAdminController {
 
 	}
 
+	/**
+	 * Carga los contadores del panel principal y el mensaje
+	 * de bienvenida con el nombre del usuario de la sesión.
+	 */
 	private void cargarEstadisticas() {
 		Persona p = sesion.getUsuarioActual();
 		if (p != null) {
@@ -473,6 +487,10 @@ public class MenuAdminController {
 
 	}
 
+	/**
+	 * Oculta todos los paneles del menú. Se llama antes de mostrar cualquier panel
+	 * nuevo.
+	 */
 	private void ocultarTodo() {
 		panelPrincipal.setVisible(false);
 		panelPrincipal.setManaged(false);
@@ -502,6 +520,10 @@ public class MenuAdminController {
 		panelListadoFEs.setManaged(false);
 	}
 
+	/**
+	 * recupera el usuario de la sesion activa para mostrar su nombre y perfil en la
+	 * barra supeior
+	 */
 	private void cargarSesion() {
 		Persona p = sesion.getUsuarioActual();
 		if (p != null) {
@@ -526,7 +548,12 @@ public class MenuAdminController {
 		});
 	}
 
-	// Mostrar un panel
+	/**
+	 * Hace visible el panel recibido y lo marca como gestionado.
+	 * Llama a ocultarTodo() antes de mostrarlo.
+	 * 
+	 * @param panel Panel que se va a mostrar.
+	 */
 	private void mostrarPanel(VBox panel) {
 		ocultarTodo();
 		panel.setVisible(true);
@@ -654,6 +681,11 @@ public class MenuAdminController {
 		cbCurso.setStyle("");
 	}
 
+	/**
+	 * Recoge los datos del formulario, los valida y guarda
+	 * el nuevo usuario en la base de datos.
+	 * Comprueba que el usuario y el email no estén duplicados.
+	 */
 	private void guardarNuevoUsuario() {
 		String rol = cbRol.getValue();
 		String nombre = tfNombre.getText().trim();
@@ -677,7 +709,7 @@ public class MenuAdminController {
 		}
 
 		// nombre
-		if (!nombre.matches(utils.Validador.nombreRegex)) {
+		if (!nombre.matches(Validador.nombreRegex)) {
 			tfNombre.setStyle("-fx-border-color: red;");
 			valido = false;
 		} else {
@@ -685,15 +717,15 @@ public class MenuAdminController {
 		}
 
 		// apellidos
-		if (!apellidos.matches(utils.Validador.apellidosRegex)) {
+		if (!apellidos.matches(Validador.apellidosRegex)) {
 			tfApellidosUsuario.setStyle("-fx-border-color: red;");
 			valido = false;
 		} else {
 			tfApellidosUsuario.setStyle("");
 		}
 
-		// email — obligatorio, válido y único
-		if (email.isEmpty() || !email.matches(utils.Validador.emailRegex)) {
+		// email: obligatorio, válido y único
+		if (email.isEmpty() || !email.matches(Validador.emailRegex)) {
 			tfEmailUsuario.setStyle("-fx-border-color: red;");
 			valido = false;
 		} else if (usuarioService.existeEmail(email)) {
@@ -705,16 +737,16 @@ public class MenuAdminController {
 			tfEmailUsuario.setPromptText("correo@email.com");
 		}
 
-		// teléfono — opcional pero si se rellena debe ser válido
-		if (!telefono.isEmpty() && !telefono.matches(utils.Validador.telefonoRegex)) {
+		// teléfono :opcional pero si se rellena debe ser válido
+		if (!telefono.isEmpty() && !telefono.matches(Validador.telefonoRegex)) {
 			tfTelefonoUsuario.setStyle("-fx-border-color: red;");
 			valido = false;
 		} else {
 			tfTelefonoUsuario.setStyle("");
 		}
 
-		// usuario — obligatorio, formato válido y único
-		if (!usuario.matches(utils.Validador.usuarioPasswordRegex)) {
+		// usuario: obligatorio, formato válido y único
+		if (!usuario.matches(Validador.usuarioPasswordRegex)) {
 			tfNombreUsuario.setStyle("-fx-border-color: red;");
 			valido = false;
 		} else if (usuarioService.existeUsuario(usuario)) {
@@ -727,7 +759,7 @@ public class MenuAdminController {
 		}
 
 		// contraseña
-		if (!pass.matches(utils.Validador.usuarioPasswordRegex)) {
+		if (!pass.matches(Validador.usuarioPasswordRegex)) {
 			tfPass.setStyle("-fx-border-color: red;");
 			valido = false;
 		} else {
@@ -736,7 +768,7 @@ public class MenuAdminController {
 
 		// validaciones específicas por rol
 		if ("ESTUDIANTE".equals(rol)) {
-			if (!nss.matches(utils.Validador.nSSRegex)) {
+			if (!nss.matches(Validador.nSSRegex)) {
 				tfNss.setStyle("-fx-border-color: red;");
 				valido = false;
 			} else {
@@ -771,7 +803,7 @@ public class MenuAdminController {
 			return;
 
 		// si todo es válido, crear el usuario
-		String passHash = utils.Transformador.hashPassword(pass);
+		String passHash = Transformador.hashPassword(pass);
 
 		if ("PROFESOR".equals(rol)) {
 			usuarioService.crearProfesor(usuario, passHash, nombre, apellidos, email, telefono, Perfil.PROFESOR, curso);
@@ -811,8 +843,13 @@ public class MenuAdminController {
 		tablaEmpresas.setItems(listaEmpresas);
 	}
 
-	// Buscador en tiempo real con el textfield
+
+	/**
+	 * Configura el buscador de la tabla de empresas.
+	 * Filtra en tiempo real por nombre usando un FilteredList.
+	 */
 	private void configurarBuscador() {
+		// Buscador en tiempo real con el textfield
 		tfBuscarEmpresa.setOnKeyReleased(event -> {
 			String filtro = tfBuscarEmpresa.getText().toLowerCase();
 			FilteredList<Empresa> listaFiltrada = new FilteredList<>(listaEmpresas);
@@ -847,8 +884,8 @@ public class MenuAdminController {
 	}
 
 	// Rellenar formulario con datos de la empresa seleccionada
-	// Los campos siempre llegan bloqueados — el botón editar los desbloquea uno a
-	// uno
+	// Los campos siempre llegan bloqueados 
+	//El botón editar los desbloquea uno a uno
 	private void rellenarFormModificar() {
 		tfFormNombreEmpresa.setText(empresaSeleccionada.getNombre());
 		tfFormDireccionEmpresa.setText(empresaSeleccionada.getDireccion());
@@ -882,6 +919,11 @@ public class MenuAdminController {
 		usuarioSeleccionado = null;
 	}
 
+	/**
+	 * Carga todos los usuarios de la base de datos en la tabla,
+	 * aplicando un FilteredList para permitir el filtrado por
+	 * nombre y por rol.
+	 */
 	private void cargarTablaUsuarios() {
 		colNombreUsuario.setCellValueFactory(new PropertyValueFactory<>("nombreCompleto"));
 		colRolUsuario.setCellValueFactory(new PropertyValueFactory<>("perfilStr"));
@@ -1060,6 +1102,11 @@ public class MenuAdminController {
 			limpiarFormModUsuario();
 		}
 	}
+	
+	/**
+	 * Recoge los cambios del formulario de modificación
+	 * y los guarda en la base de datos.
+	 */
 
 	@FXML
 	private void guardarModUsuario() {
@@ -1122,7 +1169,7 @@ public class MenuAdminController {
 
 		if (crearTutor) {
 			// validación mínima de usuario y contraseña
-			if (!usuarioTutor.matches(utils.Validador.usuarioPasswordRegex)) {
+			if (!usuarioTutor.matches(Validador.usuarioPasswordRegex)) {
 				tfUsuarioTutor.setStyle("-fx-border-color: red;");
 				// la empresa ya se guardó, avisamos pero no bloqueamos
 				Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -1132,7 +1179,7 @@ public class MenuAdminController {
 						+ "El tutor no se ha creado porque el usuario no tiene el formato correcto "
 						+ "(entre 3 y 12 caracteres, solo letras, números y _).");
 				alerta.showAndWait();
-			} else if (!passwordTutor.matches(utils.Validador.usuarioPasswordRegex)) {
+			} else if (!passwordTutor.matches(Validador.usuarioPasswordRegex)) {
 				tfPasswordTutor.setStyle("-fx-border-color: red;");
 				Alert alerta = new Alert(Alert.AlertType.WARNING);
 				alerta.setTitle("Tutor no guardado");
@@ -1205,6 +1252,10 @@ public class MenuAdminController {
 		tfPasswordTutor.setStyle("");
 	}
 
+	/**
+	 * Abre la ventana de ayuda del perfil Administrador
+	 * mostrando el archivo HTML en un WebView.
+	 */
 	@FXML
 	private void abrirAyuda() {
 		try {
@@ -1233,6 +1284,10 @@ public class MenuAdminController {
 		}
 	}
 
+	/**
+	 * Abre la ventana de ayuda del perfil Administrador
+	 * mostrando el archivo HTML en un WebView al pulsar la tecla F1.
+	 */
 	private void abrirAtajoAyuda() {
 		PaneAdmin.sceneProperty().addListener((obs, escenaAnterior, escenaNueva) -> {
 			if (escenaNueva != null) {
@@ -1429,6 +1484,10 @@ public class MenuAdminController {
 		mostrarPanel(panelTablaFEs);
 	}
 
+	/**
+	 * Carga todas las FEs de la base de datos en la tabla,
+	 * aplicando filtros por nombre de estudiante y por periodo.
+	 */
 	private void cargarTablaFEs() {
 		colEstudianteFE.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
 				data.getValue().getEstudiante().getNombreCompleto()));
@@ -1568,6 +1627,11 @@ public class MenuAdminController {
 		cargarTablaFEs();
 	}
 
+	/**
+	 * Recoge los datos del formulario de nueva FE, valida las fechas
+	 * y comprueba que el estudiante no tenga ya una FE en el mismo periodo
+	 * antes de guardar.
+	 */
 	private void guardarNuevaFE() {
 		Estudiante estudiante = cbEstudianteFE.getValue();
 		TutorEmpresa tutor = cbTutorFE.getValue();
@@ -1601,13 +1665,13 @@ public class MenuAdminController {
 		} else {
 			dpFechaInicioFE.setStyle("");
 		}
-		if (inicio == null || fin == null || !Validador.esFechaValida(
-		        inicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-		        fin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
-		    dpFechaFinFE.setStyle("-fx-border-color: red;");
-		    valido = false;
+		if (inicio == null || fin == null
+				|| !Validador.esFechaValida(inicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+						fin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
+			dpFechaFinFE.setStyle("-fx-border-color: red;");
+			valido = false;
 		} else {
-		    dpFechaFinFE.setStyle("");
+			dpFechaFinFE.setStyle("");
 		}
 
 		if (!valido)
@@ -1657,6 +1721,10 @@ public class MenuAdminController {
 		dpFechaFinFE.setStyle("");
 	}
 
+	/**
+	 * Genera un informe estadístico en PDF con un gráfico de circulo plano
+	 * usando JasperReports y lo guarda en la carpeta reportes_generados/.
+	 */
 	@FXML
 	private void generarInformeEstadistico() {
 		long estudiantes = estudianteRepository.count();
@@ -1709,6 +1777,10 @@ public class MenuAdminController {
 		mostrarPanel(panelListadoFEs);
 	}
 
+	/**
+	 * Generará la ficha en PDF del estudiante seleccionado
+	 * usando JasperReports y lo guardará en reportes_generados/.
+	 */
 	@FXML
 	private void generarFichaEstudiante() {
 		Estudiante estudiante = cbEstudianteFicha.getValue();
@@ -1725,6 +1797,10 @@ public class MenuAdminController {
 		alert.showAndWait();
 	}
 
+	/**
+	 * Genera un listado en PDF con todas las FEs registradas
+	 * usando JasperReports y lo guarda en reportes_generados/.
+	 */
 	@FXML
 	private void generarListadoFEs() {
 		List<FCT> fcts = fctRepository.findAll();

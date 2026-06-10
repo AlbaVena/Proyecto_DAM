@@ -9,9 +9,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
- * Will load the FXML hierarchy as specified in the load method and register
- * Spring as the FXML Controller Factory. Allows Spring and Java FX to coexist
- * once the Spring Application context has been bootstrapped.
+ * Clase SpringFXMLLoader.
+ * 
+ * Se encarga de cargar los archivos FXML usando Spring como
+ * fábrica de controladores, lo que permite inyectar dependencias
+ * en los controladores de JavaFX
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
  */
 @Component
 public class SpringFXMLLoader {
@@ -24,6 +30,12 @@ public class SpringFXMLLoader {
         this.context = context;
     }
 
+    /**
+     * Carga un archivo FXML y devuelve su nodo raíz.
+     * 
+     * @param fxmlPath Ruta del archivo FXML a cargar.
+     * @return Nodo raíz del archivo FXML.
+     */
     public Parent load(String fxmlPath) throws IOException {      
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(context::getBean); //Spring now FXML Controller Factory

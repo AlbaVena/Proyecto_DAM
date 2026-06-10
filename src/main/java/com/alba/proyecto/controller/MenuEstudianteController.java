@@ -30,6 +30,16 @@ import com.alba.proyecto.modelo.Estudiante;
 import com.alba.proyecto.services.ServicioInformes;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * Clase MenuEstudianteController.
+ * 
+ * Controlador del menú del Estudiante. Permite consultar los datos
+ * personales y generar la ficha en PDF.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Controller
 public class MenuEstudianteController {
 	

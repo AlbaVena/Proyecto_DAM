@@ -20,6 +20,16 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 
+/**
+ * Clase LoginController.
+ * 
+ * Controlador de la pantalla de login. Gestiona la autenticación
+ * del usuario y redirige al menú correspondiente según su perfil.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Controller
 public class LoginController {
 

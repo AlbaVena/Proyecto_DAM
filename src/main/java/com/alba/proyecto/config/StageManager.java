@@ -14,7 +14,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Manages switching Scenes on the Primary Stage
+ * Clase StageManager.
+ * 
+ * Gestiona el cambio de pantallas sobre el Stage principal
+ * de la aplicación.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
  */
 public class StageManager {
 
@@ -27,6 +34,11 @@ public class StageManager {
         this.primaryStage = stage;
     }
 
+    /**
+     * Cambia la escena del Stage principal a la vista indicada.
+     * 
+     * @param view Vista a la que se quiere ir.
+     */
     public void switchScene(final FxmlView view) {
         Parent viewRootNodeHierarchy = loadViewNodeHierarchy(view.getFxmlFile());
         show(viewRootNodeHierarchy, view.getTitle());
@@ -37,6 +49,8 @@ public class StageManager {
         //scene.getStylesheets().add("/styles/Styles.css");
         
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
+        
+        
      // icono de la aplicación
         try {
             primaryStage.getIcons().add(new javafx.scene.image.Image(
@@ -44,6 +58,7 @@ public class StageManager {
         } catch (Exception e) {
             LOG.warn("No se pudo cargar el icono de la aplicación");
         }
+        
         
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
@@ -68,10 +83,10 @@ public class StageManager {
     }
 
     /**
-     * Loads the object hierarchy from a FXML document and returns to root node
-     * of that hierarchy.
-     *
-     * @return Parent root node of the FXML document hierarchy
+     * Carga el archivo FXML y devuelve el nodo raíz.
+     * 
+     * @param fxmlFilePath Ruta del archivo FXML.
+     * @return Nodo raíz del documento FXML.
      */
     private Parent loadViewNodeHierarchy(String fxmlFilePath) {
         Parent rootNode = null;

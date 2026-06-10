@@ -31,6 +31,16 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * Clase MenuTutorEmpresaController.
+ * 
+ * Controlador del menú del Tutor de Empresa. Permite consultar las
+ * FEs asignadas y generar documentación en PDF.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Controller
 public class MenuTutorEmpresaController {
 

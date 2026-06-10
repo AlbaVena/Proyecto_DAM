@@ -13,7 +13,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
-
+/**
+ * Clase AppJavaConfig.
+ * 
+ * Clase de configuración de Spring. Define los beans principales
+ * de la aplicación, como el ResourceBundle y el StageManager.
+ * 
+ * @author ALBA VENA GARCIA
+ * @version 1.0
+ * @since 2026
+ */
 @Configuration
 public class AppJavaConfig {
 	
