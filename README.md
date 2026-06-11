@@ -9,7 +9,7 @@ Incluye una aplicación móvil Android para el perfil de Estudiante.
 - JavaFX 23 + FXML + Scene Builder
 - JPA + Hibernate 6.6.2
 - MySQL (XAMPP)
-- JaspeSfot Studio 6.20.0
+- JasperReports  6.20.0
 - Kotlin + JetPack Compose + Retrofit (app Android)
 
 ## Requisitos previos
@@ -25,7 +25,7 @@ Incluye una aplicación móvil Android para el perfil de Estudiante.
 4. Ejecutar `scripts/gestiona_bd_inserts.sql` en la pestaña SQL de la base de datos **gestiona_bd**.  
 Esto introducirá una serie de usuarios base en la base de datos del programa.
 
-## Configuración de la aplicación
+## Configuración de la aplicación de escritorio
 El fichero `src/main/resources/application.properties` ya está configurado para conectar a `gestiona_bd` con usuario `root` y contraseña vacía (configuración por defecto de XAMPP). Si tu instalación es distinta, modifica estas líneas:
 
 ```properties
@@ -36,9 +36,13 @@ spring.datasource.password=
 
 ## Cómo ejecutar
 
-En Eclipse: clic derecho sobre el proyecto → **Run As → Maven Build** → Goals: `javafx:run`
+La aplicación se distribuye como instalador MSI generado con jpackage. El instalador incluye la máquina virtual Java, por lo que no es necesario tener Java instalado en el equipo de destino.  
 
-La aplicación arranca en el puerto 8080.
+### Pasos:
+1. Ejecutar `Gestiona-1.0.msi` y seguir el asistente de instalaciíon.
+2. Si no se elige un destino diferente, la aplicación quedará instalada en `C:\Program Files\Gestiona\`, añadiendo un acceso directo en el escritorio y en el menú de inicio.
+3. Antes de arrancar la aplicación, asegurarse de que XAMPP tiene MySQL activo y la base de datos ha sido importada.
+4. Abrir la aplicación desde el acceso directo.
 
 
 ## Usuarios de prueba
@@ -59,5 +63,40 @@ La aplicación arranca en el puerto 8080.
 | arthur | pass | Estudiante (sin FE) |
 | geralt | pass | Estudiante (con FE extraordinaria) |
 
----
- Asegúrate de que ese puerto no esté en uso.
+## Estructura del repositorio
+
+```
+Proyecto_DAM/
+├── src/                  # Código fuente Java/JavaFX
+├── GestionaApp/          # Aplicación Android (Kotlin + Jetpack Compose)
+├── scripts/              # Scripts SQL de la base de datos
+│   ├── gestiona_bd_estructura.sql
+│   └── gestiona_bd_inserts.sql
+├── documentacion/        # Plan de pruebas y guía de estilos
+├── doc/                  # Javadoc generado
+├── images/               # Diagramas e imágenes del proyecto
+├── libs/                 # Repositorio Maven local (componente PasswordFieldValidado)
+└── README.md
+```
+
+## Aplicación móvil
+
+La aplicación móvil está desarrollada en Kotlin con Jetpack Compose y se encuentra en la carpeta `GestionaApp/`. Está diseñada para usarse con el emulador de Android Studio.
+
+### Requisitos:
+- Android Studio instalado
+- Clonar el repositorio de GitHub para tener acceso a GestionaApp/ desde https://github.com/AlbaVena/Proyecto_DAM/tree/version2/GestionaApp .
+- Importar en Android Studio.
+- La **aplicación de escritorio arrancada** y con XAMPP activo
+- El puerto 8080 libre en el equipo
+
+### Pasos:
+1. Abrir Android Studio e importar el proyecto `GestionaApp/` 
+2. Arrancar la aplicación de escritorio
+3. Ejecutar la app en el emulador de Android Studio
+
+La app usa la dirección `10.0.2.2:8080` para conectarse a la aplicación de escritorio, que es la IP que el emulador de Android asigna automáticamente al localhost del ordenador. Si se usa un dispositivo físico en lugar del emulador, hay que cambiar esa IP por la IP local del ordenador en el fichero `ClienteRetrofit.kt`.
+
+## Autora
+
+Alba Vena García - 2VIFC302 - CIFP La Laboral de Gijón - 2025/2026

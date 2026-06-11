@@ -42,7 +42,7 @@ fun PantallaDatos(
             .fillMaxSize()
             .background(AzulClaro)
     ) {
-        // cabecera
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -69,7 +69,6 @@ fun PantallaDatos(
             }
         }
 
-        // contenido con scroll
         Column(
             modifier = Modifier
                 .fillMaxSize()
