@@ -42,7 +42,7 @@ import utils.Transformador;
  * @since 2026
  */
 @Service
-public class ServicioInformes {
+public class InformesService {
 	
 	@Autowired
 	private FCTRepository fctRepository;

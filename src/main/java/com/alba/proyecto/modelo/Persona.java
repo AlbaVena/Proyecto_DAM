@@ -168,8 +168,7 @@ public class Persona implements Serializable{
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return getNombreCompleto();
 	}
 	
 	public String getNombreCompleto() {

@@ -18,7 +18,6 @@ import jakarta.persistence.Id;
 @Entity
 public class FaltaAsistencia {
 	
-	//TODO anotaciones por terminar
 	
 	@Id
 	private Long id;

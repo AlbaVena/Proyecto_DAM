@@ -25,7 +25,7 @@ import java.util.List;
 import com.alba.proyecto.modelo.FCT;
 import com.alba.proyecto.modelo.TutorEmpresa;
 import com.alba.proyecto.repositorios.FCTRepository;
-import com.alba.proyecto.services.ServicioInformes;
+import com.alba.proyecto.services.InformesService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -89,7 +89,7 @@ public class MenuTutorEmpresaController {
 	private FCTRepository fctRepository;
 
 	@Autowired
-	private ServicioInformes servicioInformes;
+	private InformesService servicioInformes;
 
 	@Autowired
 	private Sesion sesion;

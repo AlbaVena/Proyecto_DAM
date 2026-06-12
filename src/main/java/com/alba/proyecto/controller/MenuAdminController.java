@@ -23,7 +23,7 @@ import com.alba.proyecto.repositorios.EstudianteRepository;
 import com.alba.proyecto.repositorios.FCTRepository;
 import com.alba.proyecto.repositorios.TutorEmpresaRepository;
 import com.alba.proyecto.services.EmpresaService;
-import com.alba.proyecto.services.ServicioInformes;
+import com.alba.proyecto.services.InformesService;
 import com.alba.proyecto.services.Sesion;
 import com.alba.proyecto.services.UsuarioService;
 import utils.Transformador;
@@ -444,7 +444,7 @@ public class MenuAdminController {
 	private TutorEmpresaRepository tutorEmpresaRepository;
 
 	@Autowired
-	private ServicioInformes servicioInformes;
+	private InformesService servicioInformes;
 
 	// lista para la tabla de empresas
 	private ObservableList<Empresa> listaEmpresas = FXCollections.observableArrayList();
