@@ -10,6 +10,6 @@ package com.alba.proyecto.modelo;
  * @since 2026
  */
 public class Evaluacion {
-	//TODO completar
+	//TODO pendiente de implementar
 
 }

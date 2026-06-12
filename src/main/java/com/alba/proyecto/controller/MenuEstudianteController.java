@@ -26,9 +26,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import com.alba.proyecto.modelo.Estudiante;
-import com.alba.proyecto.services.ServicioInformes;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alba.proyecto.services.InformesService;
 
 /**
  * Clase MenuEstudianteController.
@@ -91,7 +89,7 @@ public class MenuEstudianteController {
     private ConfigurableApplicationContext context;
     
     @Autowired
-    private ServicioInformes servicioInformes;
+    private InformesService servicioInformes;
     
     
 

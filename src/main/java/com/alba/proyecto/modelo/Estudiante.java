@@ -39,7 +39,7 @@ public class Estudiante extends Persona implements Serializable {
 	@Column(name = "numero_ss", length = 12, nullable = false)
 	private String nSS;
 
-	/*
+	/**
 	 * Curso al que pertenece el Estudiante.
 	 */
 	@ManyToOne
