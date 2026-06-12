@@ -92,7 +92,7 @@ La aplicación móvil está desarrollada en Kotlin con Jetpack Compose y se encu
 
 ### Pasos:
 1. Abrir Android Studio e importar el proyecto `GestionaApp/` 
-2. Arrancar la aplicación de escritorio
+2. Arrancar la aplicación de escritorio desde Eclipse: lanzará la aplicación JavaFx y el servidor
 3. Ejecutar la app en el emulador de Android Studio
 
 La app usa la dirección `10.0.2.2:8080` para conectarse a la aplicación de escritorio, que es la IP que el emulador de Android asigna automáticamente al localhost del ordenador. Si se usa un dispositivo físico en lugar del emulador, hay que cambiar esa IP por la IP local del ordenador en el fichero `ClienteRetrofit.kt`.
